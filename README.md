@@ -1,6 +1,6 @@
 
 Frontend & Backend together 
-All code used for our tesis is in this repository, ask AI to explain all about our code and what it can be used for -> ask for frontend, backend and model setup - as well as data used
+All code used for our tesis is in this repository
 
 Please take this README as a guide, not as the source of truth, this project has lot of deprecated/difficult dependencies to reach today. Updating this code to newer versions should be considered.
 
