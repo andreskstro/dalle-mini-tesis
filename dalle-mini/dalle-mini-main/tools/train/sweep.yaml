@@ -1,0 +1,100 @@
+project: dalle-mini
+entity: castro-andres-universidad-metropolitana
+method: bayes
+metric:
+  name: eval/loss
+  goal: minimize
+
+parameters:
+  learning_rate:
+    distribution: log_uniform_values
+    values: [5e-5, 8e-5, 1e-4, 2e-4, 3e-4]
+  warmup_steps:
+    distribution: int_uniform
+    min: 600
+    max: 1400
+  beta2:
+    values: [0.97, 0.98, 0.99]
+  weight_decay:
+    distribution: uniform
+    min: 0.0
+    max: 0.05
+  max_grad_norm:
+    values: [0.5, 1.0]
+  # fijos
+  per_device_train_batch_size:
+    value: 1
+  gradient_accumulation_steps:
+    value: 256
+  lr_decay:
+    value: linear
+  optim:
+    value: adam
+  num_train_epochs:
+    value: 60
+  dtype:
+    value: bfloat16
+
+early_terminate:
+  type: hyperband
+  min_iter: 3
+  eta: 3
+
+command:
+  - ${env}
+  - python
+  - ./tools/train/train.py
+  - --config_name
+  - ./tools/train/config/mini/config.json
+  - --tokenizer_name
+  - dalle-mini/dalle-mini
+  - --train_file
+  - ./tools/dataset/encoded_data/train/*.parquet
+  - --validation_file
+  - ./tools/dataset/encoded_data/val/*.parquet
+  - --output_dir
+  - ./outputs/sweep-${wandb.run.id}
+  - --do_train
+  - --do_eval
+  - --per_device_train_batch_size
+  - ${per_device_train_batch_size}
+  - --gradient_accumulation_steps
+  - ${gradient_accumulation_steps}
+  - --gradient_checkpointing
+  - --learning_rate
+  - ${learning_rate}
+  - --warmup_steps
+  - ${warmup_steps}
+  - --lr_decay
+  - ${lr_decay}
+  - --optim
+  - ${optim}
+  - --beta1
+  - 0.9
+  - --beta2
+  - ${beta2}
+  - --dtype
+  - ${dtype}
+  - --max_grad_norm
+  - ${max_grad_norm}
+  - --adam_epsilon
+  - 1e-8
+  - --weight_decay
+  - ${weight_decay}
+  - --eval_steps
+  - 250
+  - --logging_steps
+  - 20
+  - --log_model
+  - True
+  - --streaming
+  - False
+  - --multi_eval_ds
+  - --restore_state
+  - False
+  - --wandb_project
+  - ${project}
+  - --wandb_entity
+  - ${entity}
+  - --wandb_job_type
+  - sweep

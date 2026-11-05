@@ -1,0 +1,69 @@
+program: ./tools/train/train.py
+method: grid
+metric:
+  name: eval/loss
+  goal: minimize
+
+parameters:
+  config_name:
+    value: ./tools/train/config/mini/config.json
+  tokenizer_name:
+    value: dalle-mini/dalle-mini
+  dataset_repo_or_path:
+    value: parquet
+  train_file:
+    value: ./tools/dataset/encoded_data/train/*.parquet
+  validation_file:
+    value: ./tools/dataset/encoded_data/val/*.parquet
+
+  output_dir:
+    value: ./outputs/sweep_exploracion
+  do_train:
+    value: True
+  do_eval:
+    value: True
+  streaming:
+    value: False
+  log_model:
+    value: True
+  restore_state:
+    value: False
+
+  optim:
+    value: adam
+  beta1:
+    value: 0.9
+  beta2:
+    values: [0.97, 0.98]
+  adam_epsilon:
+    value: 1e-8
+  weight_decay:
+    value: 0.05
+  learning_rate:
+    values: [8e-5, 1e-4, 1.5e-4]
+  warmup_steps:
+    values: [300, 600]
+  lr_decay:
+    value: linear
+  max_grad_norm:
+    value: 1.0
+
+  per_device_train_batch_size:
+    value: 1
+  gradient_accumulation_steps:
+    value: 64
+  gradient_checkpointing:
+    value: True
+  num_train_epochs:
+    value: 5
+  logging_steps:
+    value: 20
+  eval_steps:
+    value: 250
+
+  wandb_project:
+    value: dalle-mini
+  wandb_entity:
+    value: castro-andres-universidad-metropolitana
+  wandb_job_type:
+    value: sweep_exploracion
