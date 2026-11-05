@@ -1,0 +1,31 @@
+# Dependencies / virtual environments
+node_modules/
+venv/
+.venv/
+env/
+env310/
+env-back/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Build output
+dist/
+dist-ssr/
+build/
+
+# Secrets
+.env
+.env.*
+
+# Logs
+*.log
+
+# Windows/WSL junk
+*Zone.Identifier
+Thumbs.db
+.DS_Store
+
+# Large training data (4+ GB, too big for GitHub)
+Tesis/tesisfront/train_data/

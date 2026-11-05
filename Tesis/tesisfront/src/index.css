@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* indica al navegador el esquema de color activo */
+:root { color-scheme: light; }
+.dark { color-scheme: dark; }

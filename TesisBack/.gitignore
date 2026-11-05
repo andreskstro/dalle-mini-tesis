@@ -1,0 +1,8 @@
+node_modules/
+env310/
+env-back/
+dist/
+build/
+.vscode/
+*.log
+.env

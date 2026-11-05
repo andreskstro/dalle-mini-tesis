@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+pydantic
+python-dotenv
+huggingface_hub
+numpy
+Pillow
+torch
+torchvision
+open-clip-torch
+ftfy

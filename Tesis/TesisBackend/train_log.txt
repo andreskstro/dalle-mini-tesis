@@ -1,0 +1,2226 @@
+WARNING:jax.experimental.compilation_cache.compilation_cache:Initialized persistent compilation cache at jax_cache
+INFO:__main__:Training/evaluation parameters TrainingArguments(output_dir='./outputs/dalle-mini-finetuned', overwrite_output_dir=True, do_train=True, do_eval=False, per_device_train_batch_size=1, per_device_eval_batch_size=1, gradient_accumulation_steps=1, gradient_checkpointing=True, learning_rate=0.0001, optim='adam', weight_decay=0.0, beta1=0.9, beta2=0.999, adam_epsilon=1e-08, max_grad_norm=1.0, block_size=1024, preconditioning_compute_steps=10, skip_preconditioning_dim_size_gt=4096, graft_type='rmsprop_normalized', nesterov=False, optim_quantized=False, shard_shampoo_across='dp', num_train_epochs=3, warmup_steps=0, lr_decay='linear', lr_transition_steps=None, lr_decay_rate=None, lr_staircase=False, lr_offset=0, logging_steps=40, eval_steps=400, save_steps=4000, log_model=False, log_norm_steps=40, log_histogram_steps=False, seed_model=42, embeddings_only=False, init_embeddings=False, tune_last_decoder_ffn=False, wandb_entity=None, wandb_project='dalle-mini', wandb_job_type='Seq2Seq', assert_TPU_available=False, use_vmap_trick=True, mp_devices=1, dp_devices=1)
+WARNING:datasets.builder:Using custom data configuration default-c6fc4ae6ae266174
+WARNING:datasets.builder:Reusing dataset parquet (/home/kstro/.cache/huggingface/datasets/parquet/default-c6fc4ae6ae266174/0.0.0/2a3b91fbd88a2c90d1dbbb32b460cf621d31bd5b05b934492fdef7d8d6f236ec)
+  0%|          | 0/2 [00:00<?, ?it/s]100%|██████████| 2/2 [00:00<00:00, 1294.14it/s]
+INFO:__main__:Local TPUs: 1
+INFO:__main__:Global TPUs: 1
+wandb: Tracking run with wandb version 0.19.11
+wandb: W&B syncing is set to `offline` in this directory. Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+loading configuration file ./tools/train/config/mini/config_ft.json
+Model config DalleBartConfig {
+  "activation_dropout": 0.0,
+  "activation_function": "gelu",
+  "architectures": [
+    "eBart"
+  ],
+  "attention_dropout": 0.0,
+  "bos_token_id": 16385,
+  "d_model": 1024,
+  "decoder_attention_heads": 16,
+  "decoder_ffn_dim": 2730,
+  "decoder_layers": 12,
+  "decoder_start_token_id": 16384,
+  "do_sample": true,
+  "dropout": 0.0,
+  "encoder_attention_heads": 16,
+  "encoder_ffn_dim": 2730,
+  "encoder_layers": 12,
+  "encoder_vocab_size": 50264,
+  "eos_token_id": 16385,
+  "force_ln_scale": false,
+  "gradient_checkpointing": true,
+  "image_length": 256,
+  "image_vocab_size": 16384,
+  "init_std": 0.02,
+  "is_encoder_decoder": true,
+  "ln_positions": "normformer",
+  "ln_type": "layernorm",
+  "max_length": 257,
+  "max_text_length": 64,
+  "min_length": 257,
+  "model_type": "dallebart",
+  "normalize_text": true,
+  "pad_token_id": 16385,
+  "scale_embedding": false,
+  "sinkhorn_iters": 1,
+  "tau_init": 0.05,
+  "tie_word_embeddings": false,
+  "transformers_version": "4.25.1",
+  "use_absolute_position_embeddings": true,
+  "use_alibi": false,
+  "use_bias": false,
+  "use_cache": false,
+  "use_cosine_attention": false,
+  "use_deepnet_scaling": false,
+  "use_final_ln_decoder": true,
+  "use_final_ln_encoder": true,
+  "use_glu": true,
+  "use_head_scale": false,
+  "use_scan": true,
+  "use_subln_init": false,
+  "use_swin_position_embeddings": false
+}
+
+loading weights file ./outputs/dalle-mini-finetuned/flax_model.msgpack
+Model weights are not initialized as `_do_init` is set to `False`. Make sure to call `DalleBart.init_weights` manually to initialize the weights.
+All model checkpoint weights were used when initializing DalleBart.
+
+All the weights of DalleBart were initialized from the model checkpoint at ./outputs/dalle-mini-finetuned.
+If your task is similar to the task the model of the checkpoint was trained on, you can already use DalleBart for predictions without further training.
+loading file vocab.json
+loading file merges.txt
+loading file tokenizer.json
+loading file added_tokens.json
+loading file special_tokens_map.json
+loading file tokenizer_config.json
+WARNING:datasets.arrow_dataset:Loading cached processed dataset at /home/kstro/.cache/huggingface/datasets/parquet/default-c6fc4ae6ae266174/0.0.0/2a3b91fbd88a2c90d1dbbb32b460cf621d31bd5b05b934492fdef7d8d6f236ec/cache-b3db0edd33e4ce68.arrow
+WARNING:datasets.arrow_dataset:Loading cached processed dataset at /home/kstro/.cache/huggingface/datasets/parquet/default-c6fc4ae6ae266174/0.0.0/2a3b91fbd88a2c90d1dbbb32b460cf621d31bd5b05b934492fdef7d8d6f236ec/cache-8e3d3609c8781c05.arrow
+DEBUG: Preprocessing - self.streaming: False
+DEBUG: Preprocessing - train_dataset type: <class 'datasets.arrow_dataset.Dataset'>
+DEBUG: Preprocessing - train_dataset content: Dataset({
+    features: ['filename', 'caption', 'encoding'],
+    num_rows: 1025
+})
+DEBUG: Preprocessing - Attempting .map() on train_dataset, type: <class 'datasets.arrow_dataset.Dataset'>
+WARNING:datasets.arrow_dataset:Loading cached processed dataset at /home/kstro/.cache/huggingface/datasets/parquet/default-c6fc4ae6ae266174/0.0.0/2a3b91fbd88a2c90d1dbbb32b460cf621d31bd5b05b934492fdef7d8d6f236ec/cache-1cf40bac226efc84.arrow
+loading file vocab.json
+loading file merges.txt
+loading file tokenizer.json
+loading file added_tokens.json
+loading file special_tokens_map.json
+loading file tokenizer_config.json
+loading configuration file ./outputs/dalle-mini-finetuned/config.json
+Model config DalleBartConfig {
+  "activation_dropout": 0.0,
+  "activation_function": "gelu",
+  "architectures": [
+    "eBart"
+  ],
+  "attention_dropout": 0.0,
+  "bos_token_id": 16385,
+  "d_model": 1024,
+  "decoder_attention_heads": 16,
+  "decoder_ffn_dim": 2730,
+  "decoder_layers": 12,
+  "decoder_start_token_id": 16384,
+  "do_sample": true,
+  "dropout": 0.0,
+  "encoder_attention_heads": 16,
+  "encoder_ffn_dim": 2730,
+  "encoder_layers": 12,
+  "encoder_vocab_size": 50264,
+  "eos_token_id": 16385,
+  "force_ln_scale": false,
+  "gradient_checkpointing": true,
+  "image_length": 256,
+  "image_vocab_size": 16384,
+  "init_std": 0.02,
+  "is_encoder_decoder": true,
+  "ln_positions": "normformer",
+  "ln_type": "layernorm",
+  "max_length": 257,
+  "max_text_length": 64,
+  "min_length": 257,
+  "model_type": "dallebart",
+  "normalize_text": true,
+  "pad_token_id": 16385,
+  "scale_embedding": false,
+  "sinkhorn_iters": 1,
+  "tau_init": 0.05,
+  "tie_word_embeddings": false,
+  "transformers_version": "4.25.1",
+  "use_absolute_position_embeddings": true,
+  "use_alibi": false,
+  "use_bias": false,
+  "use_cache": false,
+  "use_cosine_attention": false,
+  "use_deepnet_scaling": false,
+  "use_final_ln_decoder": true,
+  "use_final_ln_encoder": true,
+  "use_glu": true,
+  "use_head_scale": false,
+  "use_scan": true,
+  "use_subln_init": false,
+  "use_swin_position_embeddings": false
+}
+
+INFO:__main__:***** Running training *****
+INFO:__main__:  Num examples = 1025
+INFO:__main__:  Num Epochs = 3
+INFO:__main__:  Batch size per dp device = 1
+INFO:__main__:  Number of devices = 1
+INFO:__main__:  Gradient accumulation steps = 1
+INFO:__main__:  Batch size per update = 1
+INFO:__main__:  Model parameters = 437,833,712
+INFO:__main__:Learning rate config: lr=0.0001, warmup_steps=0
+INFO:__main__:Learning rate at step 0: 9.999999747378752e-05
+INFO:__main__:Learning rate at step 100: 9.674796456238255e-05
+INFO:__main__:  Mesh shape: (1, 1)
+INFO:__main__:  Creating state
+INFO:__main__:EB tracking disabled (set EB_TRACKING_ENABLED=1 to enable)
+Epoch ... (1/3):   0%|          | 0/3 [00:00<?, ?it/s]INFO:__main__:  Ready to start training
+
+Training...:   0%|          | 0/1025 [00:00<?, ?it/s][A
+Training...:   0%|          | 1/1025 [00:08<2:19:07,  8.15s/it][A
+Training...:   0%|          | 2/1025 [00:13<1:53:44,  6.67s/it][A
+Training...:   0%|          | 3/1025 [00:17<1:28:19,  5.19s/it][A
+Training...:   0%|          | 4/1025 [00:22<1:31:10,  5.36s/it][A
+Training...:   0%|          | 5/1025 [00:28<1:35:25,  5.61s/it][A
+Training...:   1%|          | 6/1025 [00:34<1:35:27,  5.62s/it][A
+Training...:   1%|          | 7/1025 [00:39<1:32:39,  5.46s/it][A
+Training...:   1%|          | 8/1025 [00:44<1:28:52,  5.24s/it][A
+Training...:   1%|          | 9/1025 [00:49<1:26:01,  5.08s/it][A
+Training...:   1%|          | 10/1025 [00:54<1:24:55,  5.02s/it][A
+Training...:   1%|          | 11/1025 [00:58<1:24:17,  4.99s/it][A
+Training...:   1%|          | 12/1025 [01:03<1:22:36,  4.89s/it][A
+Training...:   1%|▏         | 13/1025 [01:08<1:20:02,  4.75s/it][A
+Training...:   1%|▏         | 14/1025 [01:13<1:26:05,  5.11s/it][A
+Training...:   1%|▏         | 15/1025 [01:18<1:25:16,  5.07s/it][A
+Training...:   2%|▏         | 16/1025 [01:23<1:22:10,  4.89s/it][A
+Training...:   2%|▏         | 17/1025 [01:27<1:19:06,  4.71s/it][A
+Training...:   2%|▏         | 18/1025 [01:32<1:21:43,  4.87s/it][A
+Training...:   2%|▏         | 19/1025 [01:37<1:18:43,  4.70s/it][A
+Training...:   2%|▏         | 20/1025 [01:41<1:17:40,  4.64s/it][A
+Training...:   2%|▏         | 21/1025 [01:46<1:15:45,  4.53s/it][A
+Training...:   2%|▏         | 22/1025 [01:50<1:15:51,  4.54s/it][A
+Training...:   2%|▏         | 23/1025 [01:54<1:14:29,  4.46s/it][A
+Training...:   2%|▏         | 24/1025 [01:59<1:14:39,  4.48s/it][A
+Training...:   2%|▏         | 25/1025 [02:03<1:13:41,  4.42s/it][A
+Training...:   3%|▎         | 26/1025 [02:08<1:17:31,  4.66s/it][A
+Training...:   3%|▎         | 27/1025 [02:09<56:24,  3.39s/it]  [A
+Training...:   3%|▎         | 28/1025 [02:19<1:28:03,  5.30s/it][A
+Training...:   3%|▎         | 29/1025 [02:24<1:27:41,  5.28s/it][A
+Training...:   3%|▎         | 30/1025 [02:29<1:28:35,  5.34s/it][A
+Training...:   3%|▎         | 31/1025 [02:35<1:28:52,  5.36s/it][A
+Training...:   3%|▎         | 32/1025 [02:41<1:34:55,  5.74s/it][A
+Training...:   3%|▎         | 33/1025 [02:47<1:32:20,  5.59s/it][A
+Training...:   3%|▎         | 34/1025 [02:52<1:30:20,  5.47s/it][A
+Training...:   3%|▎         | 35/1025 [02:57<1:27:45,  5.32s/it][A
+Training...:   4%|▎         | 36/1025 [03:01<1:23:26,  5.06s/it][A
+Training...:   4%|▎         | 37/1025 [03:05<1:19:23,  4.82s/it][A
+Training...:   4%|▎         | 38/1025 [03:11<1:21:34,  4.96s/it][A
+Training...:   4%|▍         | 39/1025 [03:15<1:18:10,  4.76s/it][A
+Training...:   4%|▍         | 40/1025 [03:20<1:16:56,  4.69s/it][A
+Training...:   4%|▍         | 41/1025 [03:24<1:14:43,  4.56s/it][A
+Training...:   4%|▍         | 42/1025 [03:28<1:14:05,  4.52s/it][A
+Training...:   4%|▍         | 43/1025 [03:33<1:12:55,  4.46s/it][A
+Training...:   4%|▍         | 44/1025 [03:37<1:12:57,  4.46s/it][A
+Training...:   4%|▍         | 45/1025 [03:41<1:12:08,  4.42s/it][A
+Training...:   4%|▍         | 46/1025 [03:47<1:16:10,  4.67s/it][A
+Training...:   5%|▍         | 47/1025 [03:51<1:14:45,  4.59s/it][A
+Training...:   5%|▍         | 48/1025 [03:55<1:13:51,  4.54s/it][A
+Training...:   5%|▍         | 49/1025 [04:00<1:13:16,  4.50s/it][A
+Training...:   5%|▍         | 50/1025 [04:04<1:12:37,  4.47s/it][A
+Training...:   5%|▍         | 51/1025 [04:09<1:12:23,  4.46s/it][A
+Training...:   5%|▌         | 52/1025 [04:09<53:52,  3.32s/it]  [A
+Training...:   5%|▌         | 53/1025 [04:21<1:34:31,  5.84s/it][A
+Training...:   5%|▌         | 54/1025 [04:30<1:48:06,  6.68s/it][A
+Training...:   5%|▌         | 55/1025 [04:39<1:59:05,  7.37s/it][A
+Training...:   5%|▌         | 56/1025 [04:44<1:50:08,  6.82s/it][A
+Training...:   6%|▌         | 57/1025 [04:51<1:49:06,  6.76s/it][A
+Training...:   6%|▌         | 58/1025 [04:55<1:36:56,  6.01s/it][A
+Training...:   6%|▌         | 59/1025 [05:00<1:29:42,  5.57s/it][A
+Training...:   6%|▌         | 60/1025 [05:04<1:22:56,  5.16s/it][A
+Training...:   6%|▌         | 61/1025 [05:08<1:19:26,  4.94s/it][A
+Training...:   6%|▌         | 62/1025 [05:12<1:15:40,  4.72s/it][A
+Training...:   6%|▌         | 63/1025 [05:17<1:14:12,  4.63s/it][A
+Training...:   6%|▌         | 64/1025 [05:21<1:12:19,  4.52s/it][A
+Training...:   6%|▋         | 65/1025 [05:26<1:16:03,  4.75s/it][A
+Training...:   6%|▋         | 66/1025 [05:31<1:13:42,  4.61s/it][A
+Training...:   7%|▋         | 67/1025 [05:35<1:12:58,  4.57s/it][A
+Training...:   7%|▋         | 68/1025 [05:39<1:11:31,  4.48s/it][A
+Training...:   7%|▋         | 69/1025 [05:44<1:11:12,  4.47s/it][A
+Training...:   7%|▋         | 70/1025 [05:48<1:10:03,  4.40s/it][A
+Training...:   7%|▋         | 71/1025 [05:53<1:10:15,  4.42s/it][A
+Training...:   7%|▋         | 72/1025 [05:58<1:13:44,  4.64s/it][A
+Training...:   7%|▋         | 73/1025 [06:02<1:12:46,  4.59s/it][A
+Training...:   7%|▋         | 74/1025 [06:07<1:11:33,  4.51s/it][A
+Training...:   7%|▋         | 75/1025 [06:11<1:11:07,  4.49s/it][A
+Training...:   7%|▋         | 76/1025 [06:12<52:22,  3.31s/it]  [A
+Training...:   8%|▊         | 77/1025 [06:20<1:18:03,  4.94s/it][A
+Training...:   8%|▊         | 78/1025 [06:26<1:20:19,  5.09s/it][A
+Training...:   8%|▊         | 79/1025 [06:31<1:21:49,  5.19s/it][A
+Training...:   8%|▊         | 80/1025 [06:35<1:17:25,  4.92s/it][A
+Training...:   8%|▊         | 81/1025 [06:40<1:15:09,  4.78s/it][A
+Training...:   8%|▊         | 82/1025 [06:44<1:12:16,  4.60s/it][A
+Training...:   8%|▊         | 83/1025 [06:49<1:11:47,  4.57s/it][A
+Training...:   8%|▊         | 84/1025 [06:53<1:10:10,  4.48s/it][A
+Training...:   8%|▊         | 85/1025 [06:57<1:10:17,  4.49s/it][A
+Training...:   8%|▊         | 86/1025 [07:02<1:12:49,  4.65s/it][A
+Training...:   8%|▊         | 87/1025 [07:07<1:12:24,  4.63s/it][A
+Training...:   9%|▊         | 88/1025 [07:11<1:10:36,  4.52s/it][A
+Training...:   9%|▊         | 89/1025 [07:16<1:09:36,  4.46s/it][A
+Training...:   9%|▉         | 90/1025 [07:20<1:07:56,  4.36s/it][A
+Training...:   9%|▉         | 91/1025 [07:24<1:08:10,  4.38s/it][A
+Training...:   9%|▉         | 92/1025 [07:28<1:07:44,  4.36s/it][A
+Training...:   9%|▉         | 93/1025 [07:33<1:08:31,  4.41s/it][A
+Training...:   9%|▉         | 94/1025 [07:38<1:11:50,  4.63s/it][A
+Training...:   9%|▉         | 95/1025 [07:43<1:11:27,  4.61s/it][A
+Training...:   9%|▉         | 96/1025 [07:47<1:09:15,  4.47s/it][A
+Training...:   9%|▉         | 97/1025 [07:51<1:08:35,  4.43s/it][A
+Training...:  10%|▉         | 98/1025 [07:55<1:07:23,  4.36s/it][A
+Training...:  10%|▉         | 99/1025 [08:00<1:07:37,  4.38s/it][A
+Training...:  10%|▉         | 100/1025 [08:04<1:06:48,  4.33s/it][A
+Training...:  10%|▉         | 101/1025 [08:09<1:11:13,  4.63s/it][A
+Training...:  10%|▉         | 102/1025 [08:14<1:09:40,  4.53s/it][A
+Training...:  10%|█         | 103/1025 [08:14<51:34,  3.36s/it]  [A
+Training...:  10%|█         | 104/1025 [08:24<1:22:40,  5.39s/it][A
+Training...:  10%|█         | 105/1025 [08:31<1:26:29,  5.64s/it][A
+Training...:  10%|█         | 106/1025 [08:40<1:43:03,  6.73s/it][A
+Training...:  10%|█         | 107/1025 [08:47<1:45:36,  6.90s/it][A
+Training...:  11%|█         | 108/1025 [08:57<1:56:56,  7.65s/it][A
+Training...:  11%|█         | 109/1025 [09:03<1:49:28,  7.17s/it][A
+Training...:  11%|█         | 110/1025 [09:12<1:58:39,  7.78s/it][A
+Training...:  11%|█         | 111/1025 [09:18<1:52:05,  7.36s/it][A
+Training...:  11%|█         | 112/1025 [09:24<1:44:49,  6.89s/it][A
+Training...:  11%|█         | 113/1025 [09:29<1:38:00,  6.45s/it][A
+Training...:  11%|█         | 114/1025 [09:35<1:34:37,  6.23s/it][A
+Training...:  11%|█         | 115/1025 [09:40<1:28:37,  5.84s/it][A
+Training...:  11%|█▏        | 116/1025 [09:45<1:25:50,  5.67s/it][A
+Training...:  11%|█▏        | 117/1025 [09:51<1:26:53,  5.74s/it][A
+Training...:  12%|█▏        | 118/1025 [09:56<1:21:15,  5.38s/it][A
+Training...:  12%|█▏        | 119/1025 [10:00<1:15:57,  5.03s/it][A
+Training...:  12%|█▏        | 120/1025 [10:04<1:13:20,  4.86s/it][A
+Training...:  12%|█▏        | 121/1025 [10:08<1:09:29,  4.61s/it][A
+Training...:  12%|█▏        | 122/1025 [10:13<1:08:40,  4.56s/it][A
+Training...:  12%|█▏        | 123/1025 [10:17<1:07:02,  4.46s/it][A
+Training...:  12%|█▏        | 124/1025 [10:18<49:44,  3.31s/it]  [A
+Training...:  12%|█▏        | 125/1025 [10:29<1:25:51,  5.72s/it][A
+Training...:  12%|█▏        | 126/1025 [10:38<1:38:51,  6.60s/it][A
+Training...:  12%|█▏        | 127/1025 [10:47<1:49:29,  7.32s/it][A
+Training...:  12%|█▏        | 128/1025 [10:52<1:41:31,  6.79s/it][A
+Training...:  13%|█▎        | 129/1025 [10:59<1:41:47,  6.82s/it][A
+Training...:  13%|█▎        | 130/1025 [11:04<1:33:26,  6.26s/it][A
+Training...:  13%|█▎        | 131/1025 [11:09<1:28:53,  5.97s/it][A
+Training...:  13%|█▎        | 132/1025 [11:14<1:23:29,  5.61s/it][A
+Training...:  13%|█▎        | 133/1025 [11:19<1:18:20,  5.27s/it][A
+Training...:  13%|█▎        | 134/1025 [11:23<1:13:44,  4.97s/it][A
+Training...:  13%|█▎        | 135/1025 [11:28<1:15:57,  5.12s/it][A
+Training...:  13%|█▎        | 136/1025 [11:33<1:12:29,  4.89s/it][A
+Training...:  13%|█▎        | 137/1025 [11:37<1:10:26,  4.76s/it][A
+Training...:  13%|█▎        | 138/1025 [11:41<1:07:57,  4.60s/it][A
+Training...:  14%|█▎        | 139/1025 [11:46<1:06:35,  4.51s/it][A
+Training...:  14%|█▎        | 140/1025 [11:50<1:05:05,  4.41s/it][A
+Training...:  14%|█▍        | 141/1025 [11:54<1:04:52,  4.40s/it][A
+Training...:  14%|█▍        | 142/1025 [11:59<1:03:59,  4.35s/it][A
+Training...:  14%|█▍        | 143/1025 [12:04<1:08:45,  4.68s/it][A
+Training...:  14%|█▍        | 144/1025 [12:08<1:06:52,  4.55s/it][A
+Training...:  14%|█▍        | 145/1025 [12:13<1:06:01,  4.50s/it][A
+Training...:  14%|█▍        | 146/1025 [12:17<1:04:28,  4.40s/it][A
+Training...:  14%|█▍        | 147/1025 [12:21<1:04:00,  4.37s/it][A
+Training...:  14%|█▍        | 148/1025 [12:22<47:10,  3.23s/it]  [A
+Training...:  15%|█▍        | 149/1025 [12:31<1:14:53,  5.13s/it][A
+Training...:  15%|█▍        | 150/1025 [12:41<1:33:57,  6.44s/it][A
+Training...:  15%|█▍        | 151/1025 [12:50<1:44:19,  7.16s/it][A
+Training...:  15%|█▍        | 152/1025 [12:55<1:36:14,  6.61s/it][A
+Training...:  15%|█▍        | 153/1025 [13:00<1:29:44,  6.18s/it][A
+Training...:  15%|█▌        | 154/1025 [13:05<1:24:33,  5.82s/it][A
+Training...:  15%|█▌        | 155/1025 [13:11<1:26:15,  5.95s/it][A
+Training...:  15%|█▌        | 156/1025 [13:16<1:21:36,  5.63s/it][A
+Training...:  15%|█▌        | 157/1025 [13:21<1:19:36,  5.50s/it][A
+Training...:  15%|█▌        | 158/1025 [13:26<1:16:40,  5.31s/it][A
+Training...:  16%|█▌        | 159/1025 [13:31<1:15:58,  5.26s/it][A
+Training...:  16%|█▌        | 160/1025 [13:36<1:11:22,  4.95s/it][A
+Training...:  16%|█▌        | 161/1025 [13:41<1:12:38,  5.04s/it][A
+Training...:  16%|█▌        | 162/1025 [13:45<1:08:56,  4.79s/it][A
+Training...:  16%|█▌        | 163/1025 [13:49<1:06:48,  4.65s/it][A
+Training...:  16%|█▌        | 164/1025 [13:54<1:04:20,  4.48s/it][A
+Training...:  16%|█▌        | 165/1025 [13:58<1:03:54,  4.46s/it][A
+Training...:  16%|█▌        | 166/1025 [14:02<1:02:42,  4.38s/it][A
+Training...:  16%|█▋        | 167/1025 [14:07<1:02:47,  4.39s/it][A
+Training...:  16%|█▋        | 168/1025 [14:11<1:01:58,  4.34s/it][A
+Training...:  16%|█▋        | 169/1025 [14:16<1:06:27,  4.66s/it][A
+Training...:  17%|█▋        | 170/1025 [14:20<1:04:36,  4.53s/it][A
+Training...:  17%|█▋        | 171/1025 [14:25<1:03:49,  4.48s/it][A
+Training...:  17%|█▋        | 172/1025 [14:25<47:13,  3.32s/it]  [A
+Training...:  17%|█▋        | 173/1025 [14:34<1:11:10,  5.01s/it][A
+Training...:  17%|█▋        | 174/1025 [14:40<1:15:33,  5.33s/it][A
+Training...:  17%|█▋        | 175/1025 [14:47<1:21:11,  5.73s/it][A
+Training...:  17%|█▋        | 176/1025 [14:51<1:14:57,  5.30s/it][A
+Training...:  17%|█▋        | 177/1025 [14:56<1:11:58,  5.09s/it][A
+Training...:  17%|█▋        | 178/1025 [15:00<1:08:02,  4.82s/it][A
+Training...:  17%|█▋        | 179/1025 [15:04<1:05:51,  4.67s/it][A
+Training...:  18%|█▊        | 180/1025 [15:09<1:03:58,  4.54s/it][A
+Training...:  18%|█▊        | 181/1025 [15:13<1:03:53,  4.54s/it][A
+Training...:  18%|█▊        | 182/1025 [15:17<1:02:29,  4.45s/it][A
+Training...:  18%|█▊        | 183/1025 [15:23<1:06:25,  4.73s/it][A
+Training...:  18%|█▊        | 184/1025 [15:27<1:03:54,  4.56s/it][A
+Training...:  18%|█▊        | 185/1025 [15:31<1:02:48,  4.49s/it][A
+Training...:  18%|█▊        | 186/1025 [15:36<1:01:53,  4.43s/it][A
+Training...:  18%|█▊        | 187/1025 [15:40<1:01:58,  4.44s/it][A
+Training...:  18%|█▊        | 188/1025 [15:44<1:01:08,  4.38s/it][A
+Training...:  18%|█▊        | 189/1025 [15:49<1:01:23,  4.41s/it][A
+Training...:  19%|█▊        | 190/1025 [15:54<1:04:39,  4.65s/it][A
+Training...:  19%|█▊        | 191/1025 [15:59<1:03:52,  4.60s/it][A
+Training...:  19%|█▊        | 192/1025 [16:03<1:02:18,  4.49s/it][A
+Training...:  19%|█▉        | 193/1025 [16:07<1:01:53,  4.46s/it][A
+Training...:  19%|█▉        | 194/1025 [16:11<1:00:58,  4.40s/it][A
+Training...:  19%|█▉        | 195/1025 [16:16<1:00:55,  4.40s/it][A
+Training...:  19%|█▉        | 196/1025 [16:20<1:00:36,  4.39s/it][A
+Training...:  19%|█▉        | 197/1025 [16:25<1:00:33,  4.39s/it][A
+Training...:  19%|█▉        | 198/1025 [16:30<1:04:12,  4.66s/it][A
+Training...:  19%|█▉        | 199/1025 [16:30<47:30,  3.45s/it]  [A
+Training...:  20%|█▉        | 200/1025 [16:39<1:07:54,  4.94s/it][A
+Training...:  20%|█▉        | 201/1025 [16:45<1:11:00,  5.17s/it][A
+Training...:  20%|█▉        | 202/1025 [16:53<1:24:07,  6.13s/it][A
+Training...:  20%|█▉        | 203/1025 [17:02<1:33:53,  6.85s/it][A
+Training...:  20%|█▉        | 204/1025 [17:10<1:40:05,  7.32s/it][A
+Training...:  20%|██        | 205/1025 [17:16<1:33:35,  6.85s/it][A
+Training...:  20%|██        | 206/1025 [17:22<1:30:52,  6.66s/it][A
+Training...:  20%|██        | 207/1025 [17:28<1:26:35,  6.35s/it][A
+Training...:  20%|██        | 208/1025 [17:34<1:25:37,  6.29s/it][A
+Training...:  20%|██        | 209/1025 [17:39<1:20:11,  5.90s/it][A
+Training...:  20%|██        | 210/1025 [17:44<1:17:35,  5.71s/it][A
+Training...:  21%|██        | 211/1025 [17:49<1:14:22,  5.48s/it][A
+Training...:  21%|██        | 212/1025 [17:54<1:13:27,  5.42s/it][A
+Training...:  21%|██        | 213/1025 [17:59<1:11:43,  5.30s/it][A
+Training...:  21%|██        | 214/1025 [18:05<1:14:58,  5.55s/it][A
+Training...:  21%|██        | 215/1025 [18:10<1:09:40,  5.16s/it][A
+Training...:  21%|██        | 216/1025 [18:14<1:06:39,  4.94s/it][A
+Training...:  21%|██        | 217/1025 [18:18<1:03:47,  4.74s/it][A
+Training...:  21%|██▏       | 218/1025 [18:23<1:02:27,  4.64s/it][A
+Training...:  21%|██▏       | 219/1025 [18:27<1:00:52,  4.53s/it][A
+Training...:  21%|██▏       | 220/1025 [18:31<1:00:29,  4.51s/it][A
+Training...:  22%|██▏       | 221/1025 [18:32<44:25,  3.31s/it]  [A
+Training...:  22%|██▏       | 222/1025 [18:42<1:13:09,  5.47s/it][A
+Training...:  22%|██▏       | 223/1025 [18:49<1:16:21,  5.71s/it][A
+Training...:  22%|██▏       | 224/1025 [18:58<1:29:05,  6.67s/it][A
+Training...:  22%|██▏       | 225/1025 [19:03<1:24:11,  6.31s/it][A
+Training...:  22%|██▏       | 226/1025 [19:09<1:21:56,  6.15s/it][A
+Training...:  22%|██▏       | 227/1025 [19:15<1:22:24,  6.20s/it][A
+Training...:  22%|██▏       | 228/1025 [19:20<1:15:28,  5.68s/it][A
+Training...:  22%|██▏       | 229/1025 [19:24<1:09:23,  5.23s/it][A
+Training...:  22%|██▏       | 230/1025 [19:28<1:06:22,  5.01s/it][A
+Training...:  23%|██▎       | 231/1025 [19:33<1:03:10,  4.77s/it][A
+Training...:  23%|██▎       | 232/1025 [19:37<1:02:04,  4.70s/it][A
+Training...:  23%|██▎       | 233/1025 [19:41<59:55,  4.54s/it]  [A
+Training...:  23%|██▎       | 234/1025 [19:47<1:02:55,  4.77s/it][A
+Training...:  23%|██▎       | 235/1025 [19:51<1:00:35,  4.60s/it][A
+Training...:  23%|██▎       | 236/1025 [19:55<59:46,  4.55s/it]  [A
+Training...:  23%|██▎       | 237/1025 [19:59<58:16,  4.44s/it][A
+Training...:  23%|██▎       | 238/1025 [20:04<58:03,  4.43s/it][A
+Training...:  23%|██▎       | 239/1025 [20:08<57:00,  4.35s/it][A
+Training...:  23%|██▎       | 240/1025 [20:12<57:29,  4.39s/it][A
+Training...:  24%|██▎       | 241/1025 [20:17<56:46,  4.34s/it][A
+Training...:  24%|██▎       | 242/1025 [20:22<1:00:20,  4.62s/it][A
+Training...:  24%|██▎       | 243/1025 [20:26<58:44,  4.51s/it]  [A
+Training...:  24%|██▍       | 244/1025 [20:31<58:03,  4.46s/it][A
+Training...:  24%|██▍       | 245/1025 [20:35<57:04,  4.39s/it][A
+Training...:  24%|██▍       | 246/1025 [20:35<42:20,  3.26s/it][A
+Training...:  24%|██▍       | 247/1025 [20:45<1:05:41,  5.07s/it][A
+Training...:  24%|██▍       | 248/1025 [20:50<1:06:03,  5.10s/it][A
+Training...:  24%|██▍       | 249/1025 [20:56<1:09:23,  5.37s/it][A
+Training...:  24%|██▍       | 250/1025 [21:00<1:06:36,  5.16s/it][A
+Training...:  24%|██▍       | 251/1025 [21:06<1:06:45,  5.17s/it][A
+Training...:  25%|██▍       | 252/1025 [21:11<1:05:20,  5.07s/it][A
+Training...:  25%|██▍       | 253/1025 [21:16<1:05:32,  5.09s/it][A
+Training...:  25%|██▍       | 254/1025 [21:21<1:04:37,  5.03s/it][A
+Training...:  25%|██▍       | 255/1025 [21:27<1:08:33,  5.34s/it][A
+Training...:  25%|██▍       | 256/1025 [21:32<1:06:43,  5.21s/it][A
+Training...:  25%|██▌       | 257/1025 [21:37<1:06:18,  5.18s/it][A
+Training...:  25%|██▌       | 258/1025 [21:42<1:05:23,  5.12s/it][A
+Training...:  25%|██▌       | 259/1025 [21:46<1:02:53,  4.93s/it][A
+Training...:  25%|██▌       | 260/1025 [21:50<1:00:05,  4.71s/it][A
+Training...:  25%|██▌       | 261/1025 [21:55<59:13,  4.65s/it]  [A
+Training...:  26%|██▌       | 262/1025 [22:00<1:00:52,  4.79s/it][A
+Training...:  26%|██▌       | 263/1025 [22:04<59:34,  4.69s/it]  [A
+Training...:  26%|██▌       | 264/1025 [22:09<57:50,  4.56s/it][A
+Training...:  26%|██▌       | 265/1025 [22:13<57:27,  4.54s/it][A
+Training...:  26%|██▌       | 266/1025 [22:17<56:07,  4.44s/it][A
+Training...:  26%|██▌       | 267/1025 [22:22<56:06,  4.44s/it][A
+Training...:  26%|██▌       | 268/1025 [22:26<55:19,  4.38s/it][A
+Training...:  26%|██▌       | 269/1025 [22:31<58:43,  4.66s/it][A
+Training...:  26%|██▋       | 270/1025 [22:36<57:25,  4.56s/it][A
+Training...:  26%|██▋       | 271/1025 [22:40<56:50,  4.52s/it][A
+Training...:  27%|██▋       | 272/1025 [22:41<41:43,  3.32s/it][A
+Training...:  27%|██▋       | 273/1025 [22:49<1:01:27,  4.90s/it][A
+Training...:  27%|██▋       | 274/1025 [22:58<1:14:31,  5.95s/it][A
+Training...:  27%|██▋       | 275/1025 [23:07<1:28:54,  7.11s/it][A
+Training...:  27%|██▋       | 276/1025 [23:13<1:22:25,  6.60s/it][A
+Training...:  27%|██▋       | 277/1025 [23:19<1:19:10,  6.35s/it][A
+Training...:  27%|██▋       | 278/1025 [23:24<1:15:37,  6.07s/it][A
+Training...:  27%|██▋       | 279/1025 [23:30<1:13:54,  5.94s/it][A
+Training...:  27%|██▋       | 280/1025 [23:35<1:10:11,  5.65s/it][A
+Training...:  27%|██▋       | 281/1025 [23:41<1:11:50,  5.79s/it][A
+Training...:  28%|██▊       | 282/1025 [23:46<1:08:42,  5.55s/it][A
+Training...:  28%|██▊       | 283/1025 [23:50<1:04:38,  5.23s/it][A
+Training...:  28%|██▊       | 284/1025 [23:54<1:01:02,  4.94s/it][A
+Training...:  28%|██▊       | 285/1025 [23:59<59:16,  4.81s/it]  [A
+Training...:  28%|██▊       | 286/1025 [24:03<57:12,  4.64s/it][A
+Training...:  28%|██▊       | 287/1025 [24:08<56:25,  4.59s/it][A
+Training...:  28%|██▊       | 288/1025 [24:13<58:22,  4.75s/it][A
+Training...:  28%|██▊       | 289/1025 [24:17<57:14,  4.67s/it][A
+Training...:  28%|██▊       | 290/1025 [24:22<55:46,  4.55s/it][A
+Training...:  28%|██▊       | 291/1025 [24:26<55:16,  4.52s/it][A
+Training...:  28%|██▊       | 292/1025 [24:30<54:37,  4.47s/it][A
+Training...:  29%|██▊       | 293/1025 [24:35<54:22,  4.46s/it][A
+Training...:  29%|██▊       | 294/1025 [24:39<53:59,  4.43s/it][A
+Training...:  29%|██▉       | 295/1025 [24:44<57:08,  4.70s/it][A
+Training...:  29%|██▉       | 296/1025 [24:45<42:04,  3.46s/it][A
+Training...:  29%|██▉       | 297/1025 [24:56<1:08:01,  5.61s/it][A
+Training...:  29%|██▉       | 298/1025 [25:02<1:09:40,  5.75s/it][A
+Training...:  29%|██▉       | 299/1025 [25:11<1:21:38,  6.75s/it][A
+Training...:  29%|██▉       | 300/1025 [25:18<1:23:24,  6.90s/it][A
+Training...:  29%|██▉       | 301/1025 [25:27<1:30:47,  7.52s/it][A
+Training...:  29%|██▉       | 302/1025 [25:33<1:26:21,  7.17s/it][A
+Training...:  30%|██▉       | 303/1025 [25:42<1:31:51,  7.63s/it][A
+Training...:  30%|██▉       | 304/1025 [25:47<1:23:18,  6.93s/it][A
+Training...:  30%|██▉       | 305/1025 [25:54<1:21:31,  6.79s/it][A
+Training...:  30%|██▉       | 306/1025 [25:59<1:14:20,  6.20s/it][A
+Training...:  30%|██▉       | 307/1025 [26:04<1:10:30,  5.89s/it][A
+Training...:  30%|███       | 308/1025 [26:09<1:06:49,  5.59s/it][A
+Training...:  30%|███       | 309/1025 [26:14<1:05:05,  5.45s/it][A
+Training...:  30%|███       | 310/1025 [26:18<1:00:22,  5.07s/it][A
+Training...:  30%|███       | 311/1025 [26:23<1:00:57,  5.12s/it][A
+Training...:  30%|███       | 312/1025 [26:27<57:22,  4.83s/it]  [A
+Training...:  31%|███       | 313/1025 [26:32<55:31,  4.68s/it][A
+Training...:  31%|███       | 314/1025 [26:36<53:34,  4.52s/it][A
+Training...:  31%|███       | 315/1025 [26:40<52:53,  4.47s/it][A
+Training...:  31%|███       | 316/1025 [26:44<51:41,  4.37s/it][A
+Training...:  31%|███       | 317/1025 [26:46<42:58,  3.64s/it][A
+Training...:  31%|███       | 318/1025 [26:47<31:38,  2.69s/it][A
+Training...:  31%|███       | 319/1025 [26:57<57:47,  4.91s/it][A
+Training...:  31%|███       | 320/1025 [27:03<1:02:03,  5.28s/it][A
+Training...:  31%|███▏      | 321/1025 [27:09<1:03:30,  5.41s/it][A
+Training...:  31%|███▏      | 322/1025 [27:13<59:19,  5.06s/it]  [A
+Training...:  32%|███▏      | 323/1025 [27:18<57:42,  4.93s/it][A
+Training...:  32%|███▏      | 324/1025 [27:22<55:07,  4.72s/it][A
+Training...:  32%|███▏      | 325/1025 [27:26<54:05,  4.64s/it][A
+Training...:  32%|███▏      | 326/1025 [27:32<56:05,  4.82s/it][A
+Training...:  32%|███▏      | 327/1025 [27:36<54:55,  4.72s/it][A
+Training...:  32%|███▏      | 328/1025 [27:40<53:00,  4.56s/it][A
+Training...:  32%|███▏      | 329/1025 [27:45<52:21,  4.51s/it][A
+Training...:  32%|███▏      | 330/1025 [27:49<51:25,  4.44s/it][A
+Training...:  32%|███▏      | 331/1025 [27:53<51:23,  4.44s/it][A
+Training...:  32%|███▏      | 332/1025 [27:58<50:28,  4.37s/it][A
+Training...:  32%|███▏      | 333/1025 [28:03<53:52,  4.67s/it][A
+Training...:  33%|███▎      | 334/1025 [28:07<52:32,  4.56s/it][A
+Training...:  33%|███▎      | 335/1025 [28:12<52:08,  4.53s/it][A
+Training...:  33%|███▎      | 336/1025 [28:16<50:56,  4.44s/it][A
+Training...:  33%|███▎      | 337/1025 [28:20<50:41,  4.42s/it][A
+Training...:  33%|███▎      | 338/1025 [28:25<49:41,  4.34s/it][A
+Training...:  33%|███▎      | 339/1025 [28:29<49:45,  4.35s/it][A
+Training...:  33%|███▎      | 340/1025 [28:33<49:11,  4.31s/it][A
+Training...:  33%|███▎      | 341/1025 [28:38<52:36,  4.62s/it][A
+Training...:  33%|███▎      | 342/1025 [28:43<51:37,  4.54s/it][A
+Training...:  33%|███▎      | 343/1025 [28:47<50:45,  4.46s/it][A
+Training...:  34%|███▎      | 344/1025 [28:51<50:02,  4.41s/it][A
+Training...:  34%|███▎      | 345/1025 [28:52<37:18,  3.29s/it][A
+Training...:  34%|███▍      | 346/1025 [29:01<56:59,  5.04s/it][A
+Training...:  34%|███▍      | 347/1025 [29:07<58:14,  5.15s/it][A
+Training...:  34%|███▍      | 348/1025 [29:13<1:01:49,  5.48s/it][A
+Training...:  34%|███▍      | 349/1025 [29:18<59:39,  5.30s/it]  [A
+Training...:  34%|███▍      | 350/1025 [29:23<59:03,  5.25s/it][A
+Training...:  34%|███▍      | 351/1025 [29:28<57:24,  5.11s/it][A
+Training...:  34%|███▍      | 352/1025 [29:32<54:34,  4.87s/it][A
+Training...:  34%|███▍      | 353/1025 [29:36<52:08,  4.66s/it][A
+Training...:  35%|███▍      | 354/1025 [29:40<51:09,  4.57s/it][A
+Training...:  35%|███▍      | 355/1025 [29:46<53:23,  4.78s/it][A
+Training...:  35%|███▍      | 356/1025 [29:50<52:11,  4.68s/it][A
+Training...:  35%|███▍      | 357/1025 [29:54<50:15,  4.51s/it][A
+Training...:  35%|███▍      | 358/1025 [29:59<49:31,  4.45s/it][A
+Training...:  35%|███▌      | 359/1025 [30:03<48:03,  4.33s/it][A
+Training...:  35%|███▌      | 360/1025 [30:07<48:28,  4.37s/it][A
+Training...:  35%|███▌      | 361/1025 [30:11<47:46,  4.32s/it][A
+Training...:  35%|███▌      | 362/1025 [30:17<51:31,  4.66s/it][A
+Training...:  35%|███▌      | 363/1025 [30:21<50:17,  4.56s/it][A
+Training...:  36%|███▌      | 364/1025 [30:25<49:38,  4.51s/it][A
+Training...:  36%|███▌      | 365/1025 [30:30<48:24,  4.40s/it][A
+Training...:  36%|███▌      | 366/1025 [30:34<47:54,  4.36s/it][A
+Training...:  36%|███▌      | 367/1025 [30:38<46:55,  4.28s/it][A
+Training...:  36%|███▌      | 368/1025 [30:42<47:14,  4.31s/it][A
+Training...:  36%|███▌      | 369/1025 [30:47<46:48,  4.28s/it][A
+Training...:  36%|███▌      | 370/1025 [30:52<50:57,  4.67s/it][A
+Training...:  36%|███▌      | 371/1025 [30:56<49:26,  4.54s/it][A
+Training...:  36%|███▋      | 372/1025 [30:57<36:45,  3.38s/it][A
+Training...:  36%|███▋      | 373/1025 [31:06<54:16,  5.00s/it][A
+Training...:  36%|███▋      | 374/1025 [31:14<1:04:20,  5.93s/it][A
+Training...:  37%|███▋      | 375/1025 [31:24<1:18:15,  7.22s/it][A
+Training...:  37%|███▋      | 376/1025 [31:30<1:13:10,  6.77s/it][A
+Training...:  37%|███▋      | 377/1025 [31:35<1:07:21,  6.24s/it][A
+Training...:  37%|███▋      | 378/1025 [31:40<1:02:36,  5.81s/it][A
+Training...:  37%|███▋      | 379/1025 [31:44<57:57,  5.38s/it]  [A
+Training...:  37%|███▋      | 380/1025 [31:48<54:06,  5.03s/it][A
+Training...:  37%|███▋      | 381/1025 [31:53<52:20,  4.88s/it][A
+Training...:  37%|███▋      | 382/1025 [31:58<53:53,  5.03s/it][A
+Training...:  37%|███▋      | 383/1025 [32:03<51:57,  4.86s/it][A
+Training...:  37%|███▋      | 384/1025 [32:07<49:48,  4.66s/it][A
+Training...:  38%|███▊      | 385/1025 [32:11<48:52,  4.58s/it][A
+Training...:  38%|███▊      | 386/1025 [32:15<47:22,  4.45s/it][A
+Training...:  38%|███▊      | 387/1025 [32:20<47:06,  4.43s/it][A
+Training...:  38%|███▊      | 388/1025 [32:24<46:16,  4.36s/it][A
+Training...:  38%|███▊      | 389/1025 [32:29<49:52,  4.71s/it][A
+Training...:  38%|███▊      | 390/1025 [32:34<48:29,  4.58s/it][A
+Training...:  38%|███▊      | 391/1025 [32:38<47:43,  4.52s/it][A
+Training...:  38%|███▊      | 392/1025 [32:42<46:26,  4.40s/it][A
+Training...:  38%|███▊      | 393/1025 [32:47<46:13,  4.39s/it][A
+Training...:  38%|███▊      | 394/1025 [32:51<45:48,  4.36s/it][A
+Training...:  39%|███▊      | 395/1025 [32:55<45:55,  4.37s/it][A
+Training...:  39%|███▊      | 396/1025 [33:00<45:49,  4.37s/it][A
+Training...:  39%|███▊      | 397/1025 [33:01<36:49,  3.52s/it][A
+Training...:  39%|███▉      | 398/1025 [33:11<56:33,  5.41s/it][A
+Training...:  39%|███▉      | 399/1025 [33:17<57:56,  5.55s/it][A
+Training...:  39%|███▉      | 400/1025 [33:26<1:08:40,  6.59s/it][A
+Training...:  39%|███▉      | 401/1025 [33:31<1:04:28,  6.20s/it][A
+Training...:  39%|███▉      | 402/1025 [33:38<1:06:13,  6.38s/it][A
+Training...:  39%|███▉      | 403/1025 [33:44<1:03:22,  6.11s/it][A
+Training...:  39%|███▉      | 404/1025 [33:49<1:00:15,  5.82s/it][A
+Training...:  40%|███▉      | 405/1025 [33:53<55:12,  5.34s/it]  [A
+Training...:  40%|███▉      | 406/1025 [33:57<52:17,  5.07s/it][A
+Training...:  40%|███▉      | 407/1025 [34:02<49:34,  4.81s/it][A
+Training...:  40%|███▉      | 408/1025 [34:06<48:21,  4.70s/it][A
+Training...:  40%|███▉      | 409/1025 [34:11<50:06,  4.88s/it][A
+Training...:  40%|████      | 410/1025 [34:16<48:42,  4.75s/it][A
+Training...:  40%|████      | 411/1025 [34:20<46:59,  4.59s/it][A
+Training...:  40%|████      | 412/1025 [34:24<46:01,  4.50s/it][A
+Training...:  40%|████      | 413/1025 [34:28<44:51,  4.40s/it][A
+Training...:  40%|████      | 414/1025 [34:33<44:57,  4.41s/it][A
+Training...:  40%|████      | 415/1025 [34:37<44:37,  4.39s/it][A
+Training...:  41%|████      | 416/1025 [34:43<48:08,  4.74s/it][A
+Training...:  41%|████      | 417/1025 [34:47<46:56,  4.63s/it][A
+Training...:  41%|████      | 418/1025 [34:51<45:50,  4.53s/it][A
+Training...:  41%|████      | 419/1025 [34:56<45:08,  4.47s/it][A
+Training...:  41%|████      | 420/1025 [35:00<44:39,  4.43s/it][A
+Training...:  41%|████      | 421/1025 [35:04<44:21,  4.41s/it][A
+Training...:  41%|████      | 422/1025 [35:05<32:45,  3.26s/it][A
+Training...:  41%|████▏     | 423/1025 [35:16<56:29,  5.63s/it][A
+Training...:  41%|████▏     | 424/1025 [35:23<59:31,  5.94s/it][A
+Training...:  41%|████▏     | 425/1025 [35:31<1:07:15,  6.73s/it][A
+Training...:  42%|████▏     | 426/1025 [35:37<1:03:52,  6.40s/it][A
+Training...:  42%|████▏     | 427/1025 [35:43<1:01:47,  6.20s/it][A
+Training...:  42%|████▏     | 428/1025 [35:48<59:35,  5.99s/it]  [A
+Training...:  42%|████▏     | 429/1025 [35:53<55:31,  5.59s/it][A
+Training...:  42%|████▏     | 430/1025 [35:57<51:21,  5.18s/it][A
+Training...:  42%|████▏     | 431/1025 [36:02<49:02,  4.95s/it][A
+Training...:  42%|████▏     | 432/1025 [36:06<46:46,  4.73s/it][A
+Training...:  42%|████▏     | 433/1025 [36:10<45:55,  4.65s/it][A
+Training...:  42%|████▏     | 434/1025 [36:14<44:36,  4.53s/it][A
+Training...:  42%|████▏     | 435/1025 [36:19<44:30,  4.53s/it][A
+Training...:  43%|████▎     | 436/1025 [36:24<46:42,  4.76s/it][A
+Training...:  43%|████▎     | 437/1025 [36:29<45:22,  4.63s/it][A
+Training...:  43%|████▎     | 438/1025 [36:33<43:54,  4.49s/it][A
+Training...:  43%|████▎     | 439/1025 [36:37<43:38,  4.47s/it][A
+Training...:  43%|████▎     | 440/1025 [36:41<42:49,  4.39s/it][A
+Training...:  43%|████▎     | 441/1025 [36:46<42:43,  4.39s/it][A
+Training...:  43%|████▎     | 442/1025 [36:50<42:02,  4.33s/it][A
+Training...:  43%|████▎     | 443/1025 [36:56<45:22,  4.68s/it][A
+Training...:  43%|████▎     | 444/1025 [37:00<43:46,  4.52s/it][A
+Training...:  43%|████▎     | 445/1025 [37:04<42:48,  4.43s/it][A
+Training...:  44%|████▎     | 446/1025 [37:08<42:01,  4.35s/it][A
+Training...:  44%|████▎     | 447/1025 [37:09<31:00,  3.22s/it][A
+Training...:  44%|████▎     | 448/1025 [37:19<52:57,  5.51s/it][A
+Training...:  44%|████▍     | 449/1025 [37:34<1:20:05,  8.34s/it][A
+Training...:  44%|████▍     | 450/1025 [37:43<1:21:32,  8.51s/it][A
+Training...:  44%|████▍     | 451/1025 [37:49<1:12:18,  7.56s/it][A
+Training...:  44%|████▍     | 452/1025 [37:55<1:07:15,  7.04s/it][A
+Training...:  44%|████▍     | 453/1025 [38:00<1:04:05,  6.72s/it][A
+Training...:  44%|████▍     | 454/1025 [38:06<59:34,  6.26s/it]  [A
+Training...:  44%|████▍     | 455/1025 [38:10<54:44,  5.76s/it][A
+Training...:  44%|████▍     | 456/1025 [38:15<53:04,  5.60s/it][A
+Training...:  45%|████▍     | 457/1025 [38:20<51:05,  5.40s/it][A
+Training...:  45%|████▍     | 458/1025 [38:25<48:47,  5.16s/it][A
+Training...:  45%|████▍     | 459/1025 [38:29<46:06,  4.89s/it][A
+Training...:  45%|████▍     | 460/1025 [38:35<47:40,  5.06s/it][A
+Training...:  45%|████▍     | 461/1025 [38:39<45:10,  4.81s/it][A
+Training...:  45%|████▌     | 462/1025 [38:43<43:09,  4.60s/it][A
+Training...:  45%|████▌     | 463/1025 [38:47<42:10,  4.50s/it][A
+Training...:  45%|████▌     | 464/1025 [38:52<42:17,  4.52s/it][A
+Training...:  45%|████▌     | 465/1025 [38:56<41:49,  4.48s/it][A
+Training...:  45%|████▌     | 466/1025 [39:01<41:44,  4.48s/it][A
+Training...:  46%|████▌     | 467/1025 [39:06<43:32,  4.68s/it][A
+Training...:  46%|████▌     | 468/1025 [39:10<42:42,  4.60s/it][A
+Training...:  46%|████▌     | 469/1025 [39:11<31:25,  3.39s/it][A
+Training...:  46%|████▌     | 470/1025 [39:20<46:00,  4.97s/it][A
+Training...:  46%|████▌     | 471/1025 [39:26<48:59,  5.31s/it][A
+Training...:  46%|████▌     | 472/1025 [39:31<50:14,  5.45s/it][A
+Training...:  46%|████▌     | 473/1025 [39:36<48:14,  5.24s/it][A
+Training...:  46%|████▌     | 474/1025 [39:42<49:58,  5.44s/it][A
+Training...:  46%|████▋     | 475/1025 [39:47<47:24,  5.17s/it][A
+Training...:  46%|████▋     | 476/1025 [39:51<46:22,  5.07s/it][A
+Training...:  47%|████▋     | 477/1025 [39:56<46:08,  5.05s/it][A
+Training...:  47%|████▋     | 478/1025 [40:02<46:39,  5.12s/it][A
+Training...:  47%|████▋     | 479/1025 [40:06<44:03,  4.84s/it][A
+Training...:  47%|████▋     | 480/1025 [40:11<43:22,  4.77s/it][A
+Training...:  47%|████▋     | 481/1025 [40:15<43:26,  4.79s/it][A
+Training...:  47%|████▋     | 482/1025 [40:19<41:26,  4.58s/it][A
+Training...:  47%|████▋     | 483/1025 [40:23<39:27,  4.37s/it][A
+Training...:  47%|████▋     | 484/1025 [40:28<40:14,  4.46s/it][A
+Training...:  47%|████▋     | 485/1025 [40:32<39:28,  4.39s/it][A
+Training...:  47%|████▋     | 486/1025 [40:37<40:07,  4.47s/it][A
+Training...:  48%|████▊     | 487/1025 [40:41<39:33,  4.41s/it][A
+Training...:  48%|████▊     | 488/1025 [40:46<41:50,  4.68s/it][A
+Training...:  48%|████▊     | 489/1025 [40:51<40:13,  4.50s/it][A
+Training...:  48%|████▊     | 490/1025 [40:55<39:07,  4.39s/it][A
+Training...:  48%|████▊     | 491/1025 [40:59<38:55,  4.37s/it][A
+Training...:  48%|████▊     | 492/1025 [41:04<39:22,  4.43s/it][A
+Training...:  48%|████▊     | 493/1025 [41:08<39:19,  4.44s/it][A
+Training...:  48%|████▊     | 494/1025 [41:13<39:18,  4.44s/it][A
+Training...:  48%|████▊     | 495/1025 [41:13<29:01,  3.29s/it][A
+Training...:  48%|████▊     | 496/1025 [41:25<50:30,  5.73s/it][A
+Training...:  48%|████▊     | 497/1025 [41:31<53:19,  6.06s/it][A
+Training...:  49%|████▊     | 498/1025 [41:41<1:03:03,  7.18s/it][A
+Training...:  49%|████▊     | 499/1025 [41:47<59:51,  6.83s/it]  [A
+Training...:  49%|████▉     | 500/1025 [41:57<1:07:29,  7.71s/it][A
+Training...:  49%|████▉     | 501/1025 [42:03<1:02:14,  7.13s/it][A
+Training...:  49%|████▉     | 502/1025 [42:12<1:08:59,  7.92s/it][A
+Training...:  49%|████▉     | 503/1025 [42:21<1:10:59,  8.16s/it][A
+Training...:  49%|████▉     | 504/1025 [42:28<1:06:21,  7.64s/it][A
+Training...:  49%|████▉     | 505/1025 [42:32<58:01,  6.69s/it]  [A
+Training...:  49%|████▉     | 506/1025 [42:37<53:48,  6.22s/it][A
+Training...:  49%|████▉     | 507/1025 [42:42<50:34,  5.86s/it][A
+Training...:  50%|████▉     | 508/1025 [42:48<48:57,  5.68s/it][A
+Training...:  50%|████▉     | 509/1025 [42:52<46:54,  5.45s/it][A
+Training...:  50%|████▉     | 510/1025 [42:58<48:16,  5.62s/it][A
+Training...:  50%|████▉     | 511/1025 [43:03<45:42,  5.34s/it][A
+Training...:  50%|████▉     | 512/1025 [43:08<44:16,  5.18s/it][A
+Training...:  50%|█████     | 513/1025 [43:13<44:07,  5.17s/it][A
+Training...:  50%|█████     | 514/1025 [43:18<44:24,  5.22s/it][A
+Training...:  50%|█████     | 515/1025 [43:19<32:29,  3.82s/it][A
+Training...:  50%|█████     | 516/1025 [43:31<52:30,  6.19s/it][A
+Training...:  50%|█████     | 517/1025 [43:37<52:14,  6.17s/it][A
+Training...:  51%|█████     | 518/1025 [43:46<59:57,  7.10s/it][A
+Training...:  51%|█████     | 519/1025 [43:52<57:46,  6.85s/it][A
+Training...:  51%|█████     | 520/1025 [44:03<1:06:28,  7.90s/it][A
+Training...:  51%|█████     | 521/1025 [44:09<1:01:29,  7.32s/it][A
+Training...:  51%|█████     | 522/1025 [44:18<1:06:13,  7.90s/it][A
+Training...:  51%|█████     | 523/1025 [44:24<1:01:56,  7.40s/it][A
+Training...:  51%|█████     | 524/1025 [44:32<1:01:41,  7.39s/it][A
+Training...:  51%|█████     | 525/1025 [44:36<55:23,  6.65s/it]  [A
+Training...:  51%|█████▏    | 526/1025 [44:41<49:38,  5.97s/it][A
+Training...:  51%|█████▏    | 527/1025 [44:45<44:06,  5.31s/it][A
+Training...:  52%|█████▏    | 528/1025 [44:49<42:05,  5.08s/it][A
+Training...:  52%|█████▏    | 529/1025 [44:54<40:18,  4.88s/it][A
+Training...:  52%|█████▏    | 530/1025 [44:58<39:49,  4.83s/it][A
+Training...:  52%|█████▏    | 531/1025 [45:02<38:11,  4.64s/it][A
+Training...:  52%|█████▏    | 532/1025 [45:07<38:15,  4.66s/it][A
+Training...:  52%|█████▏    | 533/1025 [45:12<38:50,  4.74s/it][A
+Training...:  52%|█████▏    | 534/1025 [45:16<37:28,  4.58s/it][A
+Training...:  52%|█████▏    | 535/1025 [45:20<36:02,  4.41s/it][A
+Training...:  52%|█████▏    | 536/1025 [45:21<26:58,  3.31s/it][A
+Training...:  52%|█████▏    | 537/1025 [45:31<43:04,  5.30s/it][A
+Training...:  52%|█████▏    | 538/1025 [45:37<45:11,  5.57s/it][A
+Training...:  53%|█████▎    | 539/1025 [45:47<55:54,  6.90s/it][A
+Training...:  53%|█████▎    | 540/1025 [45:53<53:26,  6.61s/it][A
+Training...:  53%|█████▎    | 541/1025 [46:03<1:00:28,  7.50s/it][A
+Training...:  53%|█████▎    | 542/1025 [46:08<55:27,  6.89s/it]  [A
+Training...:  53%|█████▎    | 543/1025 [46:15<55:10,  6.87s/it][A
+Training...:  53%|█████▎    | 544/1025 [46:20<49:58,  6.23s/it][A
+Training...:  53%|█████▎    | 545/1025 [46:25<47:39,  5.96s/it][A
+Training...:  53%|█████▎    | 546/1025 [46:30<46:14,  5.79s/it][A
+Training...:  53%|█████▎    | 547/1025 [46:36<45:20,  5.69s/it][A
+Training...:  53%|█████▎    | 548/1025 [46:41<43:57,  5.53s/it][A
+Training...:  54%|█████▎    | 549/1025 [46:46<43:36,  5.50s/it][A
+Training...:  54%|█████▎    | 550/1025 [46:51<42:14,  5.34s/it][A
+Training...:  54%|█████▍    | 551/1025 [46:56<39:23,  4.99s/it][A
+Training...:  54%|█████▍    | 552/1025 [47:00<37:09,  4.71s/it][A
+Training...:  54%|█████▍    | 553/1025 [47:04<36:35,  4.65s/it][A
+Training...:  54%|█████▍    | 554/1025 [47:09<35:58,  4.58s/it][A
+Training...:  54%|█████▍    | 555/1025 [47:13<36:01,  4.60s/it][A
+Training...:  54%|█████▍    | 556/1025 [47:18<35:24,  4.53s/it][A
+Training...:  54%|█████▍    | 557/1025 [47:23<36:37,  4.69s/it][A
+Training...:  54%|█████▍    | 558/1025 [47:23<26:48,  3.45s/it][A
+Training...:  55%|█████▍    | 559/1025 [47:34<43:10,  5.56s/it][A
+Training...:  55%|█████▍    | 560/1025 [47:43<51:19,  6.62s/it][A
+Training...:  55%|█████▍    | 561/1025 [47:52<58:07,  7.52s/it][A
+Training...:  55%|█████▍    | 562/1025 [47:58<53:15,  6.90s/it][A
+Training...:  55%|█████▍    | 563/1025 [48:03<49:18,  6.40s/it][A
+Training...:  55%|█████▌    | 564/1025 [48:08<45:45,  5.96s/it][A
+Training...:  55%|█████▌    | 565/1025 [48:13<43:50,  5.72s/it][A
+Training...:  55%|█████▌    | 566/1025 [48:17<40:04,  5.24s/it][A
+Training...:  55%|█████▌    | 567/1025 [48:22<38:06,  4.99s/it][A
+Training...:  55%|█████▌    | 568/1025 [48:27<37:39,  4.94s/it][A
+Training...:  56%|█████▌    | 569/1025 [48:31<36:23,  4.79s/it][A
+Training...:  56%|█████▌    | 570/1025 [48:35<35:02,  4.62s/it][A
+Training...:  56%|█████▌    | 571/1025 [48:40<34:26,  4.55s/it][A
+Training...:  56%|█████▌    | 572/1025 [48:44<33:27,  4.43s/it][A
+Training...:  56%|█████▌    | 573/1025 [48:48<33:22,  4.43s/it][A
+Training...:  56%|█████▌    | 574/1025 [48:52<32:42,  4.35s/it][A
+Training...:  56%|█████▌    | 575/1025 [48:57<32:46,  4.37s/it][A
+Training...:  56%|█████▌    | 576/1025 [49:02<33:50,  4.52s/it][A
+Training...:  56%|█████▋    | 577/1025 [49:06<33:35,  4.50s/it][A
+Training...:  56%|█████▋    | 578/1025 [49:10<32:56,  4.42s/it][A
+Training...:  56%|█████▋    | 579/1025 [49:15<32:44,  4.41s/it][A
+Training...:  57%|█████▋    | 580/1025 [49:19<32:34,  4.39s/it][A
+Training...:  57%|█████▋    | 581/1025 [49:24<32:40,  4.42s/it][A
+Training...:  57%|█████▋    | 582/1025 [49:24<23:59,  3.25s/it][A
+Training...:  57%|█████▋    | 583/1025 [49:34<38:13,  5.19s/it][A
+Training...:  57%|█████▋    | 584/1025 [49:40<40:43,  5.54s/it][A
+Training...:  57%|█████▋    | 585/1025 [49:46<40:56,  5.58s/it][A
+Training...:  57%|█████▋    | 586/1025 [49:50<38:17,  5.23s/it][A
+Training...:  57%|█████▋    | 587/1025 [49:55<37:01,  5.07s/it][A
+Training...:  57%|█████▋    | 588/1025 [49:59<35:24,  4.86s/it][A
+Training...:  57%|█████▋    | 589/1025 [50:05<36:14,  4.99s/it][A
+Training...:  58%|█████▊    | 590/1025 [50:09<34:54,  4.81s/it][A
+Training...:  58%|█████▊    | 591/1025 [50:14<34:28,  4.77s/it][A
+Training...:  58%|█████▊    | 592/1025 [50:18<34:00,  4.71s/it][A
+Training...:  58%|█████▊    | 593/1025 [50:23<33:58,  4.72s/it][A
+Training...:  58%|█████▊    | 594/1025 [50:27<33:16,  4.63s/it][A
+Training...:  58%|█████▊    | 595/1025 [50:32<33:42,  4.70s/it][A
+Training...:  58%|█████▊    | 596/1025 [50:37<34:19,  4.80s/it][A
+Training...:  58%|█████▊    | 597/1025 [50:42<33:46,  4.73s/it][A
+Training...:  58%|█████▊    | 598/1025 [50:46<33:05,  4.65s/it][A
+Training...:  58%|█████▊    | 599/1025 [50:51<32:47,  4.62s/it][A
+Training...:  59%|█████▊    | 600/1025 [50:55<32:15,  4.55s/it][A
+Training...:  59%|█████▊    | 601/1025 [51:00<31:48,  4.50s/it][A
+Training...:  59%|█████▊    | 602/1025 [51:04<31:26,  4.46s/it][A
+Training...:  59%|█████▉    | 603/1025 [51:08<31:14,  4.44s/it][A
+Training...:  59%|█████▉    | 604/1025 [51:13<32:20,  4.61s/it][A
+Training...:  59%|█████▉    | 605/1025 [51:18<31:52,  4.55s/it][A
+Training...:  59%|█████▉    | 606/1025 [51:22<31:13,  4.47s/it][A
+Training...:  59%|█████▉    | 607/1025 [51:27<31:03,  4.46s/it][A
+Training...:  59%|█████▉    | 608/1025 [51:27<22:50,  3.29s/it][A
+Training...:  59%|█████▉    | 609/1025 [51:35<31:35,  4.56s/it][A
+Training...:  60%|█████▉    | 610/1025 [51:42<37:54,  5.48s/it][A
+Training...:  60%|█████▉    | 611/1025 [51:47<36:15,  5.26s/it][A
+Training...:  60%|█████▉    | 612/1025 [51:51<34:11,  4.97s/it][A
+Training...:  60%|█████▉    | 613/1025 [51:56<33:26,  4.87s/it][A
+Training...:  60%|█████▉    | 614/1025 [52:00<32:20,  4.72s/it][A
+Training...:  60%|██████    | 615/1025 [52:05<31:51,  4.66s/it][A
+Training...:  60%|██████    | 616/1025 [52:09<31:04,  4.56s/it][A
+Training...:  60%|██████    | 617/1025 [52:14<30:58,  4.56s/it][A
+Training...:  60%|██████    | 618/1025 [52:19<31:46,  4.68s/it][A
+Training...:  60%|██████    | 619/1025 [52:23<31:09,  4.60s/it][A
+Training...:  60%|██████    | 620/1025 [52:27<30:30,  4.52s/it][A
+Training...:  61%|██████    | 621/1025 [52:32<30:13,  4.49s/it][A
+Training...:  61%|██████    | 622/1025 [52:36<29:45,  4.43s/it][A
+Training...:  61%|██████    | 623/1025 [52:41<29:45,  4.44s/it][A
+Training...:  61%|██████    | 624/1025 [52:45<29:27,  4.41s/it][A
+Training...:  61%|██████    | 625/1025 [52:50<31:07,  4.67s/it][A
+Training...:  61%|██████    | 626/1025 [52:55<30:19,  4.56s/it][A
+Training...:  61%|██████    | 627/1025 [52:59<30:04,  4.53s/it][A
+Training...:  61%|██████▏   | 628/1025 [53:03<29:33,  4.47s/it][A
+Training...:  61%|██████▏   | 629/1025 [53:08<29:23,  4.45s/it][A
+Training...:  61%|██████▏   | 630/1025 [53:13<31:01,  4.71s/it][A
+Training...:  62%|██████▏   | 631/1025 [53:19<33:25,  5.09s/it][A
+Training...:  62%|██████▏   | 632/1025 [53:24<33:40,  5.14s/it][A
+Training...:  62%|██████▏   | 633/1025 [53:29<32:54,  5.04s/it][A
+Training...:  62%|██████▏   | 634/1025 [53:30<24:04,  3.69s/it][A
+Training...:  62%|██████▏   | 635/1025 [53:39<35:33,  5.47s/it][A
+Training...:  62%|██████▏   | 636/1025 [53:45<36:35,  5.64s/it][A
+Training...:  62%|██████▏   | 637/1025 [53:51<36:48,  5.69s/it][A
+Training...:  62%|██████▏   | 638/1025 [53:55<34:00,  5.27s/it][A
+Training...:  62%|██████▏   | 639/1025 [54:01<33:52,  5.26s/it][A
+Training...:  62%|██████▏   | 640/1025 [54:05<32:50,  5.12s/it][A
+Training...:  63%|██████▎   | 641/1025 [54:11<32:48,  5.13s/it][A
+Training...:  63%|██████▎   | 642/1025 [54:16<32:29,  5.09s/it][A
+Training...:  63%|██████▎   | 643/1025 [54:21<32:42,  5.14s/it][A
+Training...:  63%|██████▎   | 644/1025 [54:26<32:18,  5.09s/it][A
+Training...:  63%|██████▎   | 645/1025 [54:32<34:05,  5.38s/it][A
+Training...:  63%|██████▎   | 646/1025 [54:36<31:55,  5.05s/it][A
+Training...:  63%|██████▎   | 647/1025 [54:41<30:45,  4.88s/it][A
+Training...:  63%|██████▎   | 648/1025 [54:45<29:32,  4.70s/it][A
+Training...:  63%|██████▎   | 649/1025 [54:49<29:03,  4.64s/it][A
+Training...:  63%|██████▎   | 650/1025 [54:54<28:15,  4.52s/it][A
+Training...:  64%|██████▎   | 651/1025 [54:58<28:01,  4.50s/it][A
+Training...:  64%|██████▎   | 652/1025 [55:03<28:52,  4.64s/it][A
+Training...:  64%|██████▎   | 653/1025 [55:08<28:26,  4.59s/it][A
+Training...:  64%|██████▍   | 654/1025 [55:12<27:32,  4.45s/it][A
+Training...:  64%|██████▍   | 655/1025 [55:16<27:26,  4.45s/it][A
+Training...:  64%|██████▍   | 656/1025 [55:20<27:05,  4.40s/it][A
+Training...:  64%|██████▍   | 657/1025 [55:25<27:03,  4.41s/it][A
+Training...:  64%|██████▍   | 658/1025 [55:29<26:45,  4.37s/it][A
+Training...:  64%|██████▍   | 659/1025 [55:30<19:52,  3.26s/it][A
+Training...:  64%|██████▍   | 660/1025 [55:41<34:54,  5.74s/it][A
+Training...:  64%|██████▍   | 661/1025 [55:48<36:11,  5.97s/it][A
+Training...:  65%|██████▍   | 662/1025 [55:57<42:15,  6.98s/it][A
+Training...:  65%|██████▍   | 663/1025 [56:03<40:23,  6.70s/it][A
+Training...:  65%|██████▍   | 664/1025 [56:13<46:50,  7.78s/it][A
+Training...:  65%|██████▍   | 665/1025 [56:20<43:32,  7.26s/it][A
+Training...:  65%|██████▍   | 666/1025 [56:29<46:34,  7.78s/it][A
+Training...:  65%|██████▌   | 667/1025 [56:34<42:15,  7.08s/it][A
+Training...:  65%|██████▌   | 668/1025 [56:40<40:19,  6.78s/it][A
+Training...:  65%|██████▌   | 669/1025 [56:45<36:58,  6.23s/it][A
+Training...:  65%|██████▌   | 670/1025 [56:50<34:39,  5.86s/it][A
+Training...:  65%|██████▌   | 671/1025 [56:54<31:20,  5.31s/it][A
+Training...:  66%|██████▌   | 672/1025 [56:58<29:35,  5.03s/it][A
+Training...:  66%|██████▌   | 673/1025 [57:03<27:56,  4.76s/it][A
+Training...:  66%|██████▌   | 674/1025 [57:07<27:04,  4.63s/it][A
+Training...:  66%|██████▌   | 675/1025 [57:11<26:08,  4.48s/it][A
+Training...:  66%|██████▌   | 676/1025 [57:16<27:31,  4.73s/it][A
+Training...:  66%|██████▌   | 677/1025 [57:21<26:34,  4.58s/it][A
+Training...:  66%|██████▌   | 678/1025 [57:25<25:36,  4.43s/it][A
+Training...:  66%|██████▌   | 679/1025 [57:29<25:00,  4.34s/it][A
+Training...:  66%|██████▋   | 680/1025 [57:33<25:05,  4.36s/it][A
+Training...:  66%|██████▋   | 681/1025 [57:34<18:23,  3.21s/it][A
+Training...:  67%|██████▋   | 682/1025 [57:43<29:21,  5.13s/it][A
+Training...:  67%|██████▋   | 683/1025 [57:53<37:39,  6.61s/it][A
+Training...:  67%|██████▋   | 684/1025 [58:03<42:19,  7.45s/it][A
+Training...:  67%|██████▋   | 685/1025 [58:11<43:56,  7.76s/it][A
+Training...:  67%|██████▋   | 686/1025 [58:17<40:38,  7.19s/it][A
+Training...:  67%|██████▋   | 687/1025 [58:23<38:16,  6.79s/it][A
+Training...:  67%|██████▋   | 688/1025 [58:28<35:30,  6.32s/it][A
+Training...:  67%|██████▋   | 689/1025 [58:32<31:22,  5.60s/it][A
+Training...:  67%|██████▋   | 690/1025 [58:37<29:20,  5.26s/it][A
+Training...:  67%|██████▋   | 691/1025 [58:41<27:31,  4.94s/it][A
+Training...:  68%|██████▊   | 692/1025 [58:45<26:37,  4.80s/it][A
+Training...:  68%|██████▊   | 693/1025 [58:49<25:37,  4.63s/it][A
+Training...:  68%|██████▊   | 694/1025 [58:55<26:52,  4.87s/it][A
+Training...:  68%|██████▊   | 695/1025 [58:59<25:52,  4.70s/it][A
+Training...:  68%|██████▊   | 696/1025 [59:03<25:04,  4.57s/it][A
+Training...:  68%|██████▊   | 697/1025 [59:08<24:21,  4.46s/it][A
+Training...:  68%|██████▊   | 698/1025 [59:12<24:19,  4.46s/it][A
+Training...:  68%|██████▊   | 699/1025 [59:16<23:52,  4.40s/it][A
+Training...:  68%|██████▊   | 700/1025 [59:21<23:50,  4.40s/it][A
+Training...:  68%|██████▊   | 701/1025 [59:26<25:01,  4.63s/it][A
+Training...:  68%|██████▊   | 702/1025 [59:30<24:40,  4.58s/it][A
+Training...:  69%|██████▊   | 703/1025 [59:35<23:56,  4.46s/it][A
+Training...:  69%|██████▊   | 704/1025 [59:35<17:43,  3.31s/it][A
+Training...:  69%|██████▉   | 705/1025 [59:44<26:55,  5.05s/it][A
+Training...:  69%|██████▉   | 706/1025 [59:51<29:10,  5.49s/it][A
+Training...:  69%|██████▉   | 707/1025 [1:00:01<36:06,  6.81s/it][A
+Training...:  69%|██████▉   | 708/1025 [1:00:06<33:36,  6.36s/it][A
+Training...:  69%|██████▉   | 709/1025 [1:00:11<31:24,  5.96s/it][A
+Training...:  69%|██████▉   | 710/1025 [1:00:16<29:37,  5.64s/it][A
+Training...:  69%|██████▉   | 711/1025 [1:00:21<28:48,  5.50s/it][A
+Training...:  69%|██████▉   | 712/1025 [1:00:26<27:41,  5.31s/it][A
+Training...:  70%|██████▉   | 713/1025 [1:00:32<28:47,  5.54s/it][A
+Training...:  70%|██████▉   | 714/1025 [1:00:36<26:35,  5.13s/it][A
+Training...:  70%|██████▉   | 715/1025 [1:00:41<25:14,  4.88s/it][A
+Training...:  70%|██████▉   | 716/1025 [1:00:45<23:53,  4.64s/it][A
+Training...:  70%|██████▉   | 717/1025 [1:00:49<23:22,  4.55s/it][A
+Training...:  70%|███████   | 718/1025 [1:00:53<22:38,  4.42s/it][A
+Training...:  70%|███████   | 719/1025 [1:00:57<22:25,  4.40s/it][A
+Training...:  70%|███████   | 720/1025 [1:01:02<22:11,  4.37s/it][A
+Training...:  70%|███████   | 721/1025 [1:01:07<23:34,  4.65s/it][A
+Training...:  70%|███████   | 722/1025 [1:01:11<22:52,  4.53s/it][A
+Training...:  71%|███████   | 723/1025 [1:01:16<22:31,  4.48s/it][A
+Training...:  71%|███████   | 724/1025 [1:01:20<22:03,  4.40s/it][A
+Training...:  71%|███████   | 725/1025 [1:01:24<22:00,  4.40s/it][A
+Training...:  71%|███████   | 726/1025 [1:01:29<21:45,  4.37s/it][A
+Training...:  71%|███████   | 727/1025 [1:01:33<21:41,  4.37s/it][A
+Training...:  71%|███████   | 728/1025 [1:01:38<22:59,  4.64s/it][A
+Training...:  71%|███████   | 729/1025 [1:01:39<16:51,  3.42s/it][A
+Training...:  71%|███████   | 730/1025 [1:01:48<25:55,  5.27s/it][A
+Training...:  71%|███████▏  | 731/1025 [1:01:52<24:06,  4.92s/it][A
+Training...:  71%|███████▏  | 732/1025 [1:01:58<25:02,  5.13s/it][A
+Training...:  72%|███████▏  | 733/1025 [1:02:04<25:21,  5.21s/it][A
+Training...:  72%|███████▏  | 734/1025 [1:02:08<24:29,  5.05s/it][A
+Training...:  72%|███████▏  | 735/1025 [1:02:13<24:35,  5.09s/it][A
+Training...:  72%|███████▏  | 736/1025 [1:02:18<23:43,  4.93s/it][A
+Training...:  72%|███████▏  | 737/1025 [1:02:22<22:30,  4.69s/it][A
+Training...:  72%|███████▏  | 738/1025 [1:02:27<22:10,  4.64s/it][A
+Training...:  72%|███████▏  | 739/1025 [1:02:31<21:25,  4.49s/it][A
+Training...:  72%|███████▏  | 740/1025 [1:02:35<21:26,  4.51s/it][A
+Training...:  72%|███████▏  | 741/1025 [1:02:40<21:05,  4.46s/it][A
+Training...:  72%|███████▏  | 742/1025 [1:02:45<22:30,  4.77s/it][A
+Training...:  72%|███████▏  | 743/1025 [1:02:49<21:47,  4.64s/it][A
+Training...:  73%|███████▎  | 744/1025 [1:02:54<21:37,  4.62s/it][A
+Training...:  73%|███████▎  | 745/1025 [1:02:58<21:10,  4.54s/it][A
+Training...:  73%|███████▎  | 746/1025 [1:03:03<21:14,  4.57s/it][A
+Training...:  73%|███████▎  | 747/1025 [1:03:07<20:40,  4.46s/it][A
+Training...:  73%|███████▎  | 748/1025 [1:03:12<20:33,  4.45s/it][A
+Training...:  73%|███████▎  | 749/1025 [1:03:16<20:09,  4.38s/it][A
+Training...:  73%|███████▎  | 750/1025 [1:03:21<21:24,  4.67s/it][A
+Training...:  73%|███████▎  | 751/1025 [1:03:25<20:42,  4.53s/it][A
+Training...:  73%|███████▎  | 752/1025 [1:03:30<20:25,  4.49s/it][A
+Training...:  73%|███████▎  | 753/1025 [1:03:34<20:00,  4.41s/it][A
+Training...:  74%|███████▎  | 754/1025 [1:03:38<19:55,  4.41s/it][A
+Training...:  74%|███████▎  | 755/1025 [1:03:39<14:40,  3.26s/it][A
+Training...:  74%|███████▍  | 756/1025 [1:03:58<36:11,  8.07s/it][A
+Training...:  74%|███████▍  | 757/1025 [1:04:08<37:52,  8.48s/it][A
+Training...:  74%|███████▍  | 758/1025 [1:04:17<38:29,  8.65s/it][A
+Training...:  74%|███████▍  | 759/1025 [1:04:23<34:59,  7.89s/it][A
+Training...:  74%|███████▍  | 760/1025 [1:04:33<38:11,  8.65s/it][A
+Training...:  74%|███████▍  | 761/1025 [1:04:39<34:38,  7.87s/it][A
+Training...:  74%|███████▍  | 762/1025 [1:04:49<36:51,  8.41s/it][A
+Training...:  74%|███████▍  | 763/1025 [1:04:55<33:37,  7.70s/it][A
+Training...:  75%|███████▍  | 764/1025 [1:05:06<37:10,  8.54s/it][A
+Training...:  75%|███████▍  | 765/1025 [1:05:12<34:01,  7.85s/it][A
+Training...:  75%|███████▍  | 766/1025 [1:05:21<35:52,  8.31s/it][A
+Training...:  75%|███████▍  | 767/1025 [1:05:27<32:55,  7.66s/it][A
+Training...:  75%|███████▍  | 768/1025 [1:05:38<36:18,  8.48s/it][A
+Training...:  75%|███████▌  | 769/1025 [1:05:44<32:52,  7.70s/it][A
+Training...:  75%|███████▌  | 770/1025 [1:05:44<23:58,  5.64s/it][A
+Training...:  75%|███████▌  | 771/1025 [1:06:05<42:46, 10.11s/it][A
+Training...:  75%|███████▌  | 772/1025 [1:06:16<44:05, 10.45s/it][A
+Training...:  75%|███████▌  | 773/1025 [1:06:31<49:01, 11.67s/it][A
+Training...:  76%|███████▌  | 774/1025 [1:06:40<46:05, 11.02s/it][A
+Training...:  76%|███████▌  | 775/1025 [1:06:46<39:25,  9.46s/it][A
+Training...:  76%|███████▌  | 776/1025 [1:06:51<33:59,  8.19s/it][A
+Training...:  76%|███████▌  | 777/1025 [1:06:57<31:06,  7.53s/it][A
+Training...:  76%|███████▌  | 778/1025 [1:07:02<27:43,  6.73s/it][A
+Training...:  76%|███████▌  | 779/1025 [1:07:07<24:44,  6.03s/it][A
+Training...:  76%|███████▌  | 780/1025 [1:07:12<23:28,  5.75s/it][A
+Training...:  76%|███████▌  | 781/1025 [1:07:16<21:39,  5.33s/it][A
+Training...:  76%|███████▋  | 782/1025 [1:07:20<20:08,  4.97s/it][A
+Training...:  76%|███████▋  | 783/1025 [1:07:25<19:17,  4.78s/it][A
+Training...:  76%|███████▋  | 784/1025 [1:07:29<18:27,  4.60s/it][A
+Training...:  77%|███████▋  | 785/1025 [1:07:33<18:07,  4.53s/it][A
+Training...:  77%|███████▋  | 786/1025 [1:07:37<17:38,  4.43s/it][A
+Training...:  77%|███████▋  | 787/1025 [1:07:42<17:34,  4.43s/it][A
+Training...:  77%|███████▋  | 788/1025 [1:07:47<18:20,  4.65s/it][A
+Training...:  77%|███████▋  | 789/1025 [1:07:48<13:50,  3.52s/it][A
+Training...:  77%|███████▋  | 790/1025 [1:07:59<22:45,  5.81s/it][A
+Training...:  77%|███████▋  | 791/1025 [1:08:06<24:40,  6.33s/it][A
+Training...:  77%|███████▋  | 792/1025 [1:08:17<29:26,  7.58s/it][A
+Training...:  77%|███████▋  | 793/1025 [1:08:25<30:25,  7.87s/it][A
+Training...:  77%|███████▋  | 794/1025 [1:08:31<27:51,  7.24s/it][A
+Training...:  78%|███████▊  | 795/1025 [1:08:36<25:08,  6.56s/it][A
+Training...:  78%|███████▊  | 796/1025 [1:08:41<23:31,  6.17s/it][A
+Training...:  78%|███████▊  | 797/1025 [1:08:46<21:13,  5.59s/it][A
+Training...:  78%|███████▊  | 798/1025 [1:08:51<21:00,  5.55s/it][A
+Training...:  78%|███████▊  | 799/1025 [1:08:55<19:22,  5.14s/it][A
+Training...:  78%|███████▊  | 800/1025 [1:09:00<18:36,  4.96s/it][A
+Training...:  78%|███████▊  | 801/1025 [1:09:04<17:42,  4.74s/it][A
+Training...:  78%|███████▊  | 802/1025 [1:09:09<17:17,  4.65s/it][A
+Training...:  78%|███████▊  | 803/1025 [1:09:13<16:45,  4.53s/it][A
+Training...:  78%|███████▊  | 804/1025 [1:09:17<16:35,  4.51s/it][A
+Training...:  79%|███████▊  | 805/1025 [1:09:21<16:11,  4.42s/it][A
+Training...:  79%|███████▊  | 806/1025 [1:09:27<17:12,  4.71s/it][A
+Training...:  79%|███████▊  | 807/1025 [1:09:31<16:32,  4.55s/it][A
+Training...:  79%|███████▉  | 808/1025 [1:09:35<16:19,  4.51s/it][A
+Training...:  79%|███████▉  | 809/1025 [1:09:40<15:57,  4.43s/it][A
+Training...:  79%|███████▉  | 810/1025 [1:09:44<15:55,  4.44s/it][A
+Training...:  79%|███████▉  | 811/1025 [1:09:48<15:35,  4.37s/it][A
+Training...:  79%|███████▉  | 812/1025 [1:09:49<11:40,  3.29s/it][A
+Training...:  79%|███████▉  | 813/1025 [1:09:59<18:54,  5.35s/it][A
+Training...:  79%|███████▉  | 814/1025 [1:10:08<22:03,  6.27s/it][A
+Training...:  80%|███████▉  | 815/1025 [1:10:17<24:50,  7.10s/it][A
+Training...:  80%|███████▉  | 816/1025 [1:10:22<22:49,  6.55s/it][A
+Training...:  80%|███████▉  | 817/1025 [1:10:27<21:19,  6.15s/it][A
+Training...:  80%|███████▉  | 818/1025 [1:10:33<20:42,  6.00s/it][A
+Training...:  80%|███████▉  | 819/1025 [1:10:38<19:41,  5.73s/it][A
+Training...:  80%|████████  | 820/1025 [1:10:42<17:59,  5.27s/it][A
+Training...:  80%|████████  | 821/1025 [1:10:47<17:00,  5.00s/it][A
+Training...:  80%|████████  | 822/1025 [1:10:51<16:06,  4.76s/it][A
+Training...:  80%|████████  | 823/1025 [1:10:55<15:40,  4.66s/it][A
+Training...:  80%|████████  | 824/1025 [1:10:59<15:06,  4.51s/it][A
+Training...:  80%|████████  | 825/1025 [1:11:05<15:49,  4.75s/it][A
+Training...:  81%|████████  | 826/1025 [1:11:09<15:13,  4.59s/it][A
+Training...:  81%|████████  | 827/1025 [1:11:13<14:59,  4.54s/it][A
+Training...:  81%|████████  | 828/1025 [1:11:18<14:37,  4.46s/it][A
+Training...:  81%|████████  | 829/1025 [1:11:22<14:32,  4.45s/it][A
+Training...:  81%|████████  | 830/1025 [1:11:26<14:13,  4.38s/it][A
+Training...:  81%|████████  | 831/1025 [1:11:31<14:11,  4.39s/it][A
+Training...:  81%|████████  | 832/1025 [1:11:36<14:52,  4.63s/it][A
+Training...:  81%|████████▏ | 833/1025 [1:11:40<14:38,  4.58s/it][A
+Training...:  81%|████████▏ | 834/1025 [1:11:44<14:15,  4.48s/it][A
+Training...:  81%|████████▏ | 835/1025 [1:11:49<14:04,  4.44s/it][A
+Training...:  82%|████████▏ | 836/1025 [1:11:53<13:50,  4.39s/it][A
+Training...:  82%|████████▏ | 837/1025 [1:11:54<10:12,  3.26s/it][A
+Training...:  82%|████████▏ | 838/1025 [1:12:03<15:32,  4.99s/it][A
+Training...:  82%|████████▏ | 839/1025 [1:12:12<19:30,  6.29s/it][A
+Training...:  82%|████████▏ | 840/1025 [1:12:18<19:01,  6.17s/it][A
+Training...:  82%|████████▏ | 841/1025 [1:12:23<18:10,  5.93s/it][A
+Training...:  82%|████████▏ | 842/1025 [1:12:29<17:58,  5.89s/it][A
+Training...:  82%|████████▏ | 843/1025 [1:12:35<17:33,  5.79s/it][A
+Training...:  82%|████████▏ | 844/1025 [1:12:40<16:58,  5.63s/it][A
+Training...:  82%|████████▏ | 845/1025 [1:12:46<17:03,  5.69s/it][A
+Training...:  83%|████████▎ | 846/1025 [1:12:50<15:53,  5.33s/it][A
+Training...:  83%|████████▎ | 847/1025 [1:12:55<14:51,  5.01s/it][A
+Training...:  83%|████████▎ | 848/1025 [1:12:59<14:19,  4.86s/it][A
+Training...:  83%|████████▎ | 849/1025 [1:13:03<13:42,  4.67s/it][A
+Training...:  83%|████████▎ | 850/1025 [1:13:08<13:23,  4.59s/it][A
+Training...:  83%|████████▎ | 851/1025 [1:13:12<12:59,  4.48s/it][A
+Training...:  83%|████████▎ | 852/1025 [1:13:17<13:35,  4.72s/it][A
+Training...:  83%|████████▎ | 853/1025 [1:13:21<13:04,  4.56s/it][A
+Training...:  83%|████████▎ | 854/1025 [1:13:26<12:48,  4.50s/it][A
+Training...:  83%|████████▎ | 855/1025 [1:13:30<12:28,  4.40s/it][A
+Training...:  84%|████████▎ | 856/1025 [1:13:34<12:23,  4.40s/it][A
+Training...:  84%|████████▎ | 857/1025 [1:13:38<12:07,  4.33s/it][A
+Training...:  84%|████████▎ | 858/1025 [1:13:43<12:06,  4.35s/it][A
+Training...:  84%|████████▍ | 859/1025 [1:13:48<12:40,  4.58s/it][A
+Training...:  84%|████████▍ | 860/1025 [1:13:52<12:25,  4.52s/it][A
+Training...:  84%|████████▍ | 861/1025 [1:13:57<12:09,  4.45s/it][A
+Training...:  84%|████████▍ | 862/1025 [1:13:57<09:00,  3.31s/it][A
+Training...:  84%|████████▍ | 863/1025 [1:14:06<13:23,  4.96s/it][A
+Training...:  84%|████████▍ | 864/1025 [1:14:14<15:55,  5.93s/it][A
+Training...:  84%|████████▍ | 865/1025 [1:14:24<18:48,  7.05s/it][A
+Training...:  84%|████████▍ | 866/1025 [1:14:32<19:36,  7.40s/it][A
+Training...:  85%|████████▍ | 867/1025 [1:14:38<18:10,  6.90s/it][A
+Training...:  85%|████████▍ | 868/1025 [1:14:43<16:53,  6.45s/it][A
+Training...:  85%|████████▍ | 869/1025 [1:14:48<15:46,  6.07s/it][A
+Training...:  85%|████████▍ | 870/1025 [1:14:54<15:25,  5.97s/it][A
+Training...:  85%|████████▍ | 871/1025 [1:14:59<14:12,  5.53s/it][A
+Training...:  85%|████████▌ | 872/1025 [1:15:03<13:08,  5.15s/it][A
+Training...:  85%|████████▌ | 873/1025 [1:15:07<12:31,  4.94s/it][A
+Training...:  85%|████████▌ | 874/1025 [1:15:12<11:52,  4.72s/it][A
+Training...:  85%|████████▌ | 875/1025 [1:15:16<11:33,  4.63s/it][A
+Training...:  85%|████████▌ | 876/1025 [1:15:20<11:12,  4.51s/it][A
+Training...:  86%|████████▌ | 877/1025 [1:15:25<11:08,  4.52s/it][A
+Training...:  86%|████████▌ | 878/1025 [1:15:30<11:29,  4.69s/it][A
+Training...:  86%|████████▌ | 879/1025 [1:15:34<11:18,  4.65s/it][A
+Training...:  86%|████████▌ | 880/1025 [1:15:39<10:56,  4.53s/it][A
+Training...:  86%|████████▌ | 881/1025 [1:15:43<10:46,  4.49s/it][A
+Training...:  86%|████████▌ | 882/1025 [1:15:47<10:30,  4.41s/it][A
+Training...:  86%|████████▌ | 883/1025 [1:15:52<10:26,  4.41s/it][A
+Training...:  86%|████████▌ | 884/1025 [1:15:56<10:18,  4.39s/it][A
+Training...:  86%|████████▋ | 885/1025 [1:16:01<10:53,  4.67s/it][A
+Training...:  86%|████████▋ | 886/1025 [1:16:02<07:56,  3.43s/it][A
+Training...:  87%|████████▋ | 887/1025 [1:16:12<12:18,  5.35s/it][A
+Training...:  87%|████████▋ | 888/1025 [1:16:20<14:22,  6.30s/it][A
+Training...:  87%|████████▋ | 889/1025 [1:16:29<16:11,  7.14s/it][A
+Training...:  87%|████████▋ | 890/1025 [1:16:36<15:39,  6.96s/it][A
+Training...:  87%|████████▋ | 891/1025 [1:16:41<14:28,  6.48s/it][A
+Training...:  87%|████████▋ | 892/1025 [1:16:46<13:13,  5.96s/it][A
+Training...:  87%|████████▋ | 893/1025 [1:16:51<12:35,  5.72s/it][A
+Training...:  87%|████████▋ | 894/1025 [1:16:55<11:30,  5.27s/it][A
+Training...:  87%|████████▋ | 895/1025 [1:17:00<10:55,  5.04s/it][A
+Training...:  87%|████████▋ | 896/1025 [1:17:04<10:20,  4.81s/it][A
+Training...:  88%|████████▊ | 897/1025 [1:17:10<10:34,  4.96s/it][A
+Training...:  88%|████████▊ | 898/1025 [1:17:14<10:00,  4.73s/it][A
+Training...:  88%|████████▊ | 899/1025 [1:17:18<09:41,  4.62s/it][A
+Training...:  88%|████████▊ | 900/1025 [1:17:22<09:20,  4.48s/it][A
+Training...:  88%|████████▊ | 901/1025 [1:17:27<09:14,  4.47s/it][A
+Training...:  88%|████████▊ | 902/1025 [1:17:31<09:00,  4.40s/it][A
+Training...:  88%|████████▊ | 903/1025 [1:17:35<09:02,  4.44s/it][A
+Training...:  88%|████████▊ | 904/1025 [1:17:41<09:21,  4.64s/it][A
+Training...:  88%|████████▊ | 905/1025 [1:17:45<09:10,  4.58s/it][A
+Training...:  88%|████████▊ | 906/1025 [1:17:49<08:52,  4.47s/it][A
+Training...:  88%|████████▊ | 907/1025 [1:17:53<08:41,  4.42s/it][A
+Training...:  89%|████████▊ | 908/1025 [1:17:58<08:31,  4.37s/it][A
+Training...:  89%|████████▊ | 909/1025 [1:18:02<08:27,  4.38s/it][A
+Training...:  89%|████████▉ | 910/1025 [1:18:03<06:12,  3.24s/it][A
+Training...:  89%|████████▉ | 911/1025 [1:18:14<10:36,  5.58s/it][A
+Training...:  89%|████████▉ | 912/1025 [1:18:20<10:54,  5.79s/it][A
+Training...:  89%|████████▉ | 913/1025 [1:18:29<12:33,  6.73s/it][A
+Training...:  89%|████████▉ | 914/1025 [1:18:34<11:37,  6.29s/it][A
+Training...:  89%|████████▉ | 915/1025 [1:18:40<11:14,  6.13s/it][A
+Training...:  89%|████████▉ | 916/1025 [1:18:45<10:30,  5.79s/it][A
+Training...:  89%|████████▉ | 917/1025 [1:18:51<10:35,  5.88s/it][A
+Training...:  90%|████████▉ | 918/1025 [1:18:55<09:31,  5.34s/it][A
+Training...:  90%|████████▉ | 919/1025 [1:18:59<08:51,  5.02s/it][A
+Training...:  90%|████████▉ | 920/1025 [1:19:04<08:22,  4.79s/it][A
+Training...:  90%|████████▉ | 921/1025 [1:19:08<08:07,  4.69s/it][A
+Training...:  90%|████████▉ | 922/1025 [1:19:12<07:50,  4.57s/it][A
+Training...:  90%|█████████ | 923/1025 [1:19:17<07:43,  4.55s/it][A
+Training...:  90%|█████████ | 924/1025 [1:19:22<07:56,  4.72s/it][A
+Training...:  90%|█████████ | 925/1025 [1:19:27<07:44,  4.65s/it][A
+Training...:  90%|█████████ | 926/1025 [1:19:31<07:22,  4.47s/it][A
+Training...:  90%|█████████ | 927/1025 [1:19:35<07:15,  4.44s/it][A
+Training...:  91%|█████████ | 928/1025 [1:19:39<07:05,  4.38s/it][A
+Training...:  91%|█████████ | 929/1025 [1:19:44<07:02,  4.40s/it][A
+Training...:  91%|█████████ | 930/1025 [1:19:48<06:54,  4.36s/it][A
+Training...:  91%|█████████ | 931/1025 [1:19:53<07:15,  4.63s/it][A
+Training...:  91%|█████████ | 932/1025 [1:19:57<06:59,  4.51s/it][A
+Training...:  91%|█████████ | 933/1025 [1:20:02<06:52,  4.48s/it][A
+Training...:  91%|█████████ | 934/1025 [1:20:06<06:41,  4.41s/it][A
+Training...:  91%|█████████ | 935/1025 [1:20:07<04:53,  3.27s/it][A
+Training...:  91%|█████████▏| 936/1025 [1:20:21<09:41,  6.54s/it][A
+Training...:  91%|█████████▏| 937/1025 [1:20:31<11:12,  7.64s/it][A
+Training...:  92%|█████████▏| 938/1025 [1:20:40<11:49,  8.16s/it][A
+Training...:  92%|█████████▏| 939/1025 [1:20:46<10:28,  7.31s/it][A
+Training...:  92%|█████████▏| 940/1025 [1:20:52<09:44,  6.87s/it][A
+Training...:  92%|█████████▏| 941/1025 [1:20:57<09:03,  6.47s/it][A
+Training...:  92%|█████████▏| 942/1025 [1:21:04<09:01,  6.52s/it][A
+Training...:  92%|█████████▏| 943/1025 [1:21:09<08:30,  6.23s/it][A
+Training...:  92%|█████████▏| 944/1025 [1:21:14<07:41,  5.70s/it][A
+Training...:  92%|█████████▏| 945/1025 [1:21:18<07:00,  5.26s/it][A
+Training...:  92%|█████████▏| 946/1025 [1:21:22<06:35,  5.00s/it][A
+Training...:  92%|█████████▏| 947/1025 [1:21:27<06:10,  4.75s/it][A
+Training...:  92%|█████████▏| 948/1025 [1:21:32<06:18,  4.92s/it][A
+Training...:  93%|█████████▎| 949/1025 [1:21:36<05:58,  4.72s/it][A
+Training...:  93%|█████████▎| 950/1025 [1:21:41<05:47,  4.64s/it][A
+Training...:  93%|█████████▎| 951/1025 [1:21:45<05:33,  4.51s/it][A
+Training...:  93%|█████████▎| 952/1025 [1:21:49<05:26,  4.47s/it][A
+Training...:  93%|█████████▎| 953/1025 [1:21:53<05:15,  4.38s/it][A
+Training...:  93%|█████████▎| 954/1025 [1:21:58<05:11,  4.39s/it][A
+Training...:  93%|█████████▎| 955/1025 [1:22:02<05:05,  4.36s/it][A
+Training...:  93%|█████████▎| 956/1025 [1:22:07<05:20,  4.65s/it][A
+Training...:  93%|█████████▎| 957/1025 [1:22:08<03:53,  3.43s/it][A
+Training...:  93%|█████████▎| 958/1025 [1:22:17<05:52,  5.25s/it][A
+Training...:  94%|█████████▎| 959/1025 [1:22:26<06:45,  6.15s/it][A
+Training...:  94%|█████████▎| 960/1025 [1:22:35<07:42,  7.12s/it][A
+Training...:  94%|█████████▍| 961/1025 [1:22:41<07:17,  6.84s/it][A
+Training...:  94%|█████████▍| 962/1025 [1:22:47<06:48,  6.48s/it][A
+Training...:  94%|█████████▍| 963/1025 [1:22:51<06:01,  5.83s/it][A
+Training...:  94%|█████████▍| 964/1025 [1:22:56<05:32,  5.45s/it][A
+Training...:  94%|█████████▍| 965/1025 [1:23:00<05:03,  5.07s/it][A
+Training...:  94%|█████████▍| 966/1025 [1:23:04<04:47,  4.87s/it][A
+Training...:  94%|█████████▍| 967/1025 [1:23:09<04:30,  4.67s/it][A
+Training...:  94%|█████████▍| 968/1025 [1:23:14<04:36,  4.85s/it][A
+Training...:  95%|█████████▍| 969/1025 [1:23:18<04:20,  4.66s/it][A
+Training...:  95%|█████████▍| 970/1025 [1:23:22<04:11,  4.57s/it][A
+Training...:  95%|█████████▍| 971/1025 [1:23:27<04:01,  4.47s/it][A
+Training...:  95%|█████████▍| 972/1025 [1:23:31<03:54,  4.43s/it][A
+Training...:  95%|█████████▍| 973/1025 [1:23:35<03:49,  4.40s/it][A
+Training...:  95%|█████████▌| 974/1025 [1:23:40<03:44,  4.41s/it][A
+Training...:  95%|█████████▌| 975/1025 [1:23:45<03:52,  4.66s/it][A
+Training...:  95%|█████████▌| 976/1025 [1:23:49<03:45,  4.60s/it][A
+Training...:  95%|█████████▌| 977/1025 [1:23:54<03:36,  4.52s/it][A
+Training...:  95%|█████████▌| 978/1025 [1:23:58<03:30,  4.48s/it][A
+Training...:  96%|█████████▌| 979/1025 [1:24:02<03:23,  4.43s/it][A
+Training...:  96%|█████████▌| 980/1025 [1:24:07<03:18,  4.41s/it][A
+Training...:  96%|█████████▌| 981/1025 [1:24:11<03:13,  4.40s/it][A
+Training...:  96%|█████████▌| 982/1025 [1:24:12<02:18,  3.23s/it][A
+Training...:  96%|█████████▌| 983/1025 [1:24:28<04:57,  7.09s/it][A
+Training...:  96%|█████████▌| 984/1025 [1:24:37<05:12,  7.61s/it][A
+Training...:  96%|█████████▌| 985/1025 [1:24:45<05:17,  7.93s/it][A
+Training...:  96%|█████████▌| 986/1025 [1:24:52<04:50,  7.46s/it][A
+Training...:  96%|█████████▋| 987/1025 [1:24:57<04:22,  6.92s/it][A
+Training...:  96%|█████████▋| 988/1025 [1:25:03<03:59,  6.48s/it][A
+Training...:  96%|█████████▋| 989/1025 [1:25:09<03:46,  6.29s/it][A
+Training...:  97%|█████████▋| 990/1025 [1:25:13<03:21,  5.76s/it][A
+Training...:  97%|█████████▋| 991/1025 [1:25:18<03:03,  5.39s/it][A
+Training...:  97%|█████████▋| 992/1025 [1:25:22<02:47,  5.08s/it][A
+Training...:  97%|█████████▋| 993/1025 [1:25:27<02:43,  5.12s/it][A
+Training...:  97%|█████████▋| 994/1025 [1:25:32<02:30,  4.87s/it][A
+Training...:  97%|█████████▋| 995/1025 [1:25:36<02:21,  4.70s/it][A
+Training...:  97%|█████████▋| 996/1025 [1:25:40<02:13,  4.59s/it][A
+Training...:  97%|█████████▋| 997/1025 [1:25:45<02:06,  4.53s/it][A
+Training...:  97%|█████████▋| 998/1025 [1:25:49<02:00,  4.46s/it][A
+Training...:  97%|█████████▋| 999/1025 [1:25:53<01:55,  4.44s/it][A
+Training...:  98%|█████████▊| 1000/1025 [1:25:58<01:56,  4.66s/it][A
+Training...:  98%|█████████▊| 1001/1025 [1:26:03<01:51,  4.66s/it][A
+Training...:  98%|█████████▊| 1002/1025 [1:26:07<01:45,  4.57s/it][A
+Training...:  98%|█████████▊| 1003/1025 [1:26:12<01:39,  4.50s/it][A
+Training...:  98%|█████████▊| 1004/1025 [1:26:16<01:33,  4.48s/it][A
+Training...:  98%|█████████▊| 1005/1025 [1:26:17<01:06,  3.31s/it][A
+Training...:  98%|█████████▊| 1006/1025 [1:26:28<01:48,  5.70s/it][A
+Training...:  98%|█████████▊| 1007/1025 [1:26:39<02:08,  7.14s/it][A
+Training...:  98%|█████████▊| 1008/1025 [1:26:44<01:54,  6.75s/it][A
+Training...:  98%|█████████▊| 1009/1025 [1:26:49<01:39,  6.20s/it][A
+Training...:  99%|█████████▊| 1010/1025 [1:26:55<01:28,  5.90s/it][A
+Training...:  99%|█████████▊| 1011/1025 [1:26:59<01:15,  5.39s/it][A
+Training...:  99%|█████████▊| 1012/1025 [1:27:04<01:09,  5.33s/it][A
+Training...:  99%|█████████▉| 1013/1025 [1:27:08<00:59,  4.98s/it][A
+Training...:  99%|█████████▉| 1014/1025 [1:27:13<00:52,  4.82s/it][A
+Training...:  99%|█████████▉| 1015/1025 [1:27:17<00:46,  4.63s/it][A
+Training...:  99%|█████████▉| 1016/1025 [1:27:21<00:41,  4.60s/it][A
+Training...:  99%|█████████▉| 1017/1025 [1:27:25<00:35,  4.48s/it][A
+Training...:  99%|█████████▉| 1018/1025 [1:27:30<00:31,  4.47s/it][A
+Training...:  99%|█████████▉| 1019/1025 [1:27:34<00:26,  4.39s/it][A
+Training...: 100%|█████████▉| 1020/1025 [1:27:39<00:23,  4.64s/it][A
+Training...: 100%|█████████▉| 1021/1025 [1:27:44<00:18,  4.52s/it][A
+Training...: 100%|█████████▉| 1022/1025 [1:27:48<00:13,  4.49s/it][A
+Training...: 100%|█████████▉| 1023/1025 [1:27:52<00:08,  4.41s/it][A
+Training...: 100%|█████████▉| 1024/1025 [1:27:57<00:04,  4.41s/it][A
+Training...: 100%|██████████| 1025/1025 [1:28:01<00:00,  4.36s/it][A
+                                                                  [A                                                      Epoch... (1/3 | Loss: 3.135765552520752, Learning Rate: 6.66666601318866e-05)
+Epoch ... (1/3):   0%|          | 0/3 [1:28:01<?, ?it/s]Configuration saved in /home/kstro/proyectos/dalle-mini/dalle-mini-main/outputs/dalle-mini-finetuned/config.json
+Model weights saved in /home/kstro/proyectos/dalle-mini/dalle-mini-main/outputs/dalle-mini-finetuned/flax_model.msgpack
+tokenizer config file saved in ./outputs/dalle-mini-finetuned/tokenizer_config.json
+Special tokens file saved in ./outputs/dalle-mini-finetuned/special_tokens_map.json
+Epoch ... (1/3):  33%|███▎      | 1/3 [1:29:32<2:59:05, 5372.75s/it]
+Training...:   0%|          | 0/1025 [00:00<?, ?it/s][A
+Training...:   0%|          | 1/1025 [00:02<47:35,  2.79s/it][A
+Training...:   0%|          | 2/1025 [00:13<2:09:55,  7.62s/it][A
+Training...:   0%|          | 3/1025 [00:22<2:19:50,  8.21s/it][A
+Training...:   0%|          | 4/1025 [00:31<2:24:13,  8.48s/it][A
+Training...:   0%|          | 5/1025 [00:40<2:23:54,  8.47s/it][A
+Training...:   1%|          | 6/1025 [00:49<2:32:15,  8.97s/it][A
+Training...:   1%|          | 7/1025 [00:58<2:29:31,  8.81s/it][A
+Training...:   1%|          | 8/1025 [01:07<2:31:04,  8.91s/it][A
+Training...:   1%|          | 9/1025 [01:15<2:27:19,  8.70s/it][A
+Training...:   1%|          | 10/1025 [01:25<2:31:28,  8.95s/it][A
+Training...:   1%|          | 11/1025 [01:33<2:28:31,  8.79s/it][A
+Training...:   1%|          | 12/1025 [01:42<2:27:58,  8.76s/it][A
+Training...:   1%|▏         | 13/1025 [01:48<2:11:32,  7.80s/it][A
+Training...:   1%|▏         | 14/1025 [01:54<2:05:23,  7.44s/it][A
+Training...:   1%|▏         | 15/1025 [02:00<1:56:05,  6.90s/it][A
+Training...:   2%|▏         | 16/1025 [02:06<1:50:13,  6.55s/it][A
+Training...:   2%|▏         | 17/1025 [02:06<1:20:28,  4.79s/it][A
+Training...:   2%|▏         | 18/1025 [02:15<1:41:27,  6.05s/it][A
+Training...:   2%|▏         | 19/1025 [02:21<1:40:56,  6.02s/it][A
+Training...:   2%|▏         | 20/1025 [02:31<1:57:47,  7.03s/it][A
+Training...:   2%|▏         | 21/1025 [02:39<2:03:59,  7.41s/it][A
+Training...:   2%|▏         | 22/1025 [02:48<2:11:55,  7.89s/it][A
+Training...:   2%|▏         | 23/1025 [02:56<2:12:38,  7.94s/it][A
+Training...:   2%|▏         | 24/1025 [03:05<2:19:02,  8.33s/it][A
+Training...:   2%|▏         | 25/1025 [03:14<2:19:39,  8.38s/it][A
+Training...:   3%|▎         | 26/1025 [03:23<2:23:02,  8.59s/it][A
+Training...:   3%|▎         | 27/1025 [03:32<2:26:27,  8.80s/it][A
+Training...:   3%|▎         | 28/1025 [03:42<2:29:44,  9.01s/it][A
+Training...:   3%|▎         | 29/1025 [03:50<2:27:18,  8.87s/it][A
+Training...:   3%|▎         | 30/1025 [03:59<2:26:06,  8.81s/it][A
+Training...:   3%|▎         | 31/1025 [04:08<2:27:47,  8.92s/it][A
+Training...:   3%|▎         | 32/1025 [04:09<1:47:29,  6.50s/it][A
+Training...:   3%|▎         | 33/1025 [04:18<2:02:16,  7.40s/it][A
+Training...:   3%|▎         | 34/1025 [04:24<1:55:05,  6.97s/it][A
+Training...:   3%|▎         | 35/1025 [04:34<2:06:24,  7.66s/it][A
+Training...:   4%|▎         | 36/1025 [04:40<2:01:54,  7.40s/it][A
+Training...:   4%|▎         | 37/1025 [04:49<2:09:45,  7.88s/it][A
+Training...:   4%|▎         | 38/1025 [04:55<2:00:56,  7.35s/it][A
+Training...:   4%|▍         | 39/1025 [05:04<2:08:13,  7.80s/it][A
+Training...:   4%|▍         | 40/1025 [05:13<2:14:47,  8.21s/it][A
+Training...:   4%|▍         | 41/1025 [05:22<2:18:15,  8.43s/it][A
+Training...:   4%|▍         | 42/1025 [05:31<2:18:17,  8.44s/it][A
+Training...:   4%|▍         | 43/1025 [05:40<2:19:51,  8.54s/it][A
+Training...:   4%|▍         | 44/1025 [05:49<2:24:23,  8.83s/it][A
+Training...:   4%|▍         | 45/1025 [05:58<2:23:38,  8.79s/it][A
+Training...:   4%|▍         | 46/1025 [06:06<2:20:33,  8.61s/it][A
+Training...:   5%|▍         | 47/1025 [06:15<2:21:04,  8.65s/it][A
+Training...:   5%|▍         | 48/1025 [06:16<1:42:21,  6.29s/it][A
+Training...:   5%|▍         | 49/1025 [06:27<2:05:49,  7.74s/it][A
+Training...:   5%|▍         | 50/1025 [06:33<1:58:06,  7.27s/it][A
+Training...:   5%|▍         | 51/1025 [06:41<2:04:40,  7.68s/it][A
+Training...:   5%|▌         | 52/1025 [06:51<2:12:03,  8.14s/it][A
+Training...:   5%|▌         | 53/1025 [07:00<2:16:12,  8.41s/it][A
+Training...:   5%|▌         | 54/1025 [07:06<2:06:22,  7.81s/it][A
+Training...:   5%|▌         | 55/1025 [07:13<2:00:45,  7.47s/it][A
+Training...:   5%|▌         | 56/1025 [07:19<1:55:01,  7.12s/it][A
+Training...:   6%|▌         | 57/1025 [07:27<1:56:30,  7.22s/it][A
+Training...:   6%|▌         | 58/1025 [07:33<1:52:16,  6.97s/it][A
+Training...:   6%|▌         | 59/1025 [07:38<1:42:47,  6.38s/it][A
+Training...:   6%|▌         | 60/1025 [07:43<1:34:44,  5.89s/it][A
+Training...:   6%|▌         | 61/1025 [07:48<1:30:07,  5.61s/it][A
+Training...:   6%|▌         | 62/1025 [07:53<1:26:19,  5.38s/it][A
+Training...:   6%|▌         | 63/1025 [07:58<1:27:34,  5.46s/it][A
+Training...:   6%|▌         | 64/1025 [08:03<1:24:21,  5.27s/it][A
+Training...:   6%|▋         | 65/1025 [08:08<1:22:13,  5.14s/it][A
+Training...:   6%|▋         | 66/1025 [08:12<1:19:26,  4.97s/it][A
+Training...:   7%|▋         | 67/1025 [08:17<1:18:10,  4.90s/it][A
+Training...:   7%|▋         | 68/1025 [08:18<57:08,  3.58s/it]  [A
+Training...:   7%|▋         | 69/1025 [08:27<1:26:10,  5.41s/it][A
+Training...:   7%|▋         | 70/1025 [08:35<1:35:18,  5.99s/it][A
+Training...:   7%|▋         | 71/1025 [08:44<1:48:54,  6.85s/it][A
+Training...:   7%|▋         | 72/1025 [08:49<1:43:54,  6.54s/it][A
+Training...:   7%|▋         | 73/1025 [08:58<1:54:22,  7.21s/it][A
+Training...:   7%|▋         | 74/1025 [09:07<2:02:23,  7.72s/it][A
+Training...:   7%|▋         | 75/1025 [09:16<2:07:08,  8.03s/it][A
+Training...:   7%|▋         | 76/1025 [09:25<2:10:33,  8.25s/it][A
+Training...:   8%|▊         | 77/1025 [09:30<1:59:08,  7.54s/it][A
+Training...:   8%|▊         | 78/1025 [09:37<1:53:54,  7.22s/it][A
+Training...:   8%|▊         | 79/1025 [09:43<1:47:02,  6.79s/it][A
+Training...:   8%|▊         | 80/1025 [09:48<1:42:10,  6.49s/it][A
+Training...:   8%|▊         | 81/1025 [09:54<1:38:23,  6.25s/it][A
+Training...:   8%|▊         | 82/1025 [10:00<1:35:03,  6.05s/it][A
+Training...:   8%|▊         | 83/1025 [10:06<1:34:05,  5.99s/it][A
+Training...:   8%|▊         | 84/1025 [10:12<1:36:24,  6.15s/it][A
+Training...:   8%|▊         | 85/1025 [10:18<1:34:48,  6.05s/it][A
+Training...:   8%|▊         | 86/1025 [10:19<1:09:55,  4.47s/it][A
+Training...:   8%|▊         | 87/1025 [10:28<1:31:05,  5.83s/it][A
+Training...:   9%|▊         | 88/1025 [10:34<1:32:00,  5.89s/it][A
+Training...:   9%|▊         | 89/1025 [10:41<1:39:47,  6.40s/it][A
+Training...:   9%|▉         | 90/1025 [10:48<1:40:49,  6.47s/it][A
+Training...:   9%|▉         | 91/1025 [10:55<1:42:32,  6.59s/it][A
+Training...:   9%|▉         | 92/1025 [11:02<1:43:02,  6.63s/it][A
+Training...:   9%|▉         | 93/1025 [11:09<1:45:04,  6.76s/it][A
+Training...:   9%|▉         | 94/1025 [11:16<1:47:07,  6.90s/it][A
+Training...:   9%|▉         | 95/1025 [11:23<1:48:13,  6.98s/it][A
+Training...:   9%|▉         | 96/1025 [11:30<1:46:16,  6.86s/it][A
+Training...:   9%|▉         | 97/1025 [11:37<1:47:14,  6.93s/it][A
+Training...:  10%|▉         | 98/1025 [11:44<1:46:32,  6.90s/it][A
+Training...:  10%|▉         | 99/1025 [11:51<1:50:16,  7.15s/it][A
+Training...:  10%|▉         | 100/1025 [11:58<1:47:31,  6.98s/it][A
+Training...:  10%|▉         | 101/1025 [12:05<1:47:25,  6.98s/it][A
+Training...:  10%|▉         | 102/1025 [12:12<1:46:50,  6.95s/it][A
+Training...:  10%|█         | 103/1025 [12:20<1:50:58,  7.22s/it][A
+Training...:  10%|█         | 104/1025 [12:20<1:20:35,  5.25s/it][A
+Training...:  10%|█         | 105/1025 [12:29<1:36:33,  6.30s/it][A
+Training...:  10%|█         | 106/1025 [12:37<1:43:35,  6.76s/it][A
+Training...:  10%|█         | 107/1025 [12:46<1:53:36,  7.43s/it][A
+Training...:  11%|█         | 108/1025 [12:55<2:00:32,  7.89s/it][A
+Training...:  11%|█         | 109/1025 [13:03<2:04:10,  8.13s/it][A
+Training...:  11%|█         | 110/1025 [13:12<2:06:14,  8.28s/it][A
+Training...:  11%|█         | 111/1025 [13:21<2:08:15,  8.42s/it][A
+Training...:  11%|█         | 112/1025 [13:30<2:11:01,  8.61s/it][A
+Training...:  11%|█         | 113/1025 [13:38<2:10:58,  8.62s/it][A
+Training...:  11%|█         | 114/1025 [13:47<2:10:02,  8.56s/it][A
+Training...:  11%|█         | 115/1025 [13:56<2:11:10,  8.65s/it][A
+Training...:  11%|█▏        | 116/1025 [14:05<2:13:45,  8.83s/it][A
+Training...:  11%|█▏        | 117/1025 [14:14<2:13:42,  8.84s/it][A
+Training...:  12%|█▏        | 118/1025 [14:22<2:11:56,  8.73s/it][A
+Training...:  12%|█▏        | 119/1025 [14:23<1:35:22,  6.32s/it][A
+Training...:  12%|█▏        | 120/1025 [14:34<1:54:55,  7.62s/it][A
+Training...:  12%|█▏        | 121/1025 [14:41<1:52:53,  7.49s/it][A
+Training...:  12%|█▏        | 122/1025 [14:50<1:59:39,  7.95s/it][A
+Training...:  12%|█▏        | 123/1025 [14:58<2:00:28,  8.01s/it][A
+Training...:  12%|█▏        | 124/1025 [15:07<2:04:52,  8.32s/it][A
+Training...:  12%|█▏        | 125/1025 [15:15<2:03:51,  8.26s/it][A
+Training...:  12%|█▏        | 126/1025 [15:24<2:04:40,  8.32s/it][A
+Training...:  12%|█▏        | 127/1025 [15:32<2:02:46,  8.20s/it][A
+Training...:  12%|█▏        | 128/1025 [15:41<2:06:19,  8.45s/it][A
+Training...:  13%|█▎        | 129/1025 [15:49<2:04:35,  8.34s/it][A
+Training...:  13%|█▎        | 130/1025 [15:57<2:06:02,  8.45s/it][A
+Training...:  13%|█▎        | 131/1025 [16:06<2:06:11,  8.47s/it][A
+Training...:  13%|█▎        | 132/1025 [16:15<2:08:16,  8.62s/it][A
+Training...:  13%|█▎        | 133/1025 [16:23<2:06:47,  8.53s/it][A
+Training...:  13%|█▎        | 134/1025 [16:32<2:06:28,  8.52s/it][A
+Training...:  13%|█▎        | 135/1025 [16:32<1:31:33,  6.17s/it][A
+Training...:  13%|█▎        | 136/1025 [16:42<1:47:53,  7.28s/it][A
+Training...:  13%|█▎        | 137/1025 [16:49<1:43:14,  6.98s/it][A
+Training...:  13%|█▎        | 138/1025 [16:58<1:52:44,  7.63s/it][A
+Training...:  14%|█▎        | 139/1025 [17:06<1:54:42,  7.77s/it][A
+Training...:  14%|█▎        | 140/1025 [17:15<2:01:37,  8.25s/it][A
+Training...:  14%|█▍        | 141/1025 [17:24<2:02:50,  8.34s/it][A
+Training...:  14%|█▍        | 142/1025 [17:33<2:04:56,  8.49s/it][A
+Training...:  14%|█▍        | 143/1025 [17:41<2:05:11,  8.52s/it][A
+Training...:  14%|█▍        | 144/1025 [17:50<2:08:36,  8.76s/it][A
+Training...:  14%|█▍        | 145/1025 [17:59<2:06:53,  8.65s/it][A
+Training...:  14%|█▍        | 146/1025 [18:08<2:07:25,  8.70s/it][A
+Training...:  14%|█▍        | 147/1025 [18:16<2:06:49,  8.67s/it][A
+Training...:  14%|█▍        | 148/1025 [18:26<2:09:58,  8.89s/it][A
+Training...:  15%|█▍        | 149/1025 [18:34<2:07:33,  8.74s/it][A
+Training...:  15%|█▍        | 150/1025 [18:35<1:32:17,  6.33s/it][A
+Training...:  15%|█▍        | 151/1025 [18:47<1:57:00,  8.03s/it][A
+Training...:  15%|█▍        | 152/1025 [18:56<2:00:22,  8.27s/it][A
+Training...:  15%|█▍        | 153/1025 [19:04<2:02:04,  8.40s/it][A
+Training...:  15%|█▌        | 154/1025 [19:13<2:01:35,  8.38s/it][A
+Training...:  15%|█▌        | 155/1025 [19:21<2:03:26,  8.51s/it][A
+Training...:  15%|█▌        | 156/1025 [19:30<2:05:04,  8.64s/it][A
+Training...:  15%|█▌        | 157/1025 [19:39<2:05:11,  8.65s/it][A
+Training...:  15%|█▌        | 158/1025 [19:48<2:04:13,  8.60s/it][A
+Training...:  16%|█▌        | 159/1025 [19:56<2:04:58,  8.66s/it][A
+Training...:  16%|█▌        | 160/1025 [20:05<2:05:54,  8.73s/it][A
+Training...:  16%|█▌        | 161/1025 [20:14<2:06:06,  8.76s/it][A
+Training...:  16%|█▌        | 162/1025 [20:23<2:04:37,  8.66s/it][A
+Training...:  16%|█▌        | 163/1025 [20:31<2:05:01,  8.70s/it][A
+Training...:  16%|█▌        | 164/1025 [20:40<2:06:29,  8.82s/it][A
+Training...:  16%|█▌        | 165/1025 [20:41<1:31:23,  6.38s/it][A
+Training...:  16%|█▌        | 166/1025 [20:53<1:56:41,  8.15s/it][A
+Training...:  16%|█▋        | 167/1025 [21:03<2:01:48,  8.52s/it][A
+Training...:  16%|█▋        | 168/1025 [21:12<2:05:28,  8.78s/it][A
+Training...:  16%|█▋        | 169/1025 [21:21<2:03:46,  8.68s/it][A
+Training...:  17%|█▋        | 170/1025 [21:29<2:03:35,  8.67s/it][A
+Training...:  17%|█▋        | 171/1025 [21:38<2:05:16,  8.80s/it][A
+Training...:  17%|█▋        | 172/1025 [21:47<2:05:40,  8.84s/it][A
+Training...:  17%|█▋        | 173/1025 [21:56<2:03:47,  8.72s/it][A
+Training...:  17%|█▋        | 174/1025 [22:05<2:04:03,  8.75s/it][A
+Training...:  17%|█▋        | 175/1025 [22:14<2:05:03,  8.83s/it][A
+Training...:  17%|█▋        | 176/1025 [22:23<2:05:47,  8.89s/it][A
+Training...:  17%|█▋        | 177/1025 [22:31<2:04:07,  8.78s/it][A
+Training...:  17%|█▋        | 178/1025 [22:40<2:03:30,  8.75s/it][A
+Training...:  17%|█▋        | 179/1025 [22:49<2:05:03,  8.87s/it][A
+Training...:  18%|█▊        | 180/1025 [22:50<1:30:37,  6.44s/it][A
+Training...:  18%|█▊        | 181/1025 [22:59<1:43:38,  7.37s/it][A
+Training...:  18%|█▊        | 182/1025 [23:06<1:40:59,  7.19s/it][A
+Training...:  18%|█▊        | 183/1025 [23:15<1:47:52,  7.69s/it][A
+Training...:  18%|█▊        | 184/1025 [23:24<1:52:17,  8.01s/it][A
+Training...:  18%|█▊        | 185/1025 [23:30<1:46:44,  7.62s/it][A
+Training...:  18%|█▊        | 186/1025 [23:37<1:42:17,  7.31s/it][A
+Training...:  18%|█▊        | 187/1025 [23:44<1:40:25,  7.19s/it][A
+Training...:  18%|█▊        | 188/1025 [23:51<1:40:04,  7.17s/it][A
+Training...:  18%|█▊        | 189/1025 [23:58<1:38:48,  7.09s/it][A
+Training...:  19%|█▊        | 190/1025 [24:04<1:36:48,  6.96s/it][A
+Training...:  19%|█▊        | 191/1025 [24:11<1:33:40,  6.74s/it][A
+Training...:  19%|█▊        | 192/1025 [24:16<1:26:30,  6.23s/it][A
+Training...:  19%|█▉        | 193/1025 [24:21<1:22:10,  5.93s/it][A
+Training...:  19%|█▉        | 194/1025 [24:27<1:21:04,  5.85s/it][A
+Training...:  19%|█▉        | 195/1025 [24:32<1:18:21,  5.66s/it][A
+Training...:  19%|█▉        | 196/1025 [24:37<1:16:07,  5.51s/it][A
+Training...:  19%|█▉        | 197/1025 [24:42<1:14:52,  5.43s/it][A
+Training...:  19%|█▉        | 198/1025 [24:47<1:13:41,  5.35s/it][A
+Training...:  19%|█▉        | 199/1025 [24:53<1:13:16,  5.32s/it][A
+Training...:  20%|█▉        | 200/1025 [24:53<53:43,  3.91s/it]  [A
+Training...:  20%|█▉        | 201/1025 [25:04<1:19:34,  5.79s/it][A
+Training...:  20%|█▉        | 202/1025 [25:10<1:20:28,  5.87s/it][A
+Training...:  20%|█▉        | 203/1025 [25:18<1:33:03,  6.79s/it][A
+Training...:  20%|█▉        | 204/1025 [25:27<1:39:13,  7.25s/it][A
+Training...:  20%|██        | 205/1025 [25:36<1:47:25,  7.86s/it][A
+Training...:  20%|██        | 206/1025 [25:45<1:49:43,  8.04s/it][A
+Training...:  20%|██        | 207/1025 [25:54<1:53:48,  8.35s/it][A
+Training...:  20%|██        | 208/1025 [26:02<1:55:40,  8.50s/it][A
+Training...:  20%|██        | 209/1025 [26:12<1:58:28,  8.71s/it][A
+Training...:  20%|██        | 210/1025 [26:20<1:57:26,  8.65s/it][A
+Training...:  21%|██        | 211/1025 [26:29<1:59:49,  8.83s/it][A
+Training...:  21%|██        | 212/1025 [26:44<2:22:29, 10.52s/it][A
+Training...:  21%|██        | 213/1025 [26:51<2:08:07,  9.47s/it][A
+Training...:  21%|██        | 214/1025 [26:58<1:57:13,  8.67s/it][A
+Training...:  21%|██        | 215/1025 [26:58<1:24:39,  6.27s/it][A
+Training...:  21%|██        | 216/1025 [27:09<1:42:54,  7.63s/it][A
+Training...:  21%|██        | 217/1025 [27:15<1:37:20,  7.23s/it][A
+Training...:  21%|██▏       | 218/1025 [27:24<1:44:22,  7.76s/it][A
+Training...:  21%|██▏       | 219/1025 [27:33<1:45:25,  7.85s/it][A
+Training...:  21%|██▏       | 220/1025 [27:42<1:51:43,  8.33s/it][A
+Training...:  22%|██▏       | 221/1025 [27:51<1:53:38,  8.48s/it][A
+Training...:  22%|██▏       | 222/1025 [28:00<1:54:38,  8.57s/it][A
+Training...:  22%|██▏       | 223/1025 [28:08<1:54:06,  8.54s/it][A
+Training...:  22%|██▏       | 224/1025 [28:17<1:56:59,  8.76s/it][A
+Training...:  22%|██▏       | 225/1025 [28:26<1:56:01,  8.70s/it][A
+Training...:  22%|██▏       | 226/1025 [28:35<1:56:09,  8.72s/it][A
+Training...:  22%|██▏       | 227/1025 [28:43<1:55:04,  8.65s/it][A
+Training...:  22%|██▏       | 228/1025 [28:53<1:58:01,  8.88s/it][A
+Training...:  22%|██▏       | 229/1025 [29:01<1:56:30,  8.78s/it][A
+Training...:  22%|██▏       | 230/1025 [29:02<1:24:19,  6.36s/it][A
+Training...:  23%|██▎       | 231/1025 [29:12<1:39:19,  7.51s/it][A
+Training...:  23%|██▎       | 232/1025 [29:19<1:37:58,  7.41s/it][A
+Training...:  23%|██▎       | 233/1025 [29:28<1:43:59,  7.88s/it][A
+Training...:  23%|██▎       | 234/1025 [29:36<1:44:56,  7.96s/it][A
+Training...:  23%|██▎       | 235/1025 [29:45<1:47:45,  8.18s/it][A
+Training...:  23%|██▎       | 236/1025 [29:54<1:50:53,  8.43s/it][A
+Training...:  23%|██▎       | 237/1025 [30:03<1:50:48,  8.44s/it][A
+Training...:  23%|██▎       | 238/1025 [30:11<1:51:03,  8.47s/it][A
+Training...:  23%|██▎       | 239/1025 [30:20<1:53:48,  8.69s/it][A
+Training...:  23%|██▎       | 240/1025 [30:29<1:54:28,  8.75s/it][A
+Training...:  24%|██▎       | 241/1025 [30:38<1:53:39,  8.70s/it][A
+Training...:  24%|██▎       | 242/1025 [30:46<1:53:41,  8.71s/it][A
+Training...:  24%|██▎       | 243/1025 [30:56<1:55:58,  8.90s/it][A
+Training...:  24%|██▍       | 244/1025 [31:05<1:55:09,  8.85s/it][A
+Training...:  24%|██▍       | 245/1025 [31:05<1:23:20,  6.41s/it][A
+Training...:  24%|██▍       | 246/1025 [31:15<1:37:44,  7.53s/it][A
+Training...:  24%|██▍       | 247/1025 [31:22<1:33:35,  7.22s/it][A
+Training...:  24%|██▍       | 248/1025 [31:31<1:42:19,  7.90s/it][A
+Training...:  24%|██▍       | 249/1025 [31:40<1:43:13,  7.98s/it][A
+Training...:  24%|██▍       | 250/1025 [31:49<1:47:00,  8.28s/it][A
+Training...:  24%|██▍       | 251/1025 [31:57<1:47:44,  8.35s/it][A
+Training...:  25%|██▍       | 252/1025 [32:06<1:50:38,  8.59s/it][A
+Training...:  25%|██▍       | 253/1025 [32:14<1:49:20,  8.50s/it][A
+Training...:  25%|██▍       | 254/1025 [32:23<1:50:32,  8.60s/it][A
+Training...:  25%|██▍       | 255/1025 [32:32<1:49:39,  8.55s/it][A
+Training...:  25%|██▍       | 256/1025 [32:41<1:54:10,  8.91s/it][A
+Training...:  25%|██▌       | 257/1025 [32:48<1:44:46,  8.19s/it][A
+Training...:  25%|██▌       | 258/1025 [32:55<1:38:48,  7.73s/it][A
+Training...:  25%|██▌       | 259/1025 [33:01<1:34:28,  7.40s/it][A
+Training...:  25%|██▌       | 260/1025 [33:09<1:33:59,  7.37s/it][A
+Training...:  25%|██▌       | 261/1025 [33:09<1:07:59,  5.34s/it][A
+Training...:  26%|██▌       | 262/1025 [33:18<1:21:40,  6.42s/it][A
+Training...:  26%|██▌       | 263/1025 [33:26<1:28:06,  6.94s/it][A
+Training...:  26%|██▌       | 264/1025 [33:35<1:36:16,  7.59s/it][A
+Training...:  26%|██▌       | 265/1025 [33:44<1:40:26,  7.93s/it][A
+Training...:  26%|██▌       | 266/1025 [33:53<1:42:59,  8.14s/it][A
+Training...:  26%|██▌       | 267/1025 [34:01<1:44:14,  8.25s/it][A
+Training...:  26%|██▌       | 268/1025 [34:10<1:46:08,  8.41s/it][A
+Training...:  26%|██▌       | 269/1025 [34:19<1:48:29,  8.61s/it][A
+Training...:  26%|██▋       | 270/1025 [34:28<1:49:03,  8.67s/it][A
+Training...:  26%|██▋       | 271/1025 [34:36<1:47:44,  8.57s/it][A
+Training...:  27%|██▋       | 272/1025 [34:46<1:50:06,  8.77s/it][A
+Training...:  27%|██▋       | 273/1025 [34:52<1:42:57,  8.21s/it][A
+Training...:  27%|██▋       | 274/1025 [35:00<1:38:41,  7.88s/it][A
+Training...:  27%|██▋       | 275/1025 [35:06<1:34:55,  7.59s/it][A
+Training...:  27%|██▋       | 276/1025 [35:13<1:32:44,  7.43s/it][A
+Training...:  27%|██▋       | 277/1025 [35:14<1:07:03,  5.38s/it][A
+Training...:  27%|██▋       | 278/1025 [35:23<1:21:10,  6.52s/it][A
+Training...:  27%|██▋       | 279/1025 [35:32<1:29:15,  7.18s/it][A
+Training...:  27%|██▋       | 280/1025 [35:41<1:35:20,  7.68s/it][A
+Training...:  27%|██▋       | 281/1025 [35:50<1:39:22,  8.01s/it][A
+Training...:  28%|██▊       | 282/1025 [35:58<1:42:04,  8.24s/it][A
+Training...:  28%|██▊       | 283/1025 [36:07<1:43:25,  8.36s/it][A
+Training...:  28%|██▊       | 284/1025 [36:16<1:45:22,  8.53s/it][A
+Training...:  28%|██▊       | 285/1025 [36:25<1:47:00,  8.68s/it][A
+Training...:  28%|██▊       | 286/1025 [36:34<1:47:04,  8.69s/it][A
+Training...:  28%|██▊       | 287/1025 [36:42<1:45:46,  8.60s/it][A
+Training...:  28%|██▊       | 288/1025 [36:51<1:47:25,  8.75s/it][A
+Training...:  28%|██▊       | 289/1025 [37:00<1:47:48,  8.79s/it][A
+Training...:  28%|██▊       | 290/1025 [37:09<1:48:49,  8.88s/it][A
+Training...:  28%|██▊       | 291/1025 [37:18<1:48:34,  8.87s/it][A
+Training...:  28%|██▊       | 292/1025 [37:19<1:18:53,  6.46s/it][A
+Training...:  29%|██▊       | 293/1025 [37:28<1:30:11,  7.39s/it][A
+Training...:  29%|██▊       | 294/1025 [37:34<1:24:37,  6.95s/it][A
+Training...:  29%|██▉       | 295/1025 [37:43<1:32:27,  7.60s/it][A
+Training...:  29%|██▉       | 296/1025 [37:49<1:24:25,  6.95s/it][A
+Training...:  29%|██▉       | 297/1025 [37:55<1:19:45,  6.57s/it][A
+Training...:  29%|██▉       | 298/1025 [38:01<1:17:30,  6.40s/it][A
+Training...:  29%|██▉       | 299/1025 [38:06<1:15:25,  6.23s/it][A
+Training...:  29%|██▉       | 300/1025 [38:12<1:12:57,  6.04s/it][A
+Training...:  29%|██▉       | 301/1025 [38:18<1:12:28,  6.01s/it][A
+Training...:  29%|██▉       | 302/1025 [38:24<1:11:15,  5.91s/it][A
+Training...:  30%|██▉       | 303/1025 [38:30<1:11:05,  5.91s/it][A
+Training...:  30%|██▉       | 304/1025 [38:36<1:11:48,  5.98s/it][A
+Training...:  30%|██▉       | 305/1025 [38:41<1:11:04,  5.92s/it][A
+Training...:  30%|██▉       | 306/1025 [38:47<1:09:52,  5.83s/it][A
+Training...:  30%|██▉       | 307/1025 [38:53<1:09:52,  5.84s/it][A
+Training...:  30%|███       | 308/1025 [38:59<1:09:50,  5.84s/it][A
+Training...:  30%|███       | 309/1025 [39:05<1:09:42,  5.84s/it][A
+Training...:  30%|███       | 310/1025 [39:11<1:11:01,  5.96s/it][A
+Training...:  30%|███       | 311/1025 [39:17<1:10:26,  5.92s/it][A
+Training...:  30%|███       | 312/1025 [39:23<1:10:00,  5.89s/it][A
+Training...:  31%|███       | 313/1025 [39:23<51:26,  4.33s/it]  [A
+Training...:  31%|███       | 314/1025 [39:32<1:08:06,  5.75s/it][A
+Training...:  31%|███       | 315/1025 [39:39<1:11:09,  6.01s/it][A
+Training...:  31%|███       | 316/1025 [39:46<1:13:44,  6.24s/it][A
+Training...:  31%|███       | 317/1025 [39:52<1:13:26,  6.22s/it][A
+Training...:  31%|███       | 318/1025 [39:58<1:14:24,  6.31s/it][A
+Training...:  31%|███       | 319/1025 [40:05<1:14:39,  6.35s/it][A
+Training...:  31%|███       | 320/1025 [40:12<1:17:32,  6.60s/it][A
+Training...:  31%|███▏      | 321/1025 [40:18<1:17:06,  6.57s/it][A
+Training...:  31%|███▏      | 322/1025 [40:24<1:12:25,  6.18s/it][A
+Training...:  32%|███▏      | 323/1025 [40:29<1:08:34,  5.86s/it][A
+Training...:  32%|███▏      | 324/1025 [40:34<1:06:35,  5.70s/it][A
+Training...:  32%|███▏      | 325/1025 [40:39<1:04:29,  5.53s/it][A
+Training...:  32%|███▏      | 326/1025 [40:45<1:05:21,  5.61s/it][A
+Training...:  32%|███▏      | 327/1025 [40:50<1:04:02,  5.50s/it][A
+Training...:  32%|███▏      | 328/1025 [40:56<1:03:27,  5.46s/it][A
+Training...:  32%|███▏      | 329/1025 [41:01<1:02:29,  5.39s/it][A
+Training...:  32%|███▏      | 330/1025 [41:06<1:02:14,  5.37s/it][A
+Training...:  32%|███▏      | 331/1025 [41:12<1:01:34,  5.32s/it][A
+Training...:  32%|███▏      | 332/1025 [41:17<1:01:56,  5.36s/it][A
+Training...:  32%|███▏      | 333/1025 [41:22<1:01:36,  5.34s/it][A
+Training...:  33%|███▎      | 334/1025 [41:28<1:02:01,  5.39s/it][A
+Training...:  33%|███▎      | 335/1025 [41:28<45:20,  3.94s/it]  [A
+Training...:  33%|███▎      | 336/1025 [41:37<1:02:08,  5.41s/it][A
+Training...:  33%|███▎      | 337/1025 [41:43<1:03:54,  5.57s/it][A
+Training...:  33%|███▎      | 338/1025 [41:52<1:15:10,  6.57s/it][A
+Training...:  33%|███▎      | 339/1025 [42:00<1:20:38,  7.05s/it][A
+Training...:  33%|███▎      | 340/1025 [42:09<1:26:42,  7.59s/it][A
+Training...:  33%|███▎      | 341/1025 [42:18<1:29:51,  7.88s/it][A
+Training...:  33%|███▎      | 342/1025 [42:27<1:34:30,  8.30s/it][A
+Training...:  33%|███▎      | 343/1025 [42:35<1:35:09,  8.37s/it][A
+Training...:  34%|███▎      | 344/1025 [42:44<1:36:40,  8.52s/it][A
+Training...:  34%|███▎      | 345/1025 [42:53<1:36:31,  8.52s/it][A
+Training...:  34%|███▍      | 346/1025 [43:02<1:38:56,  8.74s/it][A
+Training...:  34%|███▍      | 347/1025 [43:11<1:38:16,  8.70s/it][A
+Training...:  34%|███▍      | 348/1025 [43:19<1:38:10,  8.70s/it][A
+Training...:  34%|███▍      | 349/1025 [43:28<1:38:08,  8.71s/it][A
+Training...:  34%|███▍      | 350/1025 [43:37<1:39:25,  8.84s/it][A
+Training...:  34%|███▍      | 351/1025 [43:38<1:12:03,  6.41s/it][A
+Training...:  34%|███▍      | 352/1025 [43:47<1:21:20,  7.25s/it][A
+Training...:  34%|███▍      | 353/1025 [43:56<1:25:50,  7.66s/it][A
+Training...:  35%|███▍      | 354/1025 [44:02<1:19:54,  7.15s/it][A
+Training...:  35%|███▍      | 355/1025 [44:07<1:14:20,  6.66s/it][A
+Training...:  35%|███▍      | 356/1025 [44:13<1:11:31,  6.41s/it][A
+Training...:  35%|███▍      | 357/1025 [44:19<1:08:51,  6.18s/it][A
+Training...:  35%|███▍      | 358/1025 [44:24<1:06:55,  6.02s/it][A
+Training...:  35%|███▌      | 359/1025 [44:30<1:05:26,  5.90s/it][A
+Training...:  35%|███▌      | 360/1025 [44:36<1:05:11,  5.88s/it][A
+Training...:  35%|███▌      | 361/1025 [44:42<1:04:34,  5.83s/it][A
+Training...:  35%|███▌      | 362/1025 [44:48<1:04:46,  5.86s/it][A
+Training...:  35%|███▌      | 363/1025 [44:53<1:03:51,  5.79s/it][A
+Training...:  36%|███▌      | 364/1025 [44:59<1:03:39,  5.78s/it][A
+Training...:  36%|███▌      | 365/1025 [45:05<1:03:16,  5.75s/it][A
+Training...:  36%|███▌      | 366/1025 [45:11<1:04:04,  5.83s/it][A
+Training...:  36%|███▌      | 367/1025 [45:16<1:03:28,  5.79s/it][A
+Training...:  36%|███▌      | 368/1025 [45:22<1:03:38,  5.81s/it][A
+Training...:  36%|███▌      | 369/1025 [45:28<1:03:15,  5.79s/it][A
+Training...:  36%|███▌      | 370/1025 [45:34<1:03:43,  5.84s/it][A
+Training...:  36%|███▌      | 371/1025 [45:40<1:04:19,  5.90s/it][A
+Training...:  36%|███▋      | 372/1025 [45:41<47:35,  4.37s/it]  [A
+Training...:  36%|███▋      | 373/1025 [45:50<1:03:18,  5.83s/it][A
+Training...:  36%|███▋      | 374/1025 [45:56<1:03:53,  5.89s/it][A
+Training...:  37%|███▋      | 375/1025 [46:05<1:14:36,  6.89s/it][A
+Training...:  37%|███▋      | 376/1025 [46:12<1:12:59,  6.75s/it][A
+Training...:  37%|███▋      | 377/1025 [46:21<1:19:59,  7.41s/it][A
+Training...:  37%|███▋      | 378/1025 [46:29<1:22:24,  7.64s/it][A
+Training...:  37%|███▋      | 379/1025 [46:37<1:25:32,  7.95s/it][A
+Training...:  37%|███▋      | 380/1025 [46:46<1:26:58,  8.09s/it][A
+Training...:  37%|███▋      | 381/1025 [46:55<1:29:38,  8.35s/it][A
+Training...:  37%|███▋      | 382/1025 [47:03<1:29:49,  8.38s/it][A
+Training...:  37%|███▋      | 383/1025 [47:12<1:31:34,  8.56s/it][A
+Training...:  37%|███▋      | 384/1025 [47:21<1:32:05,  8.62s/it][A
+Training...:  38%|███▊      | 385/1025 [47:30<1:32:26,  8.67s/it][A
+Training...:  38%|███▊      | 386/1025 [47:38<1:30:56,  8.54s/it][A
+Training...:  38%|███▊      | 387/1025 [47:47<1:31:21,  8.59s/it][A
+Training...:  38%|███▊      | 388/1025 [47:47<1:05:51,  6.20s/it][A
+Training...:  38%|███▊      | 389/1025 [47:57<1:15:41,  7.14s/it][A
+Training...:  38%|███▊      | 390/1025 [48:03<1:12:11,  6.82s/it][A
+Training...:  38%|███▊      | 391/1025 [48:12<1:18:26,  7.42s/it][A
+Training...:  38%|███▊      | 392/1025 [48:18<1:15:03,  7.11s/it][A
+Training...:  38%|███▊      | 393/1025 [48:25<1:15:00,  7.12s/it][A
+Training...:  38%|███▊      | 394/1025 [48:31<1:12:40,  6.91s/it][A
+Training...:  39%|███▊      | 395/1025 [48:38<1:12:48,  6.93s/it][A
+Training...:  39%|███▊      | 396/1025 [48:45<1:11:41,  6.84s/it][A
+Training...:  39%|███▊      | 397/1025 [48:52<1:12:48,  6.96s/it][A
+Training...:  39%|███▉      | 398/1025 [48:59<1:11:54,  6.88s/it][A
+Training...:  39%|███▉      | 399/1025 [49:06<1:12:20,  6.93s/it][A
+Training...:  39%|███▉      | 400/1025 [49:13<1:11:39,  6.88s/it][A
+Training...:  39%|███▉      | 401/1025 [49:20<1:11:49,  6.91s/it][A
+Training...:  39%|███▉      | 402/1025 [49:27<1:11:29,  6.89s/it][A
+Training...:  39%|███▉      | 403/1025 [49:34<1:11:45,  6.92s/it][A
+Training...:  39%|███▉      | 404/1025 [49:40<1:11:24,  6.90s/it][A
+Training...:  40%|███▉      | 405/1025 [49:47<1:11:18,  6.90s/it][A
+Training...:  40%|███▉      | 406/1025 [49:48<51:41,  5.01s/it]  [A
+Training...:  40%|███▉      | 407/1025 [49:57<1:03:36,  6.18s/it][A
+Training...:  40%|███▉      | 408/1025 [50:03<1:02:42,  6.10s/it][A
+Training...:  40%|███▉      | 409/1025 [50:11<1:10:30,  6.87s/it][A
+Training...:  40%|████      | 410/1025 [50:19<1:13:43,  7.19s/it][A
+Training...:  40%|████      | 411/1025 [50:28<1:19:02,  7.72s/it][A
+Training...:  40%|████      | 412/1025 [50:34<1:12:41,  7.11s/it][A
+Training...:  40%|████      | 413/1025 [50:40<1:08:55,  6.76s/it][A
+Training...:  40%|████      | 414/1025 [50:46<1:05:19,  6.41s/it][A
+Training...:  40%|████      | 415/1025 [50:52<1:03:59,  6.29s/it][A
+Training...:  41%|████      | 416/1025 [50:57<1:02:15,  6.13s/it][A
+Training...:  41%|████      | 417/1025 [51:03<1:01:42,  6.09s/it][A
+Training...:  41%|████      | 418/1025 [51:09<1:00:19,  5.96s/it][A
+Training...:  41%|████      | 419/1025 [51:15<59:48,  5.92s/it]  [A
+Training...:  41%|████      | 420/1025 [51:21<58:55,  5.84s/it][A
+Training...:  41%|████      | 421/1025 [51:26<59:08,  5.88s/it][A
+Training...:  41%|████      | 422/1025 [51:32<58:20,  5.80s/it][A
+Training...:  41%|████▏     | 423/1025 [51:38<58:50,  5.86s/it][A
+Training...:  41%|████▏     | 424/1025 [51:44<58:16,  5.82s/it][A
+Training...:  41%|████▏     | 425/1025 [51:50<58:29,  5.85s/it][A
+Training...:  42%|████▏     | 426/1025 [51:50<42:59,  4.31s/it][A
+Training...:  42%|████▏     | 427/1025 [52:00<57:34,  5.78s/it][A
+Training...:  42%|████▏     | 428/1025 [52:08<1:04:12,  6.45s/it][A
+Training...:  42%|████▏     | 429/1025 [52:17<1:12:45,  7.33s/it][A
+Training...:  42%|████▏     | 430/1025 [52:25<1:15:07,  7.58s/it][A
+Training...:  42%|████▏     | 431/1025 [52:34<1:19:09,  8.00s/it][A
+Training...:  42%|████▏     | 432/1025 [52:43<1:20:30,  8.15s/it][A
+Training...:  42%|████▏     | 433/1025 [52:50<1:16:45,  7.78s/it][A
+Training...:  42%|████▏     | 434/1025 [52:56<1:12:45,  7.39s/it][A
+Training...:  42%|████▏     | 435/1025 [53:03<1:11:46,  7.30s/it][A
+Training...:  43%|████▎     | 436/1025 [53:10<1:09:27,  7.08s/it][A
+Training...:  43%|████▎     | 437/1025 [53:17<1:09:14,  7.07s/it][A
+Training...:  43%|████▎     | 438/1025 [53:23<1:07:21,  6.89s/it][A
+Training...:  43%|████▎     | 439/1025 [53:30<1:07:05,  6.87s/it][A
+Training...:  43%|████▎     | 440/1025 [53:37<1:05:57,  6.76s/it][A
+Training...:  43%|████▎     | 441/1025 [53:44<1:07:00,  6.88s/it][A
+Training...:  43%|████▎     | 442/1025 [53:50<1:06:08,  6.81s/it][A
+Training...:  43%|████▎     | 443/1025 [53:57<1:05:53,  6.79s/it][A
+Training...:  43%|████▎     | 444/1025 [53:58<47:48,  4.94s/it]  [A
+Training...:  43%|████▎     | 445/1025 [54:06<58:37,  6.07s/it][A
+Training...:  44%|████▎     | 446/1025 [54:15<1:05:03,  6.74s/it][A
+Training...:  44%|████▎     | 447/1025 [54:24<1:11:24,  7.41s/it][A
+Training...:  44%|████▎     | 448/1025 [54:32<1:13:36,  7.65s/it][A
+Training...:  44%|████▍     | 449/1025 [54:41<1:18:39,  8.19s/it][A
+Training...:  44%|████▍     | 450/1025 [54:50<1:18:59,  8.24s/it][A
+Training...:  44%|████▍     | 451/1025 [54:59<1:21:24,  8.51s/it][A
+Training...:  44%|████▍     | 452/1025 [55:07<1:21:20,  8.52s/it][A
+Training...:  44%|████▍     | 453/1025 [55:16<1:22:24,  8.64s/it][A
+Training...:  44%|████▍     | 454/1025 [55:25<1:22:11,  8.64s/it][A
+Training...:  44%|████▍     | 455/1025 [55:32<1:18:16,  8.24s/it][A
+Training...:  44%|████▍     | 456/1025 [55:39<1:13:40,  7.77s/it][A
+Training...:  45%|████▍     | 457/1025 [55:46<1:11:51,  7.59s/it][A
+Training...:  45%|████▍     | 458/1025 [55:53<1:10:13,  7.43s/it][A
+Training...:  45%|████▍     | 459/1025 [56:01<1:09:43,  7.39s/it][A
+Training...:  45%|████▍     | 460/1025 [56:01<50:36,  5.37s/it]  [A
+Training...:  45%|████▍     | 461/1025 [56:11<1:04:11,  6.83s/it][A
+Training...:  45%|████▌     | 462/1025 [56:21<1:10:48,  7.55s/it][A
+Training...:  45%|████▌     | 463/1025 [56:30<1:15:48,  8.09s/it][A
+Training...:  45%|████▌     | 464/1025 [56:39<1:16:55,  8.23s/it][A
+Training...:  45%|████▌     | 465/1025 [56:48<1:19:31,  8.52s/it][A
+Training...:  45%|████▌     | 466/1025 [56:56<1:19:25,  8.53s/it][A
+Training...:  46%|████▌     | 467/1025 [57:05<1:20:50,  8.69s/it][A
+Training...:  46%|████▌     | 468/1025 [57:11<1:11:44,  7.73s/it][A
+Training...:  46%|████▌     | 469/1025 [57:17<1:06:08,  7.14s/it][A
+Training...:  46%|████▌     | 470/1025 [57:22<1:01:29,  6.65s/it][A
+Training...:  46%|████▌     | 471/1025 [57:28<59:20,  6.43s/it]  [A
+Training...:  46%|████▌     | 472/1025 [57:34<57:23,  6.23s/it][A
+Training...:  46%|████▌     | 473/1025 [57:40<56:01,  6.09s/it][A
+Training...:  46%|████▌     | 474/1025 [57:45<54:46,  5.96s/it][A
+Training...:  46%|████▋     | 475/1025 [57:51<54:07,  5.91s/it][A
+Training...:  46%|████▋     | 476/1025 [57:57<53:40,  5.87s/it][A
+Training...:  47%|████▋     | 477/1025 [58:03<53:37,  5.87s/it][A
+Training...:  47%|████▋     | 478/1025 [58:03<39:32,  4.34s/it][A
+Training...:  47%|████▋     | 479/1025 [58:13<53:53,  5.92s/it][A
+Training...:  47%|████▋     | 480/1025 [58:19<54:09,  5.96s/it][A
+Training...:  47%|████▋     | 481/1025 [58:28<1:01:39,  6.80s/it][A
+Training...:  47%|████▋     | 482/1025 [58:36<1:05:22,  7.22s/it][A
+Training...:  47%|████▋     | 483/1025 [58:45<1:09:43,  7.72s/it][A
+Training...:  47%|████▋     | 484/1025 [58:54<1:12:00,  7.99s/it][A
+Training...:  47%|████▋     | 485/1025 [59:02<1:14:25,  8.27s/it][A
+Training...:  47%|████▋     | 486/1025 [59:11<1:15:08,  8.37s/it][A
+Training...:  48%|████▊     | 487/1025 [59:20<1:16:15,  8.51s/it][A
+Training...:  48%|████▊     | 488/1025 [59:28<1:15:49,  8.47s/it][A
+Training...:  48%|████▊     | 489/1025 [59:37<1:16:48,  8.60s/it][A
+Training...:  48%|████▊     | 490/1025 [59:46<1:16:35,  8.59s/it][A
+Training...:  48%|████▊     | 491/1025 [59:55<1:17:59,  8.76s/it][A
+Training...:  48%|████▊     | 492/1025 [1:00:04<1:17:31,  8.73s/it][A
+Training...:  48%|████▊     | 493/1025 [1:00:04<56:13,  6.34s/it]  [A
+Training...:  48%|████▊     | 494/1025 [1:00:14<1:06:07,  7.47s/it][A
+Training...:  48%|████▊     | 495/1025 [1:00:21<1:04:05,  7.26s/it][A
+Training...:  48%|████▊     | 496/1025 [1:00:30<1:09:13,  7.85s/it][A
+Training...:  48%|████▊     | 497/1025 [1:00:37<1:04:44,  7.36s/it][A
+Training...:  49%|████▊     | 498/1025 [1:00:46<1:09:12,  7.88s/it][A
+Training...:  49%|████▊     | 499/1025 [1:00:52<1:04:59,  7.41s/it][A
+Training...:  49%|████▉     | 500/1025 [1:01:01<1:09:11,  7.91s/it][A
+Training...:  49%|████▉     | 501/1025 [1:01:07<1:04:22,  7.37s/it][A
+Training...:  49%|████▉     | 502/1025 [1:01:16<1:07:41,  7.77s/it][A
+Training...:  49%|████▉     | 503/1025 [1:01:24<1:09:04,  7.94s/it][A
+Training...:  49%|████▉     | 504/1025 [1:01:33<1:10:34,  8.13s/it][A
+Training...:  49%|████▉     | 505/1025 [1:01:41<1:11:39,  8.27s/it][A
+Training...:  49%|████▉     | 506/1025 [1:01:50<1:13:36,  8.51s/it][A
+Training...:  49%|████▉     | 507/1025 [1:01:59<1:14:04,  8.58s/it][A
+Training...:  50%|████▉     | 508/1025 [1:02:06<1:09:14,  8.04s/it][A
+Training...:  50%|████▉     | 509/1025 [1:02:07<49:46,  5.79s/it]  [A
+Training...:  50%|████▉     | 510/1025 [1:02:17<1:00:27,  7.04s/it][A
+Training...:  50%|████▉     | 511/1025 [1:02:23<59:00,  6.89s/it]  [A
+Training...:  50%|████▉     | 512/1025 [1:02:32<1:03:51,  7.47s/it][A
+Training...:  50%|█████     | 513/1025 [1:02:40<1:05:30,  7.68s/it][A
+Training...:  50%|█████     | 514/1025 [1:02:47<1:03:24,  7.45s/it][A
+Training...:  50%|█████     | 515/1025 [1:02:54<1:01:44,  7.26s/it][A
+Training...:  50%|█████     | 516/1025 [1:03:01<1:00:21,  7.11s/it][A
+Training...:  50%|█████     | 517/1025 [1:03:07<59:37,  7.04s/it]  [A
+Training...:  51%|█████     | 518/1025 [1:03:14<59:24,  7.03s/it][A
+Training...:  51%|█████     | 519/1025 [1:03:21<58:31,  6.94s/it][A
+Training...:  51%|█████     | 520/1025 [1:03:28<58:04,  6.90s/it][A
+Training...:  51%|█████     | 521/1025 [1:03:35<57:48,  6.88s/it][A
+Training...:  51%|█████     | 522/1025 [1:03:42<57:32,  6.86s/it][A
+Training...:  51%|█████     | 523/1025 [1:03:48<56:44,  6.78s/it][A
+Training...:  51%|█████     | 524/1025 [1:03:55<56:59,  6.83s/it][A
+Training...:  51%|█████     | 525/1025 [1:04:02<57:00,  6.84s/it][A
+Training...:  51%|█████▏    | 526/1025 [1:04:09<57:14,  6.88s/it][A
+Training...:  51%|█████▏    | 527/1025 [1:04:09<41:10,  4.96s/it][A
+Training...:  52%|█████▏    | 528/1025 [1:04:18<50:34,  6.11s/it][A
+Training...:  52%|█████▏    | 529/1025 [1:04:27<56:48,  6.87s/it][A
+Training...:  52%|█████▏    | 530/1025 [1:04:36<1:01:34,  7.46s/it][A
+Training...:  52%|█████▏    | 531/1025 [1:04:44<1:03:43,  7.74s/it][A
+Training...:  52%|█████▏    | 532/1025 [1:04:53<1:05:48,  8.01s/it][A
+Training...:  52%|█████▏    | 533/1025 [1:05:01<1:06:37,  8.12s/it][A
+Training...:  52%|█████▏    | 534/1025 [1:05:10<1:08:03,  8.32s/it][A
+Training...:  52%|█████▏    | 535/1025 [1:05:18<1:08:20,  8.37s/it][A
+Training...:  52%|█████▏    | 536/1025 [1:05:27<1:08:55,  8.46s/it][A
+Training...:  52%|█████▏    | 537/1025 [1:05:36<1:09:21,  8.53s/it][A
+Training...:  52%|█████▏    | 538/1025 [1:05:45<1:10:02,  8.63s/it][A
+Training...:  53%|█████▎    | 539/1025 [1:05:53<1:09:06,  8.53s/it][A
+Training...:  53%|█████▎    | 540/1025 [1:06:02<1:09:39,  8.62s/it][A
+Training...:  53%|█████▎    | 541/1025 [1:06:11<1:10:00,  8.68s/it][A
+Training...:  53%|█████▎    | 542/1025 [1:06:11<50:45,  6.31s/it]  [A
+Training...:  53%|█████▎    | 543/1025 [1:06:21<58:27,  7.28s/it][A
+Training...:  53%|█████▎    | 544/1025 [1:06:27<55:23,  6.91s/it][A
+Training...:  53%|█████▎    | 545/1025 [1:06:36<1:00:37,  7.58s/it][A
+Training...:  53%|█████▎    | 546/1025 [1:06:45<1:03:16,  7.93s/it][A
+Training...:  53%|█████▎    | 547/1025 [1:06:54<1:06:27,  8.34s/it][A
+Training...:  53%|█████▎    | 548/1025 [1:07:02<1:05:20,  8.22s/it][A
+Training...:  54%|█████▎    | 549/1025 [1:07:11<1:07:23,  8.49s/it][A
+Training...:  54%|█████▎    | 550/1025 [1:07:19<1:06:39,  8.42s/it][A
+Training...:  54%|█████▍    | 551/1025 [1:07:28<1:07:40,  8.57s/it][A
+Training...:  54%|█████▍    | 552/1025 [1:07:37<1:07:21,  8.54s/it][A
+Training...:  54%|█████▍    | 553/1025 [1:07:46<1:07:51,  8.63s/it][A
+Training...:  54%|█████▍    | 554/1025 [1:07:54<1:07:22,  8.58s/it][A
+Training...:  54%|█████▍    | 555/1025 [1:08:03<1:08:11,  8.70s/it][A
+Training...:  54%|█████▍    | 556/1025 [1:08:12<1:07:24,  8.62s/it][A
+Training...:  54%|█████▍    | 557/1025 [1:08:12<48:51,  6.26s/it]  [A
+Training...:  54%|█████▍    | 558/1025 [1:08:23<57:55,  7.44s/it][A
+Training...:  55%|█████▍    | 559/1025 [1:08:30<56:58,  7.34s/it][A
+Training...:  55%|█████▍    | 560/1025 [1:08:39<1:01:34,  7.95s/it][A
+Training...:  55%|█████▍    | 561/1025 [1:08:47<1:02:32,  8.09s/it][A
+Training...:  55%|█████▍    | 562/1025 [1:08:54<59:39,  7.73s/it]  [A
+Training...:  55%|█████▍    | 563/1025 [1:09:01<56:46,  7.37s/it][A
+Training...:  55%|█████▌    | 564/1025 [1:09:08<55:25,  7.21s/it][A
+Training...:  55%|█████▌    | 565/1025 [1:09:14<53:19,  6.96s/it][A
+Training...:  55%|█████▌    | 566/1025 [1:09:21<52:54,  6.92s/it][A
+Training...:  55%|█████▌    | 567/1025 [1:09:27<52:07,  6.83s/it][A
+Training...:  55%|█████▌    | 568/1025 [1:09:34<52:22,  6.88s/it][A
+Training...:  56%|█████▌    | 569/1025 [1:09:41<51:58,  6.84s/it][A
+Training...:  56%|█████▌    | 570/1025 [1:09:48<51:41,  6.82s/it][A
+Training...:  56%|█████▌    | 571/1025 [1:09:55<51:11,  6.77s/it][A
+Training...:  56%|█████▌    | 572/1025 [1:10:01<51:11,  6.78s/it][A
+Training...:  56%|█████▌    | 573/1025 [1:10:08<51:07,  6.79s/it][A
+Training...:  56%|█████▌    | 574/1025 [1:10:15<51:05,  6.80s/it][A
+Training...:  56%|█████▌    | 575/1025 [1:10:16<37:08,  4.95s/it][A
+Training...:  56%|█████▌    | 576/1025 [1:10:25<46:05,  6.16s/it][A
+Training...:  56%|█████▋    | 577/1025 [1:10:31<46:01,  6.16s/it][A
+Training...:  56%|█████▋    | 578/1025 [1:10:40<51:44,  6.94s/it][A
+Training...:  56%|█████▋    | 579/1025 [1:10:48<54:19,  7.31s/it][A
+Training...:  57%|█████▋    | 580/1025 [1:10:57<57:30,  7.75s/it][A
+Training...:  57%|█████▋    | 581/1025 [1:11:05<59:16,  8.01s/it][A
+Training...:  57%|█████▋    | 582/1025 [1:11:14<1:01:24,  8.32s/it][A
+Training...:  57%|█████▋    | 583/1025 [1:11:23<1:01:55,  8.41s/it][A
+Training...:  57%|█████▋    | 584/1025 [1:11:32<1:03:07,  8.59s/it][A
+Training...:  57%|█████▋    | 585/1025 [1:11:41<1:03:23,  8.64s/it][A
+Training...:  57%|█████▋    | 586/1025 [1:11:49<1:03:13,  8.64s/it][A
+Training...:  57%|█████▋    | 587/1025 [1:11:55<56:28,  7.74s/it]  [A
+Training...:  57%|█████▋    | 588/1025 [1:12:01<52:14,  7.17s/it][A
+Training...:  57%|█████▋    | 589/1025 [1:12:05<46:29,  6.40s/it][A
+Training...:  58%|█████▊    | 590/1025 [1:12:10<42:51,  5.91s/it][A
+Training...:  58%|█████▊    | 591/1025 [1:12:15<40:02,  5.54s/it][A
+Training...:  58%|█████▊    | 592/1025 [1:12:20<38:20,  5.31s/it][A
+Training...:  58%|█████▊    | 593/1025 [1:12:20<27:58,  3.89s/it][A
+Training...:  58%|█████▊    | 594/1025 [1:12:29<38:11,  5.32s/it][A
+Training...:  58%|█████▊    | 595/1025 [1:12:35<40:27,  5.64s/it][A
+Training...:  58%|█████▊    | 596/1025 [1:12:44<47:27,  6.64s/it][A
+Training...:  58%|█████▊    | 597/1025 [1:12:52<50:48,  7.12s/it][A
+Training...:  58%|█████▊    | 598/1025 [1:13:01<54:25,  7.65s/it][A
+Training...:  58%|█████▊    | 599/1025 [1:13:10<56:13,  7.92s/it][A
+Training...:  59%|█████▊    | 600/1025 [1:13:19<57:44,  8.15s/it][A
+Training...:  59%|█████▊    | 601/1025 [1:13:27<59:01,  8.35s/it][A
+Training...:  59%|█████▊    | 602/1025 [1:13:37<1:00:36,  8.60s/it][A
+Training...:  59%|█████▉    | 603/1025 [1:13:45<1:00:06,  8.55s/it][A
+Training...:  59%|█████▉    | 604/1025 [1:13:53<59:40,  8.51s/it]  [A
+Training...:  59%|█████▉    | 605/1025 [1:14:02<59:12,  8.46s/it][A
+Training...:  59%|█████▉    | 606/1025 [1:14:11<59:49,  8.57s/it][A
+Training...:  59%|█████▉    | 607/1025 [1:14:19<59:51,  8.59s/it][A
+Training...:  59%|█████▉    | 608/1025 [1:14:28<1:00:26,  8.70s/it][A
+Training...:  59%|█████▉    | 609/1025 [1:14:29<43:34,  6.29s/it]  [A
+Training...:  60%|█████▉    | 610/1025 [1:14:38<49:17,  7.13s/it][A
+Training...:  60%|█████▉    | 611/1025 [1:14:44<46:49,  6.79s/it][A
+Training...:  60%|█████▉    | 612/1025 [1:14:53<51:32,  7.49s/it][A
+Training...:  60%|█████▉    | 613/1025 [1:14:59<49:01,  7.14s/it][A
+Training...:  60%|█████▉    | 614/1025 [1:15:08<52:29,  7.66s/it][A
+Training...:  60%|██████    | 615/1025 [1:15:15<49:38,  7.27s/it][A
+Training...:  60%|██████    | 616/1025 [1:15:23<52:47,  7.74s/it][A
+Training...:  60%|██████    | 617/1025 [1:15:29<49:11,  7.23s/it][A
+Training...:  60%|██████    | 618/1025 [1:15:38<52:10,  7.69s/it][A
+Training...:  60%|██████    | 619/1025 [1:15:44<48:47,  7.21s/it][A
+Training...:  60%|██████    | 620/1025 [1:15:53<52:10,  7.73s/it][A
+Training...:  61%|██████    | 621/1025 [1:15:59<48:26,  7.19s/it][A
+Training...:  61%|██████    | 622/1025 [1:16:08<51:40,  7.69s/it][A
+Training...:  61%|██████    | 623/1025 [1:16:14<47:49,  7.14s/it][A
+Training...:  61%|██████    | 624/1025 [1:16:23<50:54,  7.62s/it][A
+Training...:  61%|██████    | 625/1025 [1:16:31<51:50,  7.78s/it][A
+Training...:  61%|██████    | 626/1025 [1:16:31<37:34,  5.65s/it][A
+Training...:  61%|██████    | 627/1025 [1:16:43<49:38,  7.48s/it][A
+Training...:  61%|██████▏   | 628/1025 [1:16:52<52:15,  7.90s/it][A
+Training...:  61%|██████▏   | 629/1025 [1:17:01<54:36,  8.27s/it][A
+Training...:  61%|██████▏   | 630/1025 [1:17:10<54:55,  8.34s/it][A
+Training...:  62%|██████▏   | 631/1025 [1:17:19<56:22,  8.58s/it][A
+Training...:  62%|██████▏   | 632/1025 [1:17:27<56:20,  8.60s/it][A
+Training...:  62%|██████▏   | 633/1025 [1:17:37<57:26,  8.79s/it][A
+Training...:  62%|██████▏   | 634/1025 [1:17:45<56:24,  8.66s/it][A
+Training...:  62%|██████▏   | 635/1025 [1:17:52<52:29,  8.08s/it][A
+Training...:  62%|██████▏   | 636/1025 [1:17:58<49:12,  7.59s/it][A
+Training...:  62%|██████▏   | 637/1025 [1:18:05<47:33,  7.35s/it][A
+Training...:  62%|██████▏   | 638/1025 [1:18:12<45:40,  7.08s/it][A
+Training...:  62%|██████▏   | 639/1025 [1:18:18<44:26,  6.91s/it][A
+Training...:  62%|██████▏   | 640/1025 [1:18:24<43:08,  6.72s/it][A
+Training...:  63%|██████▎   | 641/1025 [1:18:31<43:01,  6.72s/it][A
+Training...:  63%|██████▎   | 642/1025 [1:18:38<42:34,  6.67s/it][A
+Training...:  63%|██████▎   | 643/1025 [1:18:38<31:10,  4.90s/it][A
+Training...:  63%|██████▎   | 644/1025 [1:18:49<42:58,  6.77s/it][A
+Training...:  63%|██████▎   | 645/1025 [1:18:56<42:11,  6.66s/it][A
+Training...:  63%|██████▎   | 646/1025 [1:19:05<46:43,  7.40s/it][A
+Training...:  63%|██████▎   | 647/1025 [1:19:13<48:39,  7.72s/it][A
+Training...:  63%|██████▎   | 648/1025 [1:19:22<50:45,  8.08s/it][A
+Training...:  63%|██████▎   | 649/1025 [1:19:31<52:07,  8.32s/it][A
+Training...:  63%|██████▎   | 650/1025 [1:19:38<49:27,  7.91s/it][A
+Training...:  64%|██████▎   | 651/1025 [1:19:45<47:37,  7.64s/it][A
+Training...:  64%|██████▎   | 652/1025 [1:19:52<46:25,  7.47s/it][A
+Training...:  64%|██████▎   | 653/1025 [1:19:59<45:35,  7.35s/it][A
+Training...:  64%|██████▍   | 654/1025 [1:20:06<45:01,  7.28s/it][A
+Training...:  64%|██████▍   | 655/1025 [1:20:14<44:51,  7.27s/it][A
+Training...:  64%|██████▍   | 656/1025 [1:20:21<44:19,  7.21s/it][A
+Training...:  64%|██████▍   | 657/1025 [1:20:28<44:00,  7.18s/it][A
+Training...:  64%|██████▍   | 658/1025 [1:20:35<43:56,  7.18s/it][A
+Training...:  64%|██████▍   | 659/1025 [1:20:40<39:13,  6.43s/it][A
+Training...:  64%|██████▍   | 660/1025 [1:20:41<28:44,  4.72s/it][A
+Training...:  64%|██████▍   | 661/1025 [1:20:51<39:29,  6.51s/it][A
+Training...:  65%|██████▍   | 662/1025 [1:21:00<42:53,  7.09s/it][A
+Training...:  65%|██████▍   | 663/1025 [1:21:09<46:29,  7.71s/it][A
+Training...:  65%|██████▍   | 664/1025 [1:21:17<48:05,  7.99s/it][A
+Training...:  65%|██████▍   | 665/1025 [1:21:27<49:55,  8.32s/it][A
+Training...:  65%|██████▍   | 666/1025 [1:21:35<49:58,  8.35s/it][A
+Training...:  65%|██████▌   | 667/1025 [1:21:44<51:55,  8.70s/it][A
+Training...:  65%|██████▌   | 668/1025 [1:21:53<51:39,  8.68s/it][A
+Training...:  65%|██████▌   | 669/1025 [1:22:02<52:06,  8.78s/it][A
+Training...:  65%|██████▌   | 670/1025 [1:22:11<51:34,  8.72s/it][A
+Training...:  65%|██████▌   | 671/1025 [1:22:20<51:47,  8.78s/it][A
+Training...:  66%|██████▌   | 672/1025 [1:22:28<51:38,  8.78s/it][A
+Training...:  66%|██████▌   | 673/1025 [1:22:37<51:47,  8.83s/it][A
+Training...:  66%|██████▌   | 674/1025 [1:22:46<51:25,  8.79s/it][A
+Training...:  66%|██████▌   | 675/1025 [1:22:47<37:10,  6.37s/it][A
+Training...:  66%|██████▌   | 676/1025 [1:22:56<42:24,  7.29s/it][A
+Training...:  66%|██████▌   | 677/1025 [1:23:02<40:27,  6.98s/it][A
+Training...:  66%|██████▌   | 678/1025 [1:23:11<43:29,  7.52s/it][A
+Training...:  66%|██████▌   | 679/1025 [1:23:18<41:30,  7.20s/it][A
+Training...:  66%|██████▋   | 680/1025 [1:23:27<44:28,  7.73s/it][A
+Training...:  66%|██████▋   | 681/1025 [1:23:35<45:02,  7.86s/it][A
+Training...:  67%|██████▋   | 682/1025 [1:23:43<46:18,  8.10s/it][A
+Training...:  67%|██████▋   | 683/1025 [1:23:52<47:11,  8.28s/it][A
+Training...:  67%|██████▋   | 684/1025 [1:24:01<48:35,  8.55s/it][A
+Training...:  67%|██████▋   | 685/1025 [1:24:10<48:45,  8.60s/it][A
+Training...:  67%|██████▋   | 686/1025 [1:24:19<49:36,  8.78s/it][A
+Training...:  67%|██████▋   | 687/1025 [1:24:28<49:15,  8.74s/it][A
+Training...:  67%|██████▋   | 688/1025 [1:24:37<49:16,  8.77s/it][A
+Training...:  67%|██████▋   | 689/1025 [1:24:45<48:57,  8.74s/it][A
+Training...:  67%|██████▋   | 690/1025 [1:24:54<48:49,  8.75s/it][A
+Training...:  67%|██████▋   | 691/1025 [1:24:55<35:13,  6.33s/it][A
+Training...:  68%|██████▊   | 692/1025 [1:25:04<40:14,  7.25s/it][A
+Training...:  68%|██████▊   | 693/1025 [1:25:11<39:38,  7.16s/it][A
+Training...:  68%|██████▊   | 694/1025 [1:25:20<42:20,  7.68s/it][A
+Training...:  68%|██████▊   | 695/1025 [1:25:29<43:49,  7.97s/it][A
+Training...:  68%|██████▊   | 696/1025 [1:25:38<45:11,  8.24s/it][A
+Training...:  68%|██████▊   | 697/1025 [1:25:46<45:28,  8.32s/it][A
+Training...:  68%|██████▊   | 698/1025 [1:25:55<45:56,  8.43s/it][A
+Training...:  68%|██████▊   | 699/1025 [1:26:04<46:12,  8.51s/it][A
+Training...:  68%|██████▊   | 700/1025 [1:26:13<46:52,  8.65s/it][A
+Training...:  68%|██████▊   | 701/1025 [1:26:21<46:35,  8.63s/it][A
+Training...:  68%|██████▊   | 702/1025 [1:26:30<46:41,  8.67s/it][A
+Training...:  69%|██████▊   | 703/1025 [1:26:39<46:31,  8.67s/it][A
+Training...:  69%|██████▊   | 704/1025 [1:26:47<46:47,  8.75s/it][A
+Training...:  69%|██████▉   | 705/1025 [1:26:54<43:16,  8.11s/it][A
+Training...:  69%|██████▉   | 706/1025 [1:27:01<41:10,  7.74s/it][A
+Training...:  69%|██████▉   | 707/1025 [1:27:02<29:47,  5.62s/it][A
+Training...:  69%|██████▉   | 708/1025 [1:27:11<35:52,  6.79s/it][A
+Training...:  69%|██████▉   | 709/1025 [1:27:20<38:42,  7.35s/it][A
+Training...:  69%|██████▉   | 710/1025 [1:27:29<40:45,  7.76s/it][A
+Training...:  69%|██████▉   | 711/1025 [1:27:37<41:31,  7.93s/it][A
+Training...:  69%|██████▉   | 712/1025 [1:27:46<42:47,  8.20s/it][A
+Training...:  70%|██████▉   | 713/1025 [1:27:55<43:59,  8.46s/it][A
+Training...:  70%|██████▉   | 714/1025 [1:28:02<41:30,  8.01s/it][A
+Training...:  70%|██████▉   | 715/1025 [1:28:09<39:48,  7.71s/it][A
+Training...:  70%|██████▉   | 716/1025 [1:28:16<38:57,  7.57s/it][A
+Training...:  70%|██████▉   | 717/1025 [1:28:23<38:22,  7.48s/it][A
+Training...:  70%|███████   | 718/1025 [1:28:30<37:38,  7.36s/it][A
+Training...:  70%|███████   | 719/1025 [1:28:37<37:06,  7.28s/it][A
+Training...:  70%|███████   | 720/1025 [1:28:45<36:55,  7.26s/it][A
+Training...:  70%|███████   | 721/1025 [1:28:49<32:55,  6.50s/it][A
+Training...:  70%|███████   | 722/1025 [1:28:54<30:07,  5.96s/it][A
+Training...:  71%|███████   | 723/1025 [1:28:59<28:02,  5.57s/it][A
+Training...:  71%|███████   | 724/1025 [1:29:03<26:42,  5.32s/it][A
+Training...:  71%|███████   | 725/1025 [1:29:04<19:35,  3.92s/it][A
+Training...:  71%|███████   | 726/1025 [1:29:16<31:04,  6.24s/it][A
+Training...:  71%|███████   | 727/1025 [1:29:26<37:23,  7.53s/it][A
+Training...:  71%|███████   | 728/1025 [1:29:35<39:06,  7.90s/it][A
+Training...:  71%|███████   | 729/1025 [1:29:44<40:04,  8.12s/it][A
+Training...:  71%|███████   | 730/1025 [1:29:52<40:57,  8.33s/it][A
+Training...:  71%|███████▏  | 731/1025 [1:30:01<41:04,  8.38s/it][A
+Training...:  71%|███████▏  | 732/1025 [1:30:10<42:08,  8.63s/it][A
+Training...:  72%|███████▏  | 733/1025 [1:30:19<42:28,  8.73s/it][A
+Training...:  72%|███████▏  | 734/1025 [1:30:28<42:23,  8.74s/it][A
+Training...:  72%|███████▏  | 735/1025 [1:30:36<41:58,  8.69s/it][A
+Training...:  72%|███████▏  | 736/1025 [1:30:45<42:02,  8.73s/it][A
+Training...:  72%|███████▏  | 737/1025 [1:30:54<42:06,  8.77s/it][A
+Training...:  72%|███████▏  | 738/1025 [1:31:03<41:57,  8.77s/it][A
+Training...:  72%|███████▏  | 739/1025 [1:31:12<41:34,  8.72s/it][A
+Training...:  72%|███████▏  | 740/1025 [1:31:12<30:08,  6.35s/it][A
+Training...:  72%|███████▏  | 741/1025 [1:31:27<41:15,  8.72s/it][A
+Training...:  72%|███████▏  | 742/1025 [1:31:36<42:44,  9.06s/it][A
+Training...:  72%|███████▏  | 743/1025 [1:31:46<42:32,  9.05s/it][A
+Training...:  73%|███████▎  | 744/1025 [1:31:54<41:34,  8.88s/it][A
+Training...:  73%|███████▎  | 745/1025 [1:32:03<41:30,  8.89s/it][A
+Training...:  73%|███████▎  | 746/1025 [1:32:11<40:42,  8.75s/it][A
+Training...:  73%|███████▎  | 747/1025 [1:32:20<40:52,  8.82s/it][A
+Training...:  73%|███████▎  | 748/1025 [1:32:29<40:03,  8.68s/it][A
+Training...:  73%|███████▎  | 749/1025 [1:32:38<40:36,  8.83s/it][A
+Training...:  73%|███████▎  | 750/1025 [1:32:46<40:05,  8.75s/it][A
+Training...:  73%|███████▎  | 751/1025 [1:32:55<40:17,  8.82s/it][A
+Training...:  73%|███████▎  | 752/1025 [1:33:04<39:37,  8.71s/it][A
+Training...:  73%|███████▎  | 753/1025 [1:33:13<40:08,  8.85s/it][A
+Training...:  74%|███████▎  | 754/1025 [1:33:14<28:57,  6.41s/it][A
+Training...:  74%|███████▎  | 755/1025 [1:33:23<32:59,  7.33s/it][A
+Training...:  74%|███████▍  | 756/1025 [1:33:32<34:25,  7.68s/it][A
+Training...:  74%|███████▍  | 757/1025 [1:33:40<35:43,  8.00s/it][A
+Training...:  74%|███████▍  | 758/1025 [1:33:49<35:43,  8.03s/it][A
+Training...:  74%|███████▍  | 759/1025 [1:33:58<37:06,  8.37s/it][A
+Training...:  74%|███████▍  | 760/1025 [1:34:06<37:13,  8.43s/it][A
+Training...:  74%|███████▍  | 761/1025 [1:34:13<35:09,  7.99s/it][A
+Training...:  74%|███████▍  | 762/1025 [1:34:20<33:00,  7.53s/it][A
+Training...:  74%|███████▍  | 763/1025 [1:34:27<32:12,  7.38s/it][A
+Training...:  75%|███████▍  | 764/1025 [1:34:33<30:57,  7.12s/it][A
+Training...:  75%|███████▍  | 765/1025 [1:34:39<28:54,  6.67s/it][A
+Training...:  75%|███████▍  | 766/1025 [1:34:44<26:59,  6.25s/it][A
+Training...:  75%|███████▍  | 767/1025 [1:34:50<25:52,  6.02s/it][A
+Training...:  75%|███████▍  | 768/1025 [1:34:55<24:49,  5.80s/it][A
+Training...:  75%|███████▌  | 769/1025 [1:35:00<24:09,  5.66s/it][A
+Training...:  75%|███████▌  | 770/1025 [1:35:06<23:36,  5.56s/it][A
+Training...:  75%|███████▌  | 771/1025 [1:35:11<23:26,  5.54s/it][A
+Training...:  75%|███████▌  | 772/1025 [1:35:16<22:56,  5.44s/it][A
+Training...:  75%|███████▌  | 773/1025 [1:35:17<16:46,  4.00s/it][A
+Training...:  76%|███████▌  | 774/1025 [1:35:26<22:45,  5.44s/it][A
+Training...:  76%|███████▌  | 775/1025 [1:35:32<23:38,  5.68s/it][A
+Training...:  76%|███████▌  | 776/1025 [1:35:41<27:18,  6.58s/it][A
+Training...:  76%|███████▌  | 777/1025 [1:35:49<29:33,  7.15s/it][A
+Training...:  76%|███████▌  | 778/1025 [1:35:58<31:44,  7.71s/it][A
+Training...:  76%|███████▌  | 779/1025 [1:36:07<32:39,  7.96s/it][A
+Training...:  76%|███████▌  | 780/1025 [1:36:16<33:45,  8.27s/it][A
+Training...:  76%|███████▌  | 781/1025 [1:36:21<30:32,  7.51s/it][A
+Training...:  76%|███████▋  | 782/1025 [1:36:27<28:23,  7.01s/it][A
+Training...:  76%|███████▋  | 783/1025 [1:36:34<27:25,  6.80s/it][A
+Training...:  76%|███████▋  | 784/1025 [1:36:39<26:17,  6.54s/it][A
+Training...:  77%|███████▋  | 785/1025 [1:36:45<25:09,  6.29s/it][A
+Training...:  77%|███████▋  | 786/1025 [1:36:51<24:27,  6.14s/it][A
+Training...:  77%|███████▋  | 787/1025 [1:36:57<23:44,  5.98s/it][A
+Training...:  77%|███████▋  | 788/1025 [1:37:02<23:26,  5.93s/it][A
+Training...:  77%|███████▋  | 789/1025 [1:37:08<23:10,  5.89s/it][A
+Training...:  77%|███████▋  | 790/1025 [1:37:14<23:17,  5.95s/it][A
+Training...:  77%|███████▋  | 791/1025 [1:37:20<23:03,  5.91s/it][A
+Training...:  77%|███████▋  | 792/1025 [1:37:21<16:55,  4.36s/it][A
+Training...:  77%|███████▋  | 793/1025 [1:37:35<27:52,  7.21s/it][A
+Training...:  77%|███████▋  | 794/1025 [1:37:46<32:11,  8.36s/it][A
+Training...:  78%|███████▊  | 795/1025 [1:37:55<32:49,  8.56s/it][A
+Training...:  78%|███████▊  | 796/1025 [1:38:03<32:40,  8.56s/it][A
+Training...:  78%|███████▊  | 797/1025 [1:38:13<33:17,  8.76s/it][A
+Training...:  78%|███████▊  | 798/1025 [1:38:21<33:04,  8.74s/it][A
+Training...:  78%|███████▊  | 799/1025 [1:38:30<33:24,  8.87s/it][A
+Training...:  78%|███████▊  | 800/1025 [1:38:40<33:28,  8.93s/it][A
+Training...:  78%|███████▊  | 801/1025 [1:38:49<33:44,  9.04s/it][A
+Training...:  78%|███████▊  | 802/1025 [1:38:58<33:14,  8.95s/it][A
+Training...:  78%|███████▊  | 803/1025 [1:39:07<33:37,  9.09s/it][A
+Training...:  78%|███████▊  | 804/1025 [1:39:16<33:09,  9.00s/it][A
+Training...:  79%|███████▊  | 805/1025 [1:39:25<33:12,  9.06s/it][A
+Training...:  79%|███████▊  | 806/1025 [1:39:26<23:55,  6.56s/it][A
+Training...:  79%|███████▊  | 807/1025 [1:39:35<26:48,  7.38s/it][A
+Training...:  79%|███████▉  | 808/1025 [1:39:41<25:04,  6.93s/it][A
+Training...:  79%|███████▉  | 809/1025 [1:39:50<27:05,  7.52s/it][A
+Training...:  79%|███████▉  | 810/1025 [1:39:58<27:38,  7.71s/it][A
+Training...:  79%|███████▉  | 811/1025 [1:40:07<28:43,  8.05s/it][A
+Training...:  79%|███████▉  | 812/1025 [1:40:15<29:00,  8.17s/it][A
+Training...:  79%|███████▉  | 813/1025 [1:40:22<27:33,  7.80s/it][A
+Training...:  79%|███████▉  | 814/1025 [1:40:29<26:17,  7.47s/it][A
+Training...:  80%|███████▉  | 815/1025 [1:40:36<25:56,  7.41s/it][A
+Training...:  80%|███████▉  | 816/1025 [1:40:43<25:24,  7.29s/it][A
+Training...:  80%|███████▉  | 817/1025 [1:40:50<25:16,  7.29s/it][A
+Training...:  80%|███████▉  | 818/1025 [1:40:57<24:41,  7.16s/it][A
+Training...:  80%|███████▉  | 819/1025 [1:41:04<24:35,  7.16s/it][A
+Training...:  80%|████████  | 820/1025 [1:41:11<24:06,  7.05s/it][A
+Training...:  80%|████████  | 821/1025 [1:41:18<23:54,  7.03s/it][A
+Training...:  80%|████████  | 822/1025 [1:41:25<23:29,  6.94s/it][A
+Training...:  80%|████████  | 823/1025 [1:41:32<23:32,  6.99s/it][A
+Training...:  80%|████████  | 824/1025 [1:41:33<17:01,  5.08s/it][A
+Training...:  80%|████████  | 825/1025 [1:41:42<20:50,  6.25s/it][A
+Training...:  81%|████████  | 826/1025 [1:41:48<20:34,  6.20s/it][A
+Training...:  81%|████████  | 827/1025 [1:41:55<21:25,  6.49s/it][A
+Training...:  81%|████████  | 828/1025 [1:42:00<19:37,  5.98s/it][A
+Training...:  81%|████████  | 829/1025 [1:42:07<20:33,  6.30s/it][A
+Training...:  81%|████████  | 830/1025 [1:42:13<20:50,  6.41s/it][A
+Training...:  81%|████████  | 831/1025 [1:42:21<21:33,  6.67s/it][A
+Training...:  81%|████████  | 832/1025 [1:42:28<21:46,  6.77s/it][A
+Training...:  81%|████████▏ | 833/1025 [1:42:33<19:52,  6.21s/it][A
+Training...:  81%|████████▏ | 834/1025 [1:42:37<18:19,  5.76s/it][A
+Training...:  81%|████████▏ | 835/1025 [1:42:42<17:26,  5.51s/it][A
+Training...:  82%|████████▏ | 836/1025 [1:42:47<16:36,  5.27s/it][A
+Training...:  82%|████████▏ | 837/1025 [1:42:52<16:14,  5.19s/it][A
+Training...:  82%|████████▏ | 838/1025 [1:42:57<15:46,  5.06s/it][A
+Training...:  82%|████████▏ | 839/1025 [1:43:02<15:36,  5.03s/it][A
+Training...:  82%|████████▏ | 840/1025 [1:43:07<15:39,  5.08s/it][A
+Training...:  82%|████████▏ | 841/1025 [1:43:12<15:50,  5.17s/it][A
+Training...:  82%|████████▏ | 842/1025 [1:43:17<15:48,  5.18s/it][A
+Training...:  82%|████████▏ | 843/1025 [1:43:23<15:52,  5.23s/it][A
+Training...:  82%|████████▏ | 844/1025 [1:43:28<15:28,  5.13s/it][A
+Training...:  82%|████████▏ | 845/1025 [1:43:33<15:15,  5.09s/it][A
+Training...:  83%|████████▎ | 846/1025 [1:43:34<11:22,  3.81s/it][A
+Training...:  83%|████████▎ | 847/1025 [1:43:34<08:27,  2.85s/it][A
+Training...:  83%|████████▎ | 848/1025 [1:43:45<15:32,  5.27s/it][A
+Training...:  83%|████████▎ | 849/1025 [1:43:51<16:19,  5.57s/it][A
+Training...:  83%|████████▎ | 850/1025 [1:44:00<19:18,  6.62s/it][A
+Training...:  83%|████████▎ | 851/1025 [1:44:09<20:52,  7.20s/it][A
+Training...:  83%|████████▎ | 852/1025 [1:44:18<22:21,  7.76s/it][A
+Training...:  83%|████████▎ | 853/1025 [1:44:27<23:06,  8.06s/it][A
+Training...:  83%|████████▎ | 854/1025 [1:44:36<23:45,  8.34s/it][A
+Training...:  83%|████████▎ | 855/1025 [1:44:44<23:59,  8.47s/it][A
+Training...:  84%|████████▎ | 856/1025 [1:44:53<23:53,  8.48s/it][A
+Training...:  84%|████████▎ | 857/1025 [1:45:02<23:48,  8.50s/it][A
+Training...:  84%|████████▎ | 858/1025 [1:45:10<23:48,  8.55s/it][A
+Training...:  84%|████████▍ | 859/1025 [1:45:19<23:30,  8.50s/it][A
+Training...:  84%|████████▍ | 860/1025 [1:45:27<23:22,  8.50s/it][A
+Training...:  84%|████████▍ | 861/1025 [1:45:36<23:20,  8.54s/it][A
+Training...:  84%|████████▍ | 862/1025 [1:45:37<16:53,  6.22s/it][A
+Training...:  84%|████████▍ | 863/1025 [1:45:46<19:46,  7.33s/it][A
+Training...:  84%|████████▍ | 864/1025 [1:45:56<21:17,  7.93s/it][A
+Training...:  84%|████████▍ | 865/1025 [1:46:05<21:55,  8.22s/it][A
+Training...:  84%|████████▍ | 866/1025 [1:46:13<21:47,  8.22s/it][A
+Training...:  85%|████████▍ | 867/1025 [1:46:22<22:04,  8.39s/it][A
+Training...:  85%|████████▍ | 868/1025 [1:46:30<21:43,  8.31s/it][A
+Training...:  85%|████████▍ | 869/1025 [1:46:39<22:09,  8.53s/it][A
+Training...:  85%|████████▍ | 870/1025 [1:46:47<22:01,  8.52s/it][A
+Training...:  85%|████████▍ | 871/1025 [1:46:56<22:20,  8.70s/it][A
+Training...:  85%|████████▌ | 872/1025 [1:47:05<21:51,  8.57s/it][A
+Training...:  85%|████████▌ | 873/1025 [1:47:14<22:16,  8.79s/it][A
+Training...:  85%|████████▌ | 874/1025 [1:47:23<22:03,  8.77s/it][A
+Training...:  85%|████████▌ | 875/1025 [1:47:32<22:08,  8.85s/it][A
+Training...:  85%|████████▌ | 876/1025 [1:47:40<21:48,  8.78s/it][A
+Training...:  86%|████████▌ | 877/1025 [1:47:41<15:43,  6.37s/it][A
+Training...:  86%|████████▌ | 878/1025 [1:47:53<19:32,  7.98s/it][A
+Training...:  86%|████████▌ | 879/1025 [1:48:00<19:02,  7.83s/it][A
+Training...:  86%|████████▌ | 880/1025 [1:48:09<19:39,  8.13s/it][A
+Training...:  86%|████████▌ | 881/1025 [1:48:18<19:43,  8.22s/it][A
+Training...:  86%|████████▌ | 882/1025 [1:48:26<19:57,  8.37s/it][A
+Training...:  86%|████████▌ | 883/1025 [1:48:35<19:53,  8.41s/it][A
+Training...:  86%|████████▌ | 884/1025 [1:48:44<20:16,  8.63s/it][A
+Training...:  86%|████████▋ | 885/1025 [1:48:53<20:04,  8.60s/it][A
+Training...:  86%|████████▋ | 886/1025 [1:49:01<19:51,  8.57s/it][A
+Training...:  87%|████████▋ | 887/1025 [1:49:10<19:47,  8.60s/it][A
+Training...:  87%|████████▋ | 888/1025 [1:49:19<19:48,  8.68s/it][A
+Training...:  87%|████████▋ | 889/1025 [1:49:25<18:00,  7.95s/it][A
+Training...:  87%|████████▋ | 890/1025 [1:49:31<16:55,  7.52s/it][A
+Training...:  87%|████████▋ | 891/1025 [1:49:38<16:01,  7.18s/it][A
+Training...:  87%|████████▋ | 892/1025 [1:49:44<15:27,  6.97s/it][A
+Training...:  87%|████████▋ | 893/1025 [1:49:45<11:11,  5.09s/it][A
+Training...:  87%|████████▋ | 894/1025 [1:49:54<13:24,  6.14s/it][A
+Training...:  87%|████████▋ | 895/1025 [1:49:59<13:08,  6.06s/it][A
+Training...:  87%|████████▋ | 896/1025 [1:50:05<12:57,  6.03s/it][A
+Training...:  88%|████████▊ | 897/1025 [1:50:11<12:37,  5.92s/it][A
+Training...:  88%|████████▊ | 898/1025 [1:50:17<12:32,  5.92s/it][A
+Training...:  88%|████████▊ | 899/1025 [1:50:23<12:26,  5.93s/it][A
+Training...:  88%|████████▊ | 900/1025 [1:50:28<11:42,  5.62s/it][A
+Training...:  88%|████████▊ | 901/1025 [1:50:32<11:02,  5.34s/it][A
+Training...:  88%|████████▊ | 902/1025 [1:50:37<10:39,  5.20s/it][A
+Training...:  88%|████████▊ | 903/1025 [1:50:42<10:11,  5.02s/it][A
+Training...:  88%|████████▊ | 904/1025 [1:50:47<10:01,  4.97s/it][A
+Training...:  88%|████████▊ | 905/1025 [1:50:51<09:43,  4.87s/it][A
+Training...:  88%|████████▊ | 906/1025 [1:50:56<09:39,  4.87s/it][A
+Training...:  88%|████████▊ | 907/1025 [1:51:01<09:26,  4.80s/it][A
+Training...:  89%|████████▊ | 908/1025 [1:51:06<09:21,  4.80s/it][A
+Training...:  89%|████████▊ | 909/1025 [1:51:10<09:12,  4.77s/it][A
+Training...:  89%|████████▉ | 910/1025 [1:51:15<09:10,  4.79s/it][A
+Training...:  89%|████████▉ | 911/1025 [1:51:20<09:01,  4.75s/it][A
+Training...:  89%|████████▉ | 912/1025 [1:51:25<08:59,  4.78s/it][A
+Training...:  89%|████████▉ | 913/1025 [1:51:30<08:58,  4.81s/it][A
+Training...:  89%|████████▉ | 914/1025 [1:51:34<08:54,  4.81s/it][A
+Training...:  89%|████████▉ | 915/1025 [1:51:39<08:48,  4.80s/it][A
+Training...:  89%|████████▉ | 916/1025 [1:51:44<08:44,  4.81s/it][A
+Training...:  89%|████████▉ | 917/1025 [1:51:49<08:39,  4.81s/it][A
+Training...:  90%|████████▉ | 918/1025 [1:51:50<06:25,  3.60s/it][A
+Training...:  90%|████████▉ | 919/1025 [1:51:58<09:07,  5.16s/it][A
+Training...:  90%|████████▉ | 920/1025 [1:52:07<10:43,  6.13s/it][A
+Training...:  90%|████████▉ | 921/1025 [1:52:16<11:59,  6.92s/it][A
+Training...:  90%|████████▉ | 922/1025 [1:52:24<12:28,  7.26s/it][A
+Training...:  90%|█████████ | 923/1025 [1:52:33<13:09,  7.74s/it][A
+Training...:  90%|█████████ | 924/1025 [1:52:41<13:16,  7.89s/it][A
+Training...:  90%|█████████ | 925/1025 [1:52:50<13:40,  8.21s/it][A
+Training...:  90%|█████████ | 926/1025 [1:52:58<13:37,  8.26s/it][A
+Training...:  90%|█████████ | 927/1025 [1:53:07<13:50,  8.47s/it][A
+Training...:  91%|█████████ | 928/1025 [1:53:16<13:43,  8.49s/it][A
+Training...:  91%|█████████ | 929/1025 [1:53:24<13:43,  8.57s/it][A
+Training...:  91%|█████████ | 930/1025 [1:53:33<13:31,  8.54s/it][A
+Training...:  91%|█████████ | 931/1025 [1:53:42<13:35,  8.68s/it][A
+Training...:  91%|█████████ | 932/1025 [1:53:50<13:23,  8.64s/it][A
+Training...:  91%|█████████ | 933/1025 [1:53:51<09:38,  6.29s/it][A
+Training...:  91%|█████████ | 934/1025 [1:54:01<11:05,  7.31s/it][A
+Training...:  91%|█████████ | 935/1025 [1:54:07<10:39,  7.10s/it][A
+Training...:  91%|█████████▏| 936/1025 [1:54:17<11:28,  7.74s/it][A
+Training...:  91%|█████████▏| 937/1025 [1:54:25<11:30,  7.85s/it][A
+Training...:  92%|█████████▏| 938/1025 [1:54:34<11:47,  8.13s/it][A
+Training...:  92%|█████████▏| 939/1025 [1:54:42<11:49,  8.25s/it][A
+Training...:  92%|█████████▏| 940/1025 [1:54:51<11:59,  8.46s/it][A
+Training...:  92%|█████████▏| 941/1025 [1:54:59<11:48,  8.44s/it][A
+Training...:  92%|█████████▏| 942/1025 [1:55:08<11:54,  8.61s/it][A
+Training...:  92%|█████████▏| 943/1025 [1:55:18<11:56,  8.73s/it][A
+Training...:  92%|█████████▏| 944/1025 [1:55:27<11:57,  8.86s/it][A
+Training...:  92%|█████████▏| 945/1025 [1:55:35<11:42,  8.78s/it][A
+Training...:  92%|█████████▏| 946/1025 [1:55:44<11:37,  8.82s/it][A
+Training...:  92%|█████████▏| 947/1025 [1:55:53<11:22,  8.75s/it][A
+Training...:  92%|█████████▏| 948/1025 [1:55:54<08:10,  6.37s/it][A
+Training...:  93%|█████████▎| 949/1025 [1:56:04<09:36,  7.58s/it][A
+Training...:  93%|█████████▎| 950/1025 [1:56:10<09:03,  7.25s/it][A
+Training...:  93%|█████████▎| 951/1025 [1:56:20<09:40,  7.84s/it][A
+Training...:  93%|█████████▎| 952/1025 [1:56:26<08:54,  7.32s/it][A
+Training...:  93%|█████████▎| 953/1025 [1:56:35<09:32,  7.95s/it][A
+Training...:  93%|█████████▎| 954/1025 [1:56:43<09:29,  8.02s/it][A
+Training...:  93%|█████████▎| 955/1025 [1:56:53<09:44,  8.35s/it][A
+Training...:  93%|█████████▎| 956/1025 [1:57:01<09:42,  8.44s/it][A
+Training...:  93%|█████████▎| 957/1025 [1:57:10<09:50,  8.68s/it][A
+Training...:  93%|█████████▎| 958/1025 [1:57:19<09:40,  8.66s/it][A
+Training...:  94%|█████████▎| 959/1025 [1:57:28<09:40,  8.80s/it][A
+Training...:  94%|█████████▎| 960/1025 [1:57:37<09:30,  8.78s/it][A
+Training...:  94%|█████████▍| 961/1025 [1:57:44<08:44,  8.20s/it][A
+Training...:  94%|█████████▍| 962/1025 [1:57:50<08:08,  7.76s/it][A
+Training...:  94%|█████████▍| 963/1025 [1:57:58<07:51,  7.61s/it][A
+Training...:  94%|█████████▍| 964/1025 [1:57:58<05:35,  5.51s/it][A
+Training...:  94%|█████████▍| 965/1025 [1:58:10<07:19,  7.33s/it][A
+Training...:  94%|█████████▍| 966/1025 [1:58:16<06:52,  6.98s/it][A
+Training...:  94%|█████████▍| 967/1025 [1:58:25<07:26,  7.71s/it][A
+Training...:  94%|█████████▍| 968/1025 [1:58:30<06:20,  6.68s/it][A
+Training...:  95%|█████████▍| 969/1025 [1:58:36<06:01,  6.46s/it][A
+Training...:  95%|█████████▍| 970/1025 [1:58:40<05:15,  5.74s/it][A
+Training...:  95%|█████████▍| 971/1025 [1:58:45<05:09,  5.72s/it][A
+Training...:  95%|█████████▍| 972/1025 [1:58:50<04:37,  5.23s/it][A
+Training...:  95%|█████████▍| 973/1025 [1:58:55<04:40,  5.39s/it][A
+Training...:  95%|█████████▌| 974/1025 [1:59:00<04:18,  5.07s/it][A
+Training...:  95%|█████████▌| 975/1025 [1:59:06<04:29,  5.39s/it][A
+Training...:  95%|█████████▌| 976/1025 [1:59:10<04:06,  5.04s/it][A
+Training...:  95%|█████████▌| 977/1025 [1:59:16<04:13,  5.28s/it][A
+Training...:  95%|█████████▌| 978/1025 [1:59:20<03:53,  4.96s/it][A
+Training...:  96%|█████████▌| 979/1025 [1:59:26<04:01,  5.25s/it][A
+Training...:  96%|█████████▌| 980/1025 [1:59:32<04:02,  5.39s/it][A
+Training...:  96%|█████████▌| 981/1025 [1:59:38<04:04,  5.56s/it][A
+Training...:  96%|█████████▌| 982/1025 [1:59:42<03:47,  5.30s/it][A
+Training...:  96%|█████████▌| 983/1025 [1:59:47<03:36,  5.15s/it][A
+Training...:  96%|█████████▌| 984/1025 [1:59:52<03:26,  5.02s/it][A
+Training...:  96%|█████████▌| 985/1025 [1:59:57<03:18,  4.95s/it][A
+Training...:  96%|█████████▌| 986/1025 [2:00:01<03:11,  4.91s/it][A
+Training...:  96%|█████████▋| 987/1025 [2:00:02<02:18,  3.64s/it][A
+Training...:  96%|█████████▋| 988/1025 [2:00:11<03:18,  5.36s/it][A
+Training...:  96%|█████████▋| 989/1025 [2:00:18<03:21,  5.58s/it][A
+Training...:  97%|█████████▋| 990/1025 [2:00:26<03:48,  6.52s/it][A
+Training...:  97%|█████████▋| 991/1025 [2:00:35<04:00,  7.06s/it][A
+Training...:  97%|█████████▋| 992/1025 [2:00:44<04:12,  7.66s/it][A
+Training...:  97%|█████████▋| 993/1025 [2:00:52<04:15,  7.99s/it][A
+Training...:  97%|█████████▋| 994/1025 [2:01:01<04:13,  8.18s/it][A
+Training...:  97%|█████████▋| 995/1025 [2:01:10<04:12,  8.42s/it][A
+Training...:  97%|█████████▋| 996/1025 [2:01:19<04:09,  8.61s/it][A
+Training...:  97%|█████████▋| 997/1025 [2:01:28<04:01,  8.63s/it][A
+Training...:  97%|█████████▋| 998/1025 [2:01:37<03:54,  8.67s/it][A
+Training...:  97%|█████████▋| 999/1025 [2:01:46<03:49,  8.82s/it][A
+Training...:  98%|█████████▊| 1000/1025 [2:01:54<03:39,  8.77s/it][A
+Training...:  98%|█████████▊| 1001/1025 [2:02:03<03:29,  8.74s/it][A
+Training...:  98%|█████████▊| 1002/1025 [2:02:04<02:26,  6.36s/it][A
+Training...:  98%|█████████▊| 1003/1025 [2:02:13<02:37,  7.14s/it][A
+Training...:  98%|█████████▊| 1004/1025 [2:02:19<02:22,  6.81s/it][A
+Training...:  98%|█████████▊| 1005/1025 [2:02:28<02:28,  7.45s/it][A
+Training...:  98%|█████████▊| 1006/1025 [2:02:36<02:24,  7.60s/it][A
+Training...:  98%|█████████▊| 1007/1025 [2:02:44<02:23,  7.95s/it][A
+Training...:  98%|█████████▊| 1008/1025 [2:02:53<02:17,  8.10s/it][A
+Training...:  98%|█████████▊| 1009/1025 [2:03:01<02:11,  8.23s/it][A
+Training...:  99%|█████████▊| 1010/1025 [2:03:10<02:04,  8.32s/it][A
+Training...:  99%|█████████▊| 1011/1025 [2:03:19<01:59,  8.54s/it][A
+Training...:  99%|█████████▊| 1012/1025 [2:03:27<01:50,  8.47s/it][A
+Training...:  99%|█████████▉| 1013/1025 [2:03:36<01:43,  8.61s/it][A
+Training...:  99%|█████████▉| 1014/1025 [2:03:45<01:34,  8.57s/it][A
+Training...:  99%|█████████▉| 1015/1025 [2:03:54<01:27,  8.78s/it][A
+Training...:  99%|█████████▉| 1016/1025 [2:04:02<01:18,  8.67s/it][A
+Training...:  99%|█████████▉| 1017/1025 [2:04:11<01:10,  8.77s/it][A
+Training...:  99%|█████████▉| 1018/1025 [2:04:12<00:44,  6.32s/it][A
+Training...:  99%|█████████▉| 1019/1025 [2:04:21<00:42,  7.15s/it][A
+Training...: 100%|█████████▉| 1020/1025 [2:04:30<00:37,  7.53s/it][A
+Training...: 100%|█████████▉| 1021/1025 [2:04:38<00:31,  7.91s/it][A
+Training...: 100%|█████████▉| 1022/1025 [2:04:46<00:23,  7.95s/it][A
+Training...: 100%|█████████▉| 1023/1025 [2:04:53<00:14,  7.48s/it][A
+Training...: 100%|█████████▉| 1024/1025 [2:04:59<00:07,  7.04s/it][A
+Training...: 100%|██████████| 1025/1025 [2:05:05<00:00,  6.86s/it][A
+                                                                  [A                                                                    Epoch... (2/3 | Loss: 1.1103572845458984, Learning Rate: 3.33333300659433e-05)
+Epoch ... (1/3):  33%|███▎      | 1/3 [3:34:38<2:59:05, 5372.75s/it]Configuration saved in /home/kstro/proyectos/dalle-mini/dalle-mini-main/outputs/dalle-mini-finetuned/config.json
+Model weights saved in /home/kstro/proyectos/dalle-mini/dalle-mini-main/outputs/dalle-mini-finetuned/flax_model.msgpack
+tokenizer config file saved in ./outputs/dalle-mini-finetuned/tokenizer_config.json
+Special tokens file saved in ./outputs/dalle-mini-finetuned/special_tokens_map.json
